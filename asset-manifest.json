@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/clothshop_fe/static/css/main.175ea0d4.css",
+    "main.js": "/clothshop_fe/static/js/main.3e8718a6.js",
+    "static/media/Futurism.otf": "/clothshop_fe/static/media/Futurism.f541ffa7fe34e0b390cf.otf",
+    "index.html": "/clothshop_fe/index.html",
+    "main.175ea0d4.css.map": "/clothshop_fe/static/css/main.175ea0d4.css.map",
+    "main.3e8718a6.js.map": "/clothshop_fe/static/js/main.3e8718a6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.175ea0d4.css",
+    "static/js/main.3e8718a6.js"
+  ]
+}
