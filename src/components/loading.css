@@ -1,0 +1,12 @@
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.loading {
+  animation: progress 1s ease-in-out infinite;
+}

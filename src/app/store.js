@@ -1,11 +1,19 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit'
 
-import baseSlice from "feature/baseSlice";
+import baseSlice from 'slice/baseSlice'
+import accountSlice from 'slice/accountSlice'
+import managementSlice from 'slice/managementSlice'
+import modalSlice from 'slice/modalSlice'
+import productPageSlice from 'slice/productPageSlice'
 
 const store = configureStore({
   reducer: {
     baseSlice: baseSlice,
+    accountSlice: accountSlice,
+    managementSlice: managementSlice,
+    modalSlice: modalSlice,
+    productPageSlice: productPageSlice,
   },
-});
+})
 
-export default store;
+export default store

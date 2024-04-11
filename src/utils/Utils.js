@@ -1,11 +1,11 @@
-import FontAwesome from "utils/FontAwesome";
-import Toast from "utils/Toast";
+import Toast from 'utils/Toast'
+import FunctionGolbal from './FunctionGlobal'
 
 export default function Utils() {
   return (
     <>
-      <FontAwesome />
       <Toast />
+      <FunctionGolbal />
     </>
-  );
+  )
 }

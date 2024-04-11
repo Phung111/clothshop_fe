@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("./utils/fonts/futirism.css");
+@import url('./utils/fonts/inter.css');
 
 ::-webkit-scrollbar {
   height: 5px;
@@ -22,26 +22,51 @@
   background: #555;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 @layer base {
+  html {
+    font-family: 'inter s', Arial, Helvetica, sans-serif;
+  }
+
   body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-      "Helvetica Neue", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
   h1 {
-    @apply text-center text-xl font-extrabold uppercase leading-5;
+    @apply text-[17px] font-bold;
   }
 
   h2 {
-    @apply text-3xl font-bold uppercase;
+    @apply text-[16px] font-bold;
   }
 
   h3 {
-    @apply text-2xl font-bold capitalize;
+    @apply text-[15px] font-bold;
+  }
+
+  h4 {
+    @apply text-[14px] font-bold;
+  }
+
+  h5 {
+    @apply text-[12px] font-bold;
+  }
+
+  h6 {
+    @apply text-[9px] font-bold;
+  }
+
+  p {
+    @apply text-[13px];
+  }
+
+  input {
+    @apply outline-none;
   }
 }
 
@@ -50,7 +75,7 @@
 
 @layer utilities {
   .container {
-    @apply mx-2 w-full md:mx-auto md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl;
+    @apply mx-auto max-w-[1200px];
   }
 
   .level__1:hover .level__1__drop {
@@ -66,6 +91,46 @@
     @apply flex;
   }
 
+  .swiper-button-prev,
+  .swiper-button-next {
+    @apply rounded bg-black/20 p-2 after:text-2xl after:text-white hover:bg-black;
+  }
+
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 20px !important;
+  }
+
+  .swiper-button-prev-2,
+  .swiper-button-next-2 {
+    @apply rounded bg-black/20 p-2 after:text-2xl after:text-white hover:bg-black;
+  }
+
+  .swiper-button-prev-2::after,
+  .swiper-button-next-2::after {
+    font-size: 20px !important;
+  }
+
+  .tem {
+    background: linear-gradient(-45deg, rgba(255, 0, 0, 0) 0 50%, #d0001a 50% 100%);
+  }
+
+  .line {
+    @apply h-[0.5px] w-full bg-black/10;
+  }
+
+  .line-y {
+    @apply h-full w-[0.5px] bg-black/10;
+  }
+
+  .ant-space-item .ant-select {
+    height: 100% !important;
+  }
+
+  .capitalize-first::first-letter {
+    text-transform: uppercase;
+  }
+
   /* [data-title] {
     @apply relative;
   }
@@ -74,4 +139,3 @@
     @apply invisible absolute left-3/4 top-3/4 whitespace-nowrap rounded border bg-white px-1 py-2 text-xs opacity-0 transition-opacity content-[attr(data-title)] hover:visible hover:opacity-100;
   } */
 }
-
