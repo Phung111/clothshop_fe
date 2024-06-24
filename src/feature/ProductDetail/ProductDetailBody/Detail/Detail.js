@@ -6,9 +6,9 @@ export default function Detail() {
   return (
     <>
       <div className="p-4">
-        <Head>product specifications</Head>
+        <Head>Product Specifications</Head>
         <Specifications />
-        <Head>product decription</Head>
+        <Head>Product Decription</Head>
         <Description />
       </div>
     </>

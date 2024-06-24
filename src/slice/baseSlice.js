@@ -6,25 +6,47 @@ const namespace = 'baseSlice'
 
 const initialState = {
   data: {
-    products: [],
+    banners: [],
+    discounts: [],
+    bestsales: [],
+    categories: [],
+    collections: {
+      colors: [],
+      sizes: [],
+      categories: [],
+      topLengths: [],
+      countries: [],
+      seasons: [],
+      styles: [],
+      shipfroms: [],
+    },
   },
-  loading: true,
+  loading: false,
+  arlert: {
+    show: false,
+    icon: '',
+    title: '',
+  },
 }
 
-export const getProductAll = createAsyncThunk(`${namespace}/getProductAll`, async (obj, { rejectWithValue }) => {
+export const getAll = createAsyncThunk(`${namespace}/getAll`, async (obj, { rejectWithValue, dispatch }) => {
+  dispatch(setLoading(true))
   return await clothShopService
-    .getProductAll()
+    .getAll(obj)
     .then((response) => {
       return response.data
     })
     .catch((error) => {
       return rejectWithValue(error)
     })
+    .finally(() => {
+      dispatch(setLoading(false))
+    })
 })
 
-export const createProduct = createAsyncThunk(`${namespace}/createProduct`, async (obj, { rejectWithValue }) => {
+export const getCollection = createAsyncThunk(`${namespace}/getCollection`, async (obj, { rejectWithValue }) => {
   return await clothShopService
-    .createProduct(obj)
+    .getCollection()
     .then((response) => {
       return response.data
     })
@@ -36,42 +58,42 @@ export const createProduct = createAsyncThunk(`${namespace}/createProduct`, asyn
 const baseSlice = createSlice({
   name: namespace,
   initialState,
-  reducers: {},
+  reducers: {
+    setLoading: (state, action) => {
+      state.loading = action.payload
+    },
+    setArlert: (state, action) => {
+      state.arlert.show = action.payload
+    },
+    setArlertIcon: (state, action) => {
+      state.arlert.icon = action.payload
+    },
+    setArlertTitle: (state, action) => {
+      state.arlert.title = action.payload
+    },
+  },
   extraReducers(builder) {
     builder
-      .addCase(getProductAll.pending, (state) => {
-        state.status = HTTP_STATUS.PENDING
+      .addCase(getAll.fulfilled, (state, { payload }) => {
+        state.data.banners = payload.banners
+        state.data.discounts = payload.discounts
+        state.data.bestsales = payload.bestsales
       })
-      .addCase(getProductAll.fulfilled, (state, { payload }) => {
-        state.status = HTTP_STATUS.FULFILLED
-        console.log(payload)
-        state.data.productDetail = payload.products
-      })
-      .addCase(getProductAll.rejected, (state, { payload }) => {
-        state.status = HTTP_STATUS.REJECTED
-        if (payload.response) {
-          state.errorMessage = payload.response.statusText
-          state.errorStatus = payload.response.status
-        }
-      })
-      .addCase(createProduct.pending, (state) => {
-        state.status = HTTP_STATUS.PENDING
-      })
-      .addCase(createProduct.fulfilled, (state, { payload }) => {
-        state.status = HTTP_STATUS.FULFILLED
-      })
-      .addCase(createProduct.rejected, (state, { payload }) => {
-        state.status = HTTP_STATUS.REJECTED
-        if (payload.response) {
-          state.errorMessage = payload.response.statusText
-          state.errorStatus = payload.response.status
-        }
+      .addCase(getCollection.fulfilled, (state, { payload }) => {
+        state.data.collections.colors = payload.colors
+        state.data.collections.sizes = payload.sizes
+        state.data.collections.categories = payload.categories
+        state.data.collections.topLengths = payload.topLengths
+        state.data.collections.countries = payload.countries
+        state.data.collections.seasons = payload.seasons
+        state.data.collections.styles = payload.styles
+        state.data.collections.shipfroms = payload.shipfroms
       })
   },
 })
 
 const { reducer, actions } = baseSlice
 
-export const {} = actions
+export const { setLoading, setArlert, setArlertIcon, setArlertTitle } = actions
 
 export default reducer

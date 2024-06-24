@@ -1,16 +1,16 @@
-export default function DesProduct() {
+export default function DesProduct({ product }) {
   return (
     <>
       <div className="bg-white p-2">
         <div className="flex flex-col">
           <div className="flex flex-col gap-2">
-            <p className="line-clamp-2 capitalize">Áo Thun Cổ Tròn Thiết Kế Premium Tay Ngắn Chất Cotton Vải Mềm Mịn Thoải Mái</p>
+            <p className="line-clamp-2 capitalize">{product.name}</p>
             <div className="flex items-start gap-1">
-              <p className="text-black/50 line-through">₫196.000</p>
-              <p className="text-base text-primary">₫98.000</p>
+              {product.discountResDTO && <p className="text-black/50 line-through">₫{window.formatNumberNođ(product.price)}</p>}
+              <p className="text-base text-primary">₫{window.formatNumberNođ(product.priceTotal)}</p>
             </div>
-            <p className="text-xs">2,8k sold</p>
-            <p className="text-xs capitalize text-black/50">TP. Hồ Chí Minh</p>
+            <p className="text-xs">{product.sold} sold</p>
+            <p className="text-xs capitalize text-black/50">{product.productDetail.eshipsFrom}</p>
           </div>
         </div>
       </div>

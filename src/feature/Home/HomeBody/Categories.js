@@ -4,15 +4,23 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/grid'
 
-import { useState } from 'react'
-
-import ContentHead from 'feature/Home/HomeBody/HomeBodyHead'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 export default function Categories() {
-  // thêm bộ lọc các catergori với icon và màu ở đây
+  const navigate = useNavigate()
+
+  const baseSlice = useSelector((state) => state.baseSlice)
+  const collections = baseSlice.data.collections
+  const categories = collections.categories
 
   const [canPrevious, setCanPrevious] = useState(false)
   const [canNext, setCanNext] = useState(true)
+
+  const handleNaviCategory = (category) => {
+    navigate(`/category/${category}`)
+  }
 
   return (
     <>
@@ -35,20 +43,21 @@ export default function Categories() {
           slidesPerGroup={2}
           spaceBetween={1.5}
         >
-          {Array.from({ length: 50 }, (_, index) => (
-            <SwiperSlide key={index}>
-              <div className="flex h-[150px] cursor-pointer flex-col bg-white hover:shadow-2xl">
-                <div className="flex h-[100px] shrink-0 items-center justify-center">
-                  <div className="flex aspect-square w-12 items-center justify-center rounded-full bg-slate-300">
-                    <i className="fa-solid fa-shirt text-[50px] text-primary"></i>
+          {categories &&
+            categories.map((item, index) => (
+              <SwiperSlide key={index}>
+                <div onClick={() => handleNaviCategory(item)} className="flex h-[150px] cursor-pointer flex-col bg-white hover:shadow-2xl">
+                  <div className="flex h-[100px] shrink-0 items-center justify-center">
+                    <div className="flex aspect-square w-12 items-center justify-center rounded-full bg-slate-300">
+                      <i className="fa-solid fa-shirt text-[50px] text-primary"></i>
+                    </div>
+                  </div>
+                  <div className="flex h-full items-start justify-center px-2 text-center">
+                    <p className="capitalize">{item}</p>
                   </div>
                 </div>
-                <div className="flex h-full items-start justify-center px-2 text-center">
-                  <p className="capitalize">giặt giũ & chăm sóc nhà cửa</p>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
+              </SwiperSlide>
+            ))}
         </Swiper>
         <div className="absolute left-0 top-0 z-10 flex h-full w-0 items-center">
           <div className={`swiper-button-prev-2 origin-center -translate-x-1/2 transform !rounded-full !bg-white text-black shadow-md transition hover:scale-150 ${!canPrevious ? 'opacity-0' : 'opacity-100'}`}>

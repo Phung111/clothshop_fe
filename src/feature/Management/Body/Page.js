@@ -10,29 +10,58 @@ export default function Page() {
   const respond = data.respond
 
   const productSize = request.productSize
+  const latest = request.latest
+  const currentPage = request.currentPage
+
   const totalElements = respond.totalElements
   const pageNumber = respond.pageNumber
   const currentPageNumber = pageNumber + 1
   const totalPages = respond.totalPages
   const numberOfElements = respond.numberOfElements
-  const latest = respond.latest
 
   const first = respond.first
   const last = respond.last
 
   const [currentPageLc, setCurrentPageLc] = useState(currentPageNumber)
 
+  const [from, setFrom] = useState(0)
+  const [to, setTo] = useState(0)
+
+  useEffect(() => {
+    setCurrentPageLc(currentPage)
+  }, [currentPage])
+
+  useEffect(() => {
+    if (latest == false || latest == null) {
+      setFrom(pageNumber * productSize + 1)
+      setTo(pageNumber * productSize + numberOfElements)
+    } else {
+      setFrom(totalElements - pageNumber * productSize)
+      setTo(totalElements - pageNumber * productSize - numberOfElements + 1)
+    }
+  }, [latest, pageNumber, productSize, totalElements, numberOfElements])
+
   const handlePageClick = (pagenumber) => {
     setCurrentPageLc(pagenumber)
     dispatch(setCurrentPage(pagenumber))
-    dispatch(getProductPage(request))
+    dispatch(getProductPage())
+    scrollToProducts()
+  }
+
+  const scrollToProducts = () => {
+    const productsElement = document.getElementById('products')
+    if (productsElement) {
+      const offset = 130
+      const elementPosition = productsElement.getBoundingClientRect().top + window.scrollY - offset
+      window.scrollTo({ top: elementPosition, behavior: 'smooth' })
+    }
   }
 
   const handleChangeProductSize = (value) => {
     setCurrentPageLc(1)
     dispatch(setCurrentPage(1))
     dispatch(setProductSize(value))
-    dispatch(getProductPage(request))
+    dispatch(getProductPage())
   }
 
   const renderPageNumbers = () => {
@@ -108,7 +137,7 @@ export default function Page() {
       <div className="relative flex w-full justify-center">
         <div className="payload z-1 absolute left-0 flex h-full w-full items-center justify-between gap-1">
           <div className="">
-            {!latest ? totalElements - pageNumber * productSize : pageNumber * productSize + 1} <span className="text-black/30">to</span> {!latest ? totalElements - pageNumber * productSize - numberOfElements + 1 : pageNumber * productSize + numberOfElements} <span className="text-black/30">of</span> {totalElements}
+            {from} <span className="text-black/30">to</span> {to} <span className="text-black/30">of</span> {totalElements}
           </div>
           <div className="flex items-center gap-1">
             <p className="">Size</p>

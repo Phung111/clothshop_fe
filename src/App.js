@@ -1,7 +1,4 @@
-import React, { Suspense } from 'react'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import Layout from 'components/Layout'
-
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Utils from 'utils/Utils'
 import Home from 'feature/Home/Home'
 import ProductDetail from 'feature/ProductDetail/ProductDetail'
@@ -10,31 +7,38 @@ import Checkout from 'feature/Checkout/Checkout'
 import Account from 'feature/Account/Account'
 import Management from 'feature/Management/Management'
 import Modal from 'components/Modal/Modal'
-import Loading from 'components/Loading'
-import { useDispatch, useSelector } from 'react-redux'
+import Loading from 'components/Loading/Loading'
+import SweetArlet from 'components/SweetArlet/SweetArlet'
+import Category from 'feature/Category/Category'
+
+import Header from 'components/Header/Header'
+import Footer from 'components/Footer/Footer'
+import { useSelector } from 'react-redux'
 
 export default function App() {
-  const dispatch = useDispatch()
-
   const isLoading = useSelector((state) => state.baseSlice.loading)
+  const isArlert = useSelector((state) => state.baseSlice.arlert.show)
 
   return (
     <>
+      {isLoading && <Loading />}
+      {isArlert && <SweetArlet />}
+      <Utils />
+      <Modal />
+      <Header />
       <BrowserRouter>
-        <Utils />
-        <Modal />
         <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route path="" element={<Home />} />
-            <Route path="/clothshop_fe" element={<Home />} />
-            <Route path="/detail" element={<ProductDetail />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/account" element={<Account />} />
-            <Route path="/management" element={<Management />} />
-          </Route>
+          <Route path="" element={<Home />} />
+          <Route path="/clothshop_fe" element={<Home />} />
+          <Route path="/detail/:id" element={<ProductDetail />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/management" element={<Management />} />
+          <Route path="/category/:category" element={<Category />} />
         </Routes>
       </BrowserRouter>
+      <Footer />
     </>
   )
 }

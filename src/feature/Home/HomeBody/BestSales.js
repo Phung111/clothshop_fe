@@ -3,11 +3,15 @@ import { Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import Product from 'components/Product/Product'
 
 export default function BestSales() {
+  const baseSlice = useSelector((state) => state.baseSlice)
+  const bestsales = baseSlice.data.bestsales
+
   const [canPrevious, setCanPrevious] = useState(false)
   const [canNext, setCanNext] = useState(true)
 
@@ -25,13 +29,20 @@ export default function BestSales() {
             nextEl: '.swiper-button-next-4',
           }}
           slidesPerView={6}
+          slidesPerGroup={6}
           spaceBetween={20}
         >
-          {Array.from({ length: 10 }, (_, index) => (
+          {bestsales &&
+            bestsales.map((item, index) => (
+              <SwiperSlide key={index}>
+                <Product type={'bestSale'} href={'#'} product={item} />
+              </SwiperSlide>
+            ))}
+          {/* {Array.from({ length: 10 }, (_, index) => (
             <SwiperSlide key={index}>
               <Product type={'bestSale'} href={'#'} />
             </SwiperSlide>
-          ))}
+          ))} */}
         </Swiper>
         <div className="absolute left-0 top-0 z-10 flex h-full w-0 items-center">
           <div className={`swiper-button-prev-4 className-md origin-center -translate-x-1/2 transform !rounded-full !bg-white text-black transition hover:scale-150 ${!canPrevious ? 'opacity-0' : 'opacity-100'}`}>

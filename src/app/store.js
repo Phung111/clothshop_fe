@@ -5,6 +5,7 @@ import accountSlice from 'slice/accountSlice'
 import managementSlice from 'slice/managementSlice'
 import modalSlice from 'slice/modalSlice'
 import productPageSlice from 'slice/productPageSlice'
+import productSlice from 'slice/productSlice'
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
     managementSlice: managementSlice,
     modalSlice: modalSlice,
     productPageSlice: productPageSlice,
+    productSlice: productSlice,
   },
 })
 

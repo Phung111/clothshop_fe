@@ -1,10 +1,7 @@
-import LabelOnSale from 'components/Product/ProductImage/LabelOnSale'
-import LabelBestSale from 'components/Product/ProductImage/LabelBestSale'
-
-export default function ProductImage({ children, src, type, discount }) {
+export default function ProductImage({ children, src, type, product }) {
   return (
     <>
-      <div className="relative flex aspect-square">
+      <div className="relative flex aspect-square w-[180px] shrink-0">
         {children}
         <img src={src} alt="product" className="aspect-square h-full w-full object-contain" />
         {type !== 'onSale' && (
@@ -14,8 +11,6 @@ export default function ProductImage({ children, src, type, discount }) {
             </div>
           </>
         )}
-        {(type === 'onSale' || type === 'product') && discount && <LabelOnSale discount={discount} />}
-        {type === 'bestSale' && <LabelBestSale />}
       </div>
     </>
   )

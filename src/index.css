@@ -138,4 +138,23 @@ input::-webkit-inner-spin-button {
   [data-title]::before {
     @apply invisible absolute left-3/4 top-3/4 whitespace-nowrap rounded border bg-white px-1 py-2 text-xs opacity-0 transition-opacity content-[attr(data-title)] hover:visible hover:opacity-100;
   } */
+
+  .edit_active {
+    animation: edit_active forwards 0.4s;
+  }
+
+  @keyframes edit_active {
+    from {
+      left: -100%;
+      opacity: 0;
+    }
+    to {
+      left: 100%;
+      opacity: 1;
+    }
+  }
+
+  .custom-checkbox .ant-checkbox-checked .ant-checkbox-inner {
+    @apply border-primary bg-primary; /* Màu nền và viền khi được chọn */
+  }
 }

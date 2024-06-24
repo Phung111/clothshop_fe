@@ -1,17 +1,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import clothShopService from 'services/clothShopService'
 import { HTTP_STATUS } from 'app/global'
+import { setLoading } from './baseSlice'
 
 const namespace = 'productPageSlice'
 
 const initialState = {
-  loading: true,
   request: {
-    productSize: 3,
+    productSize: 60,
     currentPage: 1,
     keySearch: '',
 
-    latest: '',
+    latest: true,
     nameAsc: '',
     priceAsc: '',
     topsales: '',
@@ -28,6 +28,7 @@ const initialState = {
   },
   respond: {
     products: [],
+
     size: 10, // kích thước trang
     numberOfElements: 9, // số phần tử trên trang hiện tại
     totalElements: 200, //tổng phần tử
@@ -38,28 +39,79 @@ const initialState = {
     first: true,
     empty: false,
   },
+  noData: false,
+  seemore: [],
+  count: 2,
 }
 
-export const getProductPage = createAsyncThunk(`${namespace}/getProductPage`, async (obj, { rejectWithValue }) => {
-  const latestValue = document.getElementById('latest').value
+export const getProductPage = createAsyncThunk(`${namespace}/getProductPage`, async (obj, { rejectWithValue, getState, dispatch }) => {
+  const { request } = getState().productPageSlice
+
+  let formData = new FormData()
+  formData.set('productSize', request.productSize)
+  formData.set('currentPage', request.currentPage)
+  formData.set('keySearch', request.keySearch)
+
+  const latest = request.latest == null ? '' : request.latest
+  const nameAsc = request.nameAsc == null ? '' : request.nameAsc
+  const priceAsc = request.priceAsc == null ? '' : request.priceAsc
+  const topsales = request.topsales == null ? '' : request.topsales
+
+  formData.set('latest', latest)
+  formData.set('nameAsc', nameAsc)
+  formData.set('priceAsc', priceAsc)
+  formData.set('topsales', topsales)
+
+  const eCategories = request.eCategories
+  eCategories.forEach((item, index) => {
+    formData.append(`eCategories[${index}]`, item)
+  })
+
+  const eTopLengths = request.eTopLengths
+  eTopLengths.forEach((item, index) => {
+    formData.append(`eTopLengths[${index}]`, item)
+  })
+
+  const eCountries = request.eCountries
+  eCountries.forEach((item, index) => {
+    formData.append(`eCountries[${index}]`, item)
+  })
+
+  const eSeasons = request.eSeasons
+  eSeasons.forEach((item, index) => {
+    formData.append(`eSeasons[${index}]`, item)
+  })
+
+  const eStyles = request.eStyles
+  eStyles.forEach((item, index) => {
+    formData.append(`eStyles[${index}]`, item)
+  })
+
+  const eShipsFroms = request.eShipsFroms
+  eShipsFroms.forEach((item, index) => {
+    formData.append(`eShipsFroms[${index}]`, item)
+  })
+
+  formData.set('priceFrom', request.priceFrom)
+  formData.set('priceTo', request.priceTo)
+
   return await clothShopService
-    .getProductPage(obj)
+    .getProductPage(formData)
     .then((response) => {
-      // console.log('respond', response.data.content)
       return response.data
     })
     .catch((error) => {
       return rejectWithValue(error)
     })
+    .finally(() => {
+      // dispatch(setLoading(false))
+    })
 })
 
-const accountSlice = createSlice({
+const productPageSlice = createSlice({
   name: namespace,
   initialState,
   reducers: {
-    setLoading: (state, action) => {
-      state.loading = action.payload
-    },
     setProductSize: (state, action) => {
       state.request.productSize = action.payload
     },
@@ -71,19 +123,33 @@ const accountSlice = createSlice({
     },
     setLatest: (state, action) => {
       state.request.latest = action.payload
-      console.log('setLatest', state.request.latest)
+      state.request.nameAsc = null
+      state.request.priceAsc = null
+      state.request.topsales = null
     },
     setNameAsc: (state, action) => {
+      state.request.latest = null
       state.request.nameAsc = action.payload
+      state.request.priceAsc = null
+      state.request.topsales = null
     },
     setPriceAsc: (state, action) => {
+      state.request.latest = null
+      state.request.nameAsc = null
       state.request.priceAsc = action.payload
+      state.request.topsales = null
     },
     setTopsales: (state, action) => {
+      state.request.latest = null
+      state.request.nameAsc = null
+      state.request.priceAsc = null
       state.request.topsales = action.payload
     },
     setECategories: (state, action) => {
-      state.request.eCategories = action.payload
+      state.request.eCategories = [...state.request.eCategories, action.payload]
+    },
+    emptyECategories: (state) => {
+      state.request.eCategories = []
     },
     setETopLengths: (state, action) => {
       state.request.eTopLengths = action.payload
@@ -136,6 +202,34 @@ const accountSlice = createSlice({
     setProducts: (state, action) => {
       state.respond.products = action.payload
     },
+    clearAllFilters: (state) => {
+      state.request.latest = true
+      state.request.nameAsc = null
+      state.request.priceAsc = null
+      state.request.topsales = null
+
+      state.request.eCategories = []
+      state.request.eTopLengths = []
+      state.request.eCountries = []
+      state.request.eSeasons = []
+      state.request.eStyles = []
+      state.request.eShipsFroms = []
+
+      state.request.priceFrom = ''
+      state.request.priceTo = ''
+    },
+    setSeeMore: (state) => {
+      state.seemore = [...state.seemore, ...state.respond.products]
+    },
+    emptySeeMore: (state) => {
+      state.seemore = []
+    },
+    upCount: (state) => {
+      state.count++
+    },
+    resetCount: (state) => {
+      state.count = 2
+    },
   },
   extraReducers(builder) {
     builder
@@ -146,17 +240,21 @@ const accountSlice = createSlice({
         state.status = HTTP_STATUS.FULFILLED
 
         let dataRes = payload
-        state.respond.products = dataRes.content
-
-        state.respond.size = dataRes.size
-        state.respond.numberOfElements = dataRes.numberOfElements
-        state.respond.totalElements = dataRes.totalElements
-        state.respond.offset = dataRes.pageable.offset
-        state.respond.pageNumber = dataRes.pageable.pageNumber
-        state.respond.totalPages = dataRes.totalPages
-        state.respond.last = dataRes.last
-        state.respond.first = dataRes.first
-        state.respond.empty = dataRes.empty
+        if (dataRes) {
+          state.respond.products = dataRes.content
+          state.respond.size = dataRes.size
+          state.respond.numberOfElements = dataRes.numberOfElements
+          state.respond.totalElements = dataRes.totalElements
+          state.respond.offset = dataRes.pageable.offset
+          state.respond.pageNumber = dataRes.pageable.pageNumber
+          state.respond.totalPages = dataRes.totalPages
+          state.respond.last = dataRes.last
+          state.respond.first = dataRes.first
+          state.respond.empty = dataRes.empty
+          state.noData = false
+        } else {
+          state.noData = true
+        }
       })
       .addCase(getProductPage.rejected, (state, { payload }) => {
         state.status = HTTP_STATUS.REJECTED
@@ -168,8 +266,8 @@ const accountSlice = createSlice({
   },
 })
 
-const { reducer, actions } = accountSlice
+const { reducer, actions } = productPageSlice
 
-export const { setLoading, setProductSize, setCurrentPage, setKeySearch, setLatest, setNameAsc, setPriceAsc, setTopsales, setECategories, setETopLengths, setECountries, setESeasons, setEStyles, setEShipsFroms, setPriceFrom, setPriceTo, setSize, setNumberOfElements, setTotalElements, setOffset, setPageNumber, setTotalPages, setLast, setFirst, setEmpty, setProducts } = actions
+export const { emptyECategories, upCount, resetCount, setSeeMore, emptySeeMore, setProductSize, setCurrentPage, setKeySearch, setLatest, setNameAsc, setPriceAsc, setTopsales, setECategories, setETopLengths, setECountries, setESeasons, setEStyles, setEShipsFroms, setPriceFrom, setPriceTo, setSize, setNumberOfElements, setTotalElements, setOffset, setPageNumber, setTotalPages, setLast, setFirst, setEmpty, setProducts, clearAllFilters } = actions
 
 export default reducer

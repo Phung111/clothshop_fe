@@ -1,12 +1,16 @@
 import PartImg from './PartImg'
-import React, { useState, useEffect } from 'react'
 import { Select, DatePicker } from 'antd'
 import PartItem from './PartItem'
 import PartHeader from './PartHeader'
 import moment from 'moment'
+import dayjs from 'dayjs'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setModalProduct } from 'slice/modalSlice'
-import { createProduct } from 'slice/baseSlice'
+import { createProduct, updateProduct, deleteProduct, emptyProduct } from 'slice/productSlice'
+import { setLoading, setArlert, setArlertIcon, setArlertTitle } from 'slice/baseSlice'
+import { getProductPage } from 'slice/productPageSlice'
+import Swal from 'sweetalert2'
 
 export default function ModalProduct() {
   const dispatch = useDispatch()
@@ -15,6 +19,12 @@ export default function ModalProduct() {
   const isCreateProduct = modalSlice.isCreateProduct
   const isUpdateProduct = modalSlice.isUpdateProduct
 
+  const productSlice = useSelector((state) => state.productSlice)
+  const product = productSlice.product
+
+  const baseSlice = useSelector((state) => state.baseSlice)
+  const collections = baseSlice.data.collections
+
   const { RangePicker } = DatePicker
 
   const styleItem = {
@@ -22,14 +32,14 @@ export default function ModalProduct() {
     height: '100%',
   }
 
-  const categories = ['SHIRT', 'SHOE', 'JACKET', 'PANT', 'BULL']
-  const colors = ['BLACK', 'WHITE', 'YELLOW', 'ORANGE', 'BLUE']
-  const sizes = ['L']
-  const topLengths = ['LONG']
-  const countries = ['VIETNAM']
-  const seasons = ['SUMMER']
-  const styles = ['KOREA']
-  const shipForms = ['HANOI']
+  const colors = collections.colors
+  const sizes = collections.sizes
+  const categories = collections.categories
+  const topLengths = collections.topLengths
+  const countries = collections.countries
+  const seasons = collections.seasons
+  const styles = collections.styles
+  const shipfroms = collections.shipfroms
 
   const [percentBar, setPercentBar] = useState('0')
   const [isUploadImg, setUploadImg] = useState(false)
@@ -45,13 +55,13 @@ export default function ModalProduct() {
   const [color, setColor] = useState('')
   const [size, setSize] = useState('')
 
-  const [topLength, setTopLength] = useState('')
   const [country, setCountry] = useState('')
+  const [topLength, setTopLength] = useState('')
   const [season, setSeason] = useState('')
   const [style, setStyle] = useState('')
   const [shipFrom, setShipFrom] = useState('')
 
-  const [percent, setPercent] = useState('')
+  const [percent, setPercent] = useState(0)
   const [dateStart, setDateStart] = useState('')
   const [dateEnd, setDateEnd] = useState('')
 
@@ -134,33 +144,83 @@ export default function ModalProduct() {
     })
   }
 
-  // const create = () => {
-  //   getFormData()
-  //   dispatch(createProduct(Object.fromEntries(formData)))
-  // }
-
   const create = () => {
-    getFormData()
-      .then((formData) => {
-        setFormData(formData)
-        dispatch(createProduct(formData))
-      })
-      .catch((error) => {
-        console.error('Error while getting form data:', error)
-      })
+    dispatch(setLoading(true))
+    getFormData().then((formData) => {
+      dispatch(createProduct(formData))
+        .unwrap()
+        .then(() => {
+          dispatch(getProductPage())
+          cancel()
+          dispatch(setArlertIcon('success'))
+          dispatch(setArlertTitle('Create Product Successfully!'))
+        })
+        .catch((error) => {
+          dispatch(setArlertIcon('error'))
+          dispatch(setArlertTitle('Some thing wrong'))
+        })
+        .finally(() => {
+          dispatch(setLoading(false))
+          dispatch(setArlert(true))
+        })
+    })
   }
 
   const update = () => {
-    getFormData()
-      .then((formData) => {
-        dispatch(createProduct(formData))
-      })
-      .catch((error) => {
-        console.error('Error while getting form data:', error)
-      })
+    dispatch(setLoading(true))
+    getFormData().then((formData) => {
+      dispatch(updateProduct(formData))
+        .unwrap()
+        .then(() => {
+          dispatch(getProductPage())
+          cancel()
+          dispatch(setArlertIcon('success'))
+          dispatch(setArlertTitle('Update Product Successfully!'))
+        })
+        .catch((error) => {
+          dispatch(setArlertIcon('error'))
+          dispatch(setArlertTitle('Some thing wrong'))
+        })
+        .finally(() => {
+          dispatch(setLoading(false))
+          dispatch(setArlert(true))
+        })
+    })
   }
 
-  const cancel = () => {
+  const deleted = () => {
+    Swal.fire({
+      title: `Are you sure?`,
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(setLoading(true))
+        dispatch(deleteProduct(product.id))
+          .then(() => {
+            dispatch(getProductPage())
+            cancel()
+            dispatch(setArlertIcon('success'))
+            dispatch(setArlertTitle('Deleted Product Successfully!'))
+          })
+          .catch((error) => {
+            dispatch(setArlertIcon('error'))
+            dispatch(setArlertTitle('Some thing wrong'))
+          })
+          .finally(() => {
+            dispatch(setLoading(false))
+            dispatch(setArlert(true))
+          })
+      }
+    })
+  }
+
+  function cancel() {
+    dispatch(emptyProduct())
     dispatch(setModalProduct(false))
     cancelUploadImg()
     setMultipartFiles([])
@@ -182,8 +242,43 @@ export default function ModalProduct() {
   }
 
   useEffect(() => {
-    console.log('formData', Object.fromEntries(formData))
-  }, [formData])
+    if (product && Object.keys(product).length !== 0) {
+      if (product.images) {
+        product.images.forEach((element) => {
+          const fileObjects = product.images.map((image) => {
+            return fetch(image.fileUrl)
+              .then((response) => response.blob())
+              .then((blob) => new File([blob], `${image.fileName}.${image.fileType}`))
+          })
+
+          Promise.all(fileObjects).then((files) => {
+            setMultipartFiles(files)
+          })
+        })
+        setUploadImg(true)
+      }
+      setName(product.name)
+      setPrice(product.price)
+      setQuantity(product.quantity)
+      setCategory(product.ecategory)
+      setColor(product.ecolor)
+      setSize(product.esize)
+      setCountry(product.productDetail.ecountry)
+      setTopLength(product.productDetail.etopLength)
+      setSeason(product.productDetail.eseason)
+      setStyle(product.productDetail.estyle)
+      setShipFrom(product.productDetail.eshipsFrom)
+      if (product.discountResDTO) {
+        setPercent(product.discountResDTO.percent)
+        setPercentBar(product.discountResDTO.percent)
+        setDateStart(product.discountResDTO.dateStart)
+        setDateEnd(product.discountResDTO.dateEnd)
+      }
+      if (product.decription) {
+        setDescription(product.decription)
+      }
+    }
+  }, [product])
 
   return (
     <div className="fixed z-[60] h-full w-full bg-black/50 ">
@@ -197,6 +292,11 @@ export default function ModalProduct() {
               {isCreateProduct && (
                 <button onClick={create} className="flex h-[40px] w-[80px] items-center justify-center rounded-full bg-green-500 capitalize text-white hover:bg-green-700">
                   create
+                </button>
+              )}
+              {isUpdateProduct && (
+                <button onClick={deleted} className="flex h-[40px] w-[80px] items-center justify-center rounded-full bg-red capitalize text-white hover:bg-rose-900">
+                  delete
                 </button>
               )}
               {isUpdateProduct && (
@@ -227,6 +327,12 @@ export default function ModalProduct() {
                     {multipartFiles.map((file, index) => (
                       <PartImg key={index} file={file} index={index} removeImg={removeImg} />
                     ))}
+                    <div className="rounded-lg bg-gray6 p-2.5 hover:bg-gray7">
+                      <label htmlFor="uploadInput" className="flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-white">
+                        <input id="uploadInput" type="file" multiple onChange={uploadImg} className="hidden" />
+                        <i className="fa-solid fa-plus text-[80px] text-gray6 hover:text-gray7" />
+                      </label>
+                    </div>
                   </div>
                 </div>
               )}
@@ -249,15 +355,15 @@ export default function ModalProduct() {
                 </PartItem>
                 <PartItem>
                   <>Category</>
-                  <Select onChange={(value) => setCategory(value)} options={categories.map((item) => ({ label: item, value: item }))} style={styleItem} />
+                  <Select value={category} onChange={(value) => setCategory(value)} options={categories.map((item) => ({ label: item, value: item }))} style={styleItem} />
                 </PartItem>
                 <PartItem>
                   <>Color</>
-                  <Select onChange={(value) => setColor(value)} options={colors.map((item) => ({ label: item, value: item }))} style={styleItem} />
+                  <Select value={color} onChange={(value) => setColor(value)} options={colors.map((item) => ({ label: item, value: item }))} style={styleItem} />
                 </PartItem>
                 <PartItem>
                   <>Size</>
-                  <Select onChange={(value) => setSize(value)} options={sizes.map((item) => ({ label: item, value: item }))} style={styleItem} />
+                  <Select value={size} onChange={(value) => setSize(value)} options={sizes.map((item) => ({ label: item, value: item }))} style={styleItem} />
                 </PartItem>
               </div>
 
@@ -266,23 +372,23 @@ export default function ModalProduct() {
               <div className="flex flex-col gap-2">
                 <PartItem>
                   <>Country</>
-                  <Select onChange={(value) => setCountry(value)} options={countries.map((item) => ({ label: item, value: item }))} style={styleItem} />
+                  <Select value={country} onChange={(value) => setCountry(value)} options={countries.map((item) => ({ label: item, value: item }))} style={styleItem} />
                 </PartItem>
                 <PartItem>
                   <>Top Length</>
-                  <Select onChange={(value) => setTopLength(value)} options={topLengths.map((item) => ({ label: item, value: item }))} style={styleItem} />
+                  <Select value={topLength} onChange={(value) => setTopLength(value)} options={topLengths.map((item) => ({ label: item, value: item }))} style={styleItem} />
                 </PartItem>
                 <PartItem>
                   <>Season</>
-                  <Select onChange={(value) => setSeason(value)} options={seasons.map((item) => ({ label: item, value: item }))} style={styleItem} />
+                  <Select value={season} onChange={(value) => setSeason(value)} options={seasons.map((item) => ({ label: item, value: item }))} style={styleItem} />
                 </PartItem>
                 <PartItem>
                   <>Style</>
-                  <Select onChange={(value) => setStyle(value)} options={styles.map((item) => ({ label: item, value: item }))} style={styleItem} />
+                  <Select value={style} onChange={(value) => setStyle(value)} options={styles.map((item) => ({ label: item, value: item }))} style={styleItem} />
                 </PartItem>
                 <PartItem>
                   <>Ship From</>
-                  <Select onChange={(value) => setShipFrom(value)} options={shipForms.map((item) => ({ label: item, value: item }))} style={styleItem} />
+                  <Select value={shipFrom} onChange={(value) => setShipFrom(value)} options={shipfroms.map((item) => ({ label: item, value: item }))} style={styleItem} />
                 </PartItem>
               </div>
 
@@ -298,7 +404,7 @@ export default function ModalProduct() {
                 </PartItem>
                 <PartItem>
                   <>Range</>
-                  <RangePicker onChange={(value) => changeDate(value)} format="DD-MM-YYYY" style={styleItem} />
+                  <RangePicker value={dateStart && dateEnd ? [dayjs(dateStart, 'DD-MM-YYYY'), dayjs(dateEnd, 'DD-MM-YYYY')] : null} onChange={(value) => changeDate(value)} format="DD-MM-YYYY" style={styleItem} />
                 </PartItem>
               </div>
 

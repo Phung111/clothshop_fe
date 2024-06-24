@@ -31,10 +31,12 @@ const accountSlice = createSlice({
       state.voucher = action.payload
     },
     setIsCreateProduct: (state, action) => {
-      state.isCreateProduct = action.payload
+      state.isCreateProduct = true
+      state.isUpdateProduct = false
     },
     setIsUpdateProduct: (state, action) => {
-      state.isUpdateProduct = action.payload
+      state.isCreateProduct = false
+      state.isUpdateProduct = true
     },
     setModalProduct: (state, action) => {
       state.modalProduct = action.payload
