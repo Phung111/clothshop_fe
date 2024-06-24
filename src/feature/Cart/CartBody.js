@@ -1,5 +1,5 @@
-import Body from 'feature/Home/HomeBody/Products/Content/Body'
-import HomeBodyHead from 'feature/Home/HomeBody/HomeBodyHead'
+import Body from 'feature/Home/Products/Content/Body'
+import HomeHead from 'feature/Home/HomeHead'
 import CartItem from 'feature/Cart/CartBody/CartItem'
 import CartItemHead from 'feature/Cart/CartBody/CartItemHead'
 import CartItemTotal from 'feature/Cart/CartBody/CartItemTotal'
@@ -21,7 +21,7 @@ export default function CartBody() {
             <CartItem />
             <CartItemTotal />
             <div className="bg-white p-4">
-              <HomeBodyHead title={'you may also like'} href={'#'} />
+              <HomeHead title={'you may also like'} href={'#'} />
               <Body seeMore={'#'} />
             </div>
           </div>

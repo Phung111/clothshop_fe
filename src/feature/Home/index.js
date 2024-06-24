@@ -1,12 +1,30 @@
-import Banners from 'feature/Home/HomeBody/Banners'
-import Discounts from 'feature/Home/HomeBody/Discounts'
-import Bestsales from 'feature/Home/HomeBody/BestSales'
-import Categories from 'feature/Home/HomeBody/Categories'
-import Products from 'feature/Home/HomeBody/Products/Products'
+import Banners from 'feature/Home/Banners'
+import Discounts from 'feature/Home/Discounts'
+import Bestsales from 'feature/Home/BestSales'
+import Categories from 'feature/Home/Categories'
+import Products from 'feature/Home/Products'
 
-import ContentHead from 'feature/Home/HomeBody/HomeBodyHead'
+import ContentHead from 'feature/Home/HomeHead'
 
-export default function HomeBody() {
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAll, getCollection, setLoading } from 'slice/baseSlice'
+import { getProductPage, setLatest } from 'slice/productPageSlice'
+
+export default function Home() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(setLoading(true))
+    Promise.all([dispatch(getAll()), dispatch(setLatest(true)), dispatch(getCollection()), dispatch(getProductPage())])
+      .then(() => {
+        dispatch(setLoading(false))
+      })
+      .catch((error) => {})
+      .finally(() => {
+        dispatch(setLoading(false))
+      })
+  }, [])
+
   return (
     <>
       <section>

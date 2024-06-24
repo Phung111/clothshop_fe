@@ -1,5 +1,5 @@
-import Head from 'feature/Home/HomeBody/Products/Content/Head'
-import Body from 'feature/Home/HomeBody/Products/Content/Body'
+import Head from 'feature/Home/Products/Content/Head'
+import Body from 'feature/Home/Products/Content/Body'
 
 export default function Content() {
   return (

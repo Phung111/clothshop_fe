@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Utils from 'utils/Utils'
-import Home from 'feature/Home/Home'
-import ProductDetail from 'feature/ProductDetail/ProductDetail'
+import Home from 'feature/Home'
+
+import ProductDetail from 'feature/ProductDetail'
 import Cart from 'feature/Cart/Cart'
 import Checkout from 'feature/Checkout/Checkout'
 import Account from 'feature/Account/Account'

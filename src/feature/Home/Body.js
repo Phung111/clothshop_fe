@@ -1,10 +1,10 @@
 import Banners from 'feature/Home/HomeBody/Banners'
-import Discounts from 'feature/Home/HomeBody/Discounts'
-import Bestsales from 'feature/Home/HomeBody/BestSales'
-import Categories from 'feature/Home/HomeBody/Categories'
+import Discounts from 'feature/Home/Discounts'
+import Bestsales from 'feature/Home/BestSales'
+import Categories from 'feature/Home/Categories'
 import Products from 'feature/Home/HomeBody/Products/Products'
 
-import ContentHead from 'feature/Home/HomeBody/HomeBodyHead'
+import ContentHead from 'feature/Home/HomeHead'
 
 export default function Body() {
   return (

@@ -1,6 +1,8 @@
-import Header from 'components/Header/Header'
-import Footer from 'components/Footer/Footer'
-import ProductDetailBody from 'feature/ProductDetail/ProductDetailBody/ProductDetailBody'
+import Info from 'feature/ProductDetail/ProductDetailBody/Info/Info'
+import Detail from 'feature/ProductDetail/ProductDetailBody/Detail/Detail'
+import HomeHead from 'feature/Home/HomeHead'
+import Seemore from 'feature/Category/Seemore'
+
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
@@ -8,7 +10,7 @@ import { getProductById } from 'slice/productSlice'
 import { setLoading } from 'slice/baseSlice'
 import { getProductPage, setCurrentPage, setSeeMore, setProductSize, emptySeeMore, resetCount, setECategories } from 'slice/productPageSlice'
 
-export default function ProductDetail() {
+export default function ProductDetailBody() {
   const dispatch = useDispatch()
   const { id } = useParams()
 
@@ -41,11 +43,25 @@ export default function ProductDetail() {
   return (
     <>
       {!isLoading && (
-        <>
-          <Header />
-          <ProductDetailBody />
-          <Footer />
-        </>
+        <section className="bg-gray">
+          <div className="container">
+            {!product && <div className="flex justify-center p-10">Not found Product</div>}
+            {product && (
+              <div className="flex flex-col gap-4 py-5">
+                <div className="bg-white">
+                  <Info />
+                </div>
+                <div className="bg-white">
+                  <Detail />
+                </div>
+                <div className="p-4">
+                  <HomeHead title={'products similar to'} href={'#'} />
+                  <Seemore />
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
       )}
     </>
   )

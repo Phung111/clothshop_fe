@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Checkbox } from 'antd'
 import Button from 'components/Button'
 import 'index.css'
-import Head from 'feature/Home/HomeBody/Products/SideBar/Head'
+import Head from 'feature/Home/Products/SideBar/Head'
 
 import { getProductPage, setKeySearch, setLatest, setNameAsc, setPriceAsc, setTopsales, setECategories, setPriceFrom, setPriceTo, setETopLengths, setECountries, setESeasons, setEStyles, setEShipsFroms, setCurrentPage, clearAllFilters } from 'slice/productPageSlice'
 

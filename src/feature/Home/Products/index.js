@@ -1,5 +1,5 @@
-import SideBar from 'feature/Home/HomeBody/Products/SideBar/SideBar'
-import Content from 'feature/Home/HomeBody/Products/Content/Content'
+import SideBar from 'feature/Home/Products/SideBar/SideBar'
+import Content from 'feature/Home/Products/Content/Content'
 
 export default function Products() {
   return (
