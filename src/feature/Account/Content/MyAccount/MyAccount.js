@@ -1,5 +1,5 @@
-import Profile from 'feature/Account/AccountBody/Content/MyAccount/Profile/Profile'
-import Adresses from 'feature/Account/AccountBody/Content/MyAccount/Adresses/Adresses'
+import Profile from 'feature/Account/Content/MyAccount/Profile/Profile'
+import Adresses from 'feature/Account/Content/MyAccount/Adresses/Adresses'
 
 import { useSelector } from 'react-redux'
 

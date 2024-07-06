@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductPage, setCurrentPage, setProductSize } from 'slice/productPageSlice'
 
@@ -32,7 +32,7 @@ export default function Page() {
   }, [currentPage])
 
   useEffect(() => {
-    if (latest == false || latest == null) {
+    if (latest === false || latest === null) {
       setFrom(pageNumber * productSize + 1)
       setTo(pageNumber * productSize + numberOfElements)
     } else {

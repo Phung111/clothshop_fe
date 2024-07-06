@@ -1,6 +1,6 @@
-import { Select, Switch, Input } from 'antd'
+import { Select, Switch } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 import { getProductPage, setKeySearch, setLatest, setNameAsc, setPriceAsc, setTopsales, setECategories, setPriceFrom, setPriceTo, setETopLengths, setECountries, setESeasons, setEStyles, setEShipsFroms, setCurrentPage, clearAllFilters } from 'slice/productPageSlice'
 
@@ -134,29 +134,29 @@ export default function Filter() {
           <FilterPart>
             <>Latest</>
             <>
-              <Switch onChange={() => handleLatest(false)} value={latest == false ? true : false} size="small" checkedChildren={up} unCheckedChildren={up} defaultChecked className={classWCheck} />
-              <Switch onChange={() => handleLatest(true)} value={latest == true ? true : false} size="small" checkedChildren={down} unCheckedChildren={down} defaultChecked className={classWCheck} />
+              <Switch onChange={() => handleLatest(false)} value={latest === false ? true : false} size="small" checkedChildren={up} unCheckedChildren={up} defaultChecked className={classWCheck} />
+              <Switch onChange={() => handleLatest(true)} value={latest === true ? true : false} size="small" checkedChildren={down} unCheckedChildren={down} defaultChecked className={classWCheck} />
             </>
           </FilterPart>
           <FilterPart>
             <>Name</>
             <>
-              <Switch onChange={() => handleName(true)} value={nameAsc == true ? true : false} size="small" checkedChildren={up} unCheckedChildren={up} defaultChecked className={classWCheck} />
-              <Switch onChange={() => handleName(false)} value={nameAsc == false ? true : false} size="small" checkedChildren={down} unCheckedChildren={down} defaultChecked className={classWCheck} />
+              <Switch onChange={() => handleName(true)} value={nameAsc === true ? true : false} size="small" checkedChildren={up} unCheckedChildren={up} defaultChecked className={classWCheck} />
+              <Switch onChange={() => handleName(false)} value={nameAsc === false ? true : false} size="small" checkedChildren={down} unCheckedChildren={down} defaultChecked className={classWCheck} />
             </>
           </FilterPart>
           <FilterPart>
             <>Price</>
             <>
-              <Switch onChange={() => handlePrice(true)} value={priceAsc == true ? true : false} size="small" checkedChildren={up} unCheckedChildren={up} defaultChecked className={classWCheck} />
-              <Switch onChange={() => handlePrice(false)} value={priceAsc == false ? true : false} size="small" checkedChildren={down} unCheckedChildren={down} defaultChecked className={classWCheck} />
+              <Switch onChange={() => handlePrice(true)} value={priceAsc === true ? true : false} size="small" checkedChildren={up} unCheckedChildren={up} defaultChecked className={classWCheck} />
+              <Switch onChange={() => handlePrice(false)} value={priceAsc === false ? true : false} size="small" checkedChildren={down} unCheckedChildren={down} defaultChecked className={classWCheck} />
             </>
           </FilterPart>
           <FilterPart>
             <>Top Sales</>
             <>
-              <Switch onChange={() => handleTopSale(true)} value={topsales == true ? true : false} size="small" checkedChildren={up} unCheckedChildren={up} defaultChecked className={classWCheck} />
-              <Switch onChange={() => handleTopSale(false)} value={topsales == false ? true : false} size="small" checkedChildren={down} unCheckedChildren={down} defaultChecked className={classWCheck} />
+              <Switch onChange={() => handleTopSale(true)} value={topsales === true ? true : false} size="small" checkedChildren={up} unCheckedChildren={up} defaultChecked className={classWCheck} />
+              <Switch onChange={() => handleTopSale(false)} value={topsales === false ? true : false} size="small" checkedChildren={down} unCheckedChildren={down} defaultChecked className={classWCheck} />
             </>
           </FilterPart>
           <div className="flex justify-between">

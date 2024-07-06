@@ -1,4 +1,4 @@
-import Part from 'feature/Cart/CartBody/Part'
+import Part from 'feature/Cart/Part'
 
 export default function CartItemHead({ children }) {
   return (

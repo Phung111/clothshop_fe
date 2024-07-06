@@ -6,16 +6,16 @@ import Products from 'feature/Home/Products'
 
 import ContentHead from 'feature/Home/HomeHead'
 
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAll, getCollection, setLoading } from 'slice/baseSlice'
+import { getHome, getCollection, setLoading } from 'slice/baseSlice'
 import { getProductPage, setLatest } from 'slice/productPageSlice'
 
 export default function Home() {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(setLoading(true))
-    Promise.all([dispatch(getAll()), dispatch(setLatest(true)), dispatch(getCollection()), dispatch(getProductPage())])
+    Promise.all([dispatch(getHome()), dispatch(setLatest(true)), dispatch(getCollection()), dispatch(getProductPage())])
       .then(() => {
         dispatch(setLoading(false))
       })

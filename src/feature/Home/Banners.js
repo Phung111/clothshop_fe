@@ -28,7 +28,7 @@ export default function Banners() {
             pagination={{
               clickable: true,
               renderBullet: function (index, className) {
-                return '<span class="' + className + '">' + '</span>'
+                return `<span class="${className}"></span>`
               },
             }}
             autoplay={{

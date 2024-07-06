@@ -65,8 +65,8 @@ export default function Table() {
           <tbody>
             {products &&
               products.map((item, index) => (
-                <tr className={`border-spacing-4 cursor-pointer hover:bg-black/30 ${index % 2 != 0 && 'bg-primary/20'}`} key={index} onClick={() => handleEdit(item.id)}>
-                  <td className={`${tdClass}`}>{latest == false || latest == null ? pageNumber * size + index + 1 : totalElements - pageNumber * size - index}</td>
+                <tr className={`border-spacing-4 cursor-pointer hover:bg-black/30 ${index % 2 !== 0 && 'bg-primary/20'}`} key={index} onClick={() => handleEdit(item.id)}>
+                  <td className={`${tdClass}`}>{latest === false || latest === null ? pageNumber * size + index + 1 : totalElements - pageNumber * size - index}</td>
                   <td className={`${tdClass}`}>
                     <div className="flex h-full w-full items-center justify-center py-2">
                       <div className="aspect-square w-20 ">

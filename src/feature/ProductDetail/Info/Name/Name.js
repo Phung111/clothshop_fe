@@ -1,10 +1,13 @@
-import Size from 'feature/ProductDetail/ProductDetailBody/Info/Name/Size/Size'
-import Color from 'feature/ProductDetail/ProductDetailBody/Info/Name/Color/Color'
-import Quantity from 'feature/ProductDetail/ProductDetailBody/Info/Name/Quantity/Quantity'
+import Size from 'feature/ProductDetail/Info/Name/Size/Size'
+import Color from 'feature/ProductDetail/Info/Name/Color/Color'
+import Quantity from 'feature/ProductDetail/Info/Name/Quantity/Quantity'
 import Button from 'components/Button'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { addCartItem } from 'slice/orderSlice'
 
 export default function Name() {
+  const dispatch = useDispatch()
+
   const product = useSelector((state) => state.productSlice.product)
   const baseSlice = useSelector((state) => state.baseSlice)
   const collections = baseSlice.data.collections
@@ -12,6 +15,10 @@ export default function Name() {
   const sizes = collections.sizes
 
   const discount = product.discountResDTO
+
+  const handleAddToCart = () => {
+    dispatch(addCartItem())
+  }
 
   return (
     <>
@@ -44,7 +51,7 @@ export default function Name() {
           <Color array={colors} />
           <Quantity />
           <div className="flex gap-4">
-            <div className="h-12 w-[180px]">
+            <div className="h-12 w-[180px]" onClick={handleAddToCart}>
               <Button type={'outline'}>
                 <i className="fa-solid fa-cart-plus" />
                 add to cart

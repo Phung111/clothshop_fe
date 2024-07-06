@@ -1,11 +1,9 @@
 import Product from 'components/Product/Product'
-import Button from 'components/Button'
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import Page from 'feature/Management/Body/Page'
 
-export default function Body({ seeMore }) {
+export default function Body() {
   const productPageSlice = useSelector((state) => state.productPageSlice)
   const respond = productPageSlice.respond
   const products = respond.products

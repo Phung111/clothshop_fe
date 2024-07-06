@@ -1,4 +1,4 @@
-import PartProfile from 'feature/Account/AccountBody/Content/MyAccount/Profile/PartProfile'
+import PartProfile from 'feature/Account/Content/MyAccount/Profile/PartProfile'
 
 export default function Profile() {
   return (

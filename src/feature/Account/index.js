@@ -1,5 +1,5 @@
-import Side from 'feature/Account/AccountBody/Side/Side'
-import Content from 'feature/Account/AccountBody/Content/Content'
+import Side from 'feature/Account/Side/Side'
+import Content from 'feature/Account/Content/Content'
 
 export default function AccountBody() {
   return (

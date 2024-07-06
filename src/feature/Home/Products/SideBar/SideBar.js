@@ -5,7 +5,7 @@ import Button from 'components/Button'
 import 'index.css'
 import Head from 'feature/Home/Products/SideBar/Head'
 
-import { getProductPage, setKeySearch, setLatest, setNameAsc, setPriceAsc, setTopsales, setECategories, setPriceFrom, setPriceTo, setETopLengths, setECountries, setESeasons, setEStyles, setEShipsFroms, setCurrentPage, clearAllFilters } from 'slice/productPageSlice'
+import { getProductPage, setECategories, setPriceFrom, setPriceTo, setEStyles, setEShipsFroms, setCurrentPage, clearAllFilters } from 'slice/productPageSlice'
 
 export default function SideBar() {
   const dispatch = useDispatch()

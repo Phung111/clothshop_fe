@@ -11,7 +11,7 @@ export const HTTP_STATUS = Object.freeze({
 
 export const ROLES = Object.freeze({
   ADMIN: 'ADMIN',
-  CASHIER: 'CASHIER',
+  USER: 'USER',
   GUESS: 'GUESS',
 })
 
@@ -39,6 +39,8 @@ export const CLOTHSHOP_API_URL = {
   CLOTHSHOP: {
     GET_HOME: `${CLOTHSHOP_URL}/get-home`,
     GET_COLLECTION: `${CLOTHSHOP_URL}/get-collection`,
+    GET_PRONVICE: `${CLOTHSHOP_URL}/getPronvice`,
+    GET_GENDER: `${CLOTHSHOP_URL}/getGender`,
   },
 
   PRODUCT: {
@@ -62,8 +64,6 @@ export const CLOTHSHOP_API_URL = {
     DECREASE_CART_ITEM: `${CART_URL}/decreaseCartItem-`,
     DELETE_CART_ITEM: `${CART_URL}/deleteCartItem`,
     CHECKOUT: `${CART_URL}/checkout`,
-    CHECKOUT_CHANGE_ADDRESS: `${CART_URL}/checkout/myAddress`,
-    CHECKOUT_CHOSE_VOUCHER: `${CART_URL}/checkout/choseVoucher`,
   },
   ORDER: {
     PLACE_ORDER: `${ORDER_URL}/place`,
@@ -74,10 +74,12 @@ export const CLOTHSHOP_API_URL = {
     DEFAULT: `${ADDRESS_URL}/default`,
     UPDATE: `${ADDRESS_URL}/update`,
     DELETE: `${ADDRESS_URL}/delete`,
+    CHANGE: `${ADDRESS_URL}/change`,
   },
   VOUCHER: {
     GET_ALL: `${VOUCHER_URL}`,
     CREATE: `${VOUCHER_URL}/create`,
+    CHOSE: `${VOUCHER_URL}/chose`,
   },
   DISCOUNT: {
     CREATE: `${DISCOUNT_URL}/create`,

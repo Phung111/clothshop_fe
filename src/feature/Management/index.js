@@ -1,8 +1,8 @@
 import React from 'react'
 import Side from 'feature/Management/Side/Side'
 import Body from 'feature/Management/Body/Body'
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 import { getProductPage, setLatest } from 'slice/productPageSlice'
 import { setLoading, getCollection } from 'slice/baseSlice'
 

@@ -1,7 +1,7 @@
 import Button from 'components/Button'
 import { useDispatch } from 'react-redux'
 import { setMyAdress, setCreateAddress } from 'slice/accountSlice'
-import PartAdresses from 'feature/Account/AccountBody/Content/MyAccount/Adresses/PartAdresses'
+import PartAdresses from 'feature/Account/Content/MyAccount/Adresses/PartAdresses'
 
 export default function ModalMyAddress() {
   const dispatch = useDispatch()

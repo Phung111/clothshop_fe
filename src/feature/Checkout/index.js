@@ -1,9 +1,9 @@
-import Address from 'feature/Checkout/CheckoutBody/Address'
-import Ordered from 'feature/Checkout/CheckoutBody/Ordered/Ordered'
-import Voucher from 'feature/Checkout/CheckoutBody/Voucher'
-import Total from 'feature/Checkout/CheckoutBody/Total'
+import Address from 'feature/Checkout/Address'
+import Ordered from 'feature/Checkout/Ordered/Ordered'
+import Voucher from 'feature/Checkout/Voucher'
+import Total from 'feature/Checkout/Total'
 
-export default function CheckoutBody() {
+export default function Checkout() {
   return (
     <>
       <div className="bg-gray">

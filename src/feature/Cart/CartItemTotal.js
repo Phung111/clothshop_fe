@@ -1,4 +1,4 @@
-import Part from 'feature/Cart/CartBody/Part'
+import Part from 'feature/Cart/Part'
 import Button from 'components/Button'
 
 export default function CartItemTotal() {

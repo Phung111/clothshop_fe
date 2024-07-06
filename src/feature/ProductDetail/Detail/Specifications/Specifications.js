@@ -1,6 +1,6 @@
-import Model from 'feature/ProductDetail/ProductDetailBody/Detail/Specifications/Model'
+import Model from 'feature/ProductDetail/Detail/Specifications/Model'
 import { useSelector } from 'react-redux'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function Specifications() {
   const product = useSelector((state) => state.productSlice.product)

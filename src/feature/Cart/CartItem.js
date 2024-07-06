@@ -1,4 +1,4 @@
-import Part from 'feature/Cart/CartBody/Part'
+import Part from 'feature/Cart/Part'
 import { useState } from 'react'
 
 export default function CartItem({ children }) {

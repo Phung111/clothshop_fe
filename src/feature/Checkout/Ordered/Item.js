@@ -1,4 +1,4 @@
-import Part from 'feature/Checkout/CheckoutBody/Ordered/Part'
+import Part from 'feature/Checkout/Ordered/Part'
 
 export default function Item() {
   return (

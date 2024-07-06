@@ -1,10 +1,10 @@
 import Body from 'feature/Home/Products/Content/Body'
 import HomeHead from 'feature/Home/HomeHead'
-import CartItem from 'feature/Cart/CartBody/CartItem'
-import CartItemHead from 'feature/Cart/CartBody/CartItemHead'
-import CartItemTotal from 'feature/Cart/CartBody/CartItemTotal'
+import CartItem from 'feature/Cart/CartItem'
+import CartItemHead from 'feature/Cart/CartItemHead'
+import CartItemTotal from 'feature/Cart/CartItemTotal'
 
-export default function CartBody() {
+export default function Cart() {
   return (
     <>
       <section className="bg-gray">

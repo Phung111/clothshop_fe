@@ -1,5 +1,5 @@
-import Info from 'feature/ProductDetail/ProductDetailBody/Info/Info'
-import Detail from 'feature/ProductDetail/ProductDetailBody/Detail/Detail'
+import Info from 'feature/ProductDetail/Info/Info'
+import Detail from 'feature/ProductDetail/Detail/Detail'
 import HomeHead from 'feature/Home/HomeHead'
 import Seemore from 'feature/Category/Seemore'
 
@@ -9,8 +9,9 @@ import { useEffect } from 'react'
 import { getProductById } from 'slice/productSlice'
 import { setLoading } from 'slice/baseSlice'
 import { getProductPage, setCurrentPage, setSeeMore, setProductSize, emptySeeMore, resetCount, setECategories } from 'slice/productPageSlice'
+import { setCartItemIDProduct } from 'slice/orderSlice'
 
-export default function ProductDetailBody() {
+export default function ProductDetail() {
   const dispatch = useDispatch()
   const { id } = useParams()
 
@@ -27,6 +28,7 @@ export default function ProductDetailBody() {
         dispatch(setCurrentPage(1))
         dispatch(emptySeeMore())
         dispatch(resetCount())
+        dispatch(setCartItemIDProduct(id))
       })
       .then(() => {
         dispatch(getProductPage()).then(() => {
@@ -38,7 +40,7 @@ export default function ProductDetailBody() {
         window.scrollTo(0, 0)
         dispatch(setLoading(false))
       })
-  }, [id])
+  }, [id, dispatch, product.ecategory])
 
   return (
     <>

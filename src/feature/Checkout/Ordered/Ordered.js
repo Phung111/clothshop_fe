@@ -1,5 +1,5 @@
-import Head from 'feature/Checkout/CheckoutBody/Ordered/Head'
-import Item from 'feature/Checkout/CheckoutBody/Ordered/Item'
+import Head from 'feature/Checkout/Ordered/Head'
+import Item from 'feature/Checkout/Ordered/Item'
 
 export default function Ordered() {
   return (

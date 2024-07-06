@@ -1,5 +1,5 @@
 import Button from 'components/Button'
-import PartAdresses from 'feature/Account/AccountBody/Content/MyAccount/Adresses/PartAdresses'
+import PartAdresses from 'feature/Account/Content/MyAccount/Adresses/PartAdresses'
 import { useDispatch } from 'react-redux'
 import { setMyAdress, setCreateAddress } from 'slice/accountSlice'
 

@@ -1,6 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import clothShopService from 'services/clothShopService'
-import { HTTP_STATUS } from 'app/global'
+import { createSlice } from '@reduxjs/toolkit'
 
 const namespace = 'modalSlice'
 
@@ -30,18 +28,18 @@ const accountSlice = createSlice({
     setVoucher: (state, action) => {
       state.voucher = action.payload
     },
-    setIsCreateProduct: (state, action) => {
+    setIsCreateProduct: (state) => {
       state.isCreateProduct = true
       state.isUpdateProduct = false
     },
-    setIsUpdateProduct: (state, action) => {
+    setIsUpdateProduct: (state) => {
       state.isCreateProduct = false
       state.isUpdateProduct = true
     },
     setModalProduct: (state, action) => {
       state.modalProduct = action.payload
 
-      if (action.payload == false) {
+      if (action.payload === false) {
         state.isCreateProduct = false
         state.isUpdateProduct = false
       }

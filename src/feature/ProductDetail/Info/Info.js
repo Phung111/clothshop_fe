@@ -1,5 +1,5 @@
-import Image from 'feature/ProductDetail/ProductDetailBody/Info/Image/Image'
-import Name from 'feature/ProductDetail/ProductDetailBody/Info/Name/Name'
+import Image from 'feature/ProductDetail/Info/Image/Image'
+import Name from 'feature/ProductDetail/Info/Name/Name'
 
 export default function Info() {
   return (

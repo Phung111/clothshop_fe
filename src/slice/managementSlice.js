@@ -1,6 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import clothShopService from 'services/clothShopService'
-import { HTTP_STATUS } from 'app/global'
+import { createSlice } from '@reduxjs/toolkit'
 
 const namespace = 'managementSlice'
 

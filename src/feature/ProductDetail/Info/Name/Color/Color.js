@@ -1,17 +1,20 @@
-import { useState } from 'react'
-import Chose from 'feature/ProductDetail/ProductDetailBody/Info/Name/Chose'
-import ButtonColor from 'feature/ProductDetail/ProductDetailBody/Info/Name/Color/ButtonColor'
+import Chose from 'feature/ProductDetail/Info/Name/Chose'
+import ButtonColor from 'feature/ProductDetail/Info/Name/Color/ButtonColor'
+import { setCartItemColor } from 'slice/orderSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function Color({ array }) {
-  const [selectedColor, setSelectedColor] = useState(null)
+  const dispatch = useDispatch()
 
-  const handleColorSelection = (color) => {
-    if (selectedColor === color) {
-      setSelectedColor(null)
-      console.log('Deselect color:', color)
+  const orderSlice = useSelector((state) => state.orderSlice)
+  const cartItem = orderSlice.cartItem
+  const color = cartItem.color
+
+  const handleColorSelection = (colorLC) => {
+    if (color === colorLC) {
+      dispatch(setCartItemColor(''))
     } else {
-      setSelectedColor(color)
-      console.log('Select color:', color)
+      dispatch(setCartItemColor(colorLC))
     }
   }
 
@@ -20,7 +23,7 @@ export default function Color({ array }) {
       <Chose title={'color'}>
         <div className="flex gap-5">
           {array.map((item, index) => (
-            <ButtonColor key={index} isSelected={selectedColor === item} onClick={() => handleColorSelection(item)}>
+            <ButtonColor key={index} isSelected={color === item} onClick={() => handleColorSelection(item)}>
               {item}
             </ButtonColor>
           ))}

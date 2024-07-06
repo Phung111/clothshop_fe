@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import clothShopService from 'services/clothShopService'
-import { HTTP_STATUS } from 'app/global'
 
 const namespace = 'baseSlice'
 
@@ -20,6 +19,8 @@ const initialState = {
       styles: [],
       shipfroms: [],
     },
+    pronvices: [],
+    genders: [],
   },
   loading: false,
   arlert: {
@@ -29,10 +30,10 @@ const initialState = {
   },
 }
 
-export const getAll = createAsyncThunk(`${namespace}/getAll`, async (obj, { rejectWithValue, dispatch }) => {
+export const getHome = createAsyncThunk(`${namespace}/getHome`, async (obj, { rejectWithValue, dispatch }) => {
   dispatch(setLoading(true))
   return await clothShopService
-    .getAll(obj)
+    .getHome(obj)
     .then((response) => {
       return response.data
     })
@@ -47,6 +48,28 @@ export const getAll = createAsyncThunk(`${namespace}/getAll`, async (obj, { reje
 export const getCollection = createAsyncThunk(`${namespace}/getCollection`, async (obj, { rejectWithValue }) => {
   return await clothShopService
     .getCollection()
+    .then((response) => {
+      return response.data
+    })
+    .catch((error) => {
+      return rejectWithValue(error)
+    })
+})
+
+export const getPronvice = createAsyncThunk(`${namespace}/getPronvice`, async (obj, { rejectWithValue }) => {
+  return await clothShopService
+    .getPronvice()
+    .then((response) => {
+      return response.data
+    })
+    .catch((error) => {
+      return rejectWithValue(error)
+    })
+})
+
+export const getGender = createAsyncThunk(`${namespace}/getGender`, async (obj, { rejectWithValue }) => {
+  return await clothShopService
+    .getGender()
     .then((response) => {
       return response.data
     })
@@ -74,7 +97,7 @@ const baseSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(getAll.fulfilled, (state, { payload }) => {
+      .addCase(getHome.fulfilled, (state, { payload }) => {
         state.data.banners = payload.banners
         state.data.discounts = payload.discounts
         state.data.bestsales = payload.bestsales
@@ -88,6 +111,12 @@ const baseSlice = createSlice({
         state.data.collections.seasons = payload.seasons
         state.data.collections.styles = payload.styles
         state.data.collections.shipfroms = payload.shipfroms
+      })
+      .addCase(getPronvice.fulfilled, (state, { payload }) => {
+        state.data.pronvices = payload.pronvices
+      })
+      .addCase(getGender.fulfilled, (state, { payload }) => {
+        state.data.genders = payload.genders
       })
   },
 })

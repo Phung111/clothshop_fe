@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import clothShopService from 'services/clothShopService'
 import { HTTP_STATUS } from 'app/global'
-import { setLoading } from './baseSlice'
 
 const namespace = 'productPageSlice'
 
@@ -103,9 +102,7 @@ export const getProductPage = createAsyncThunk(`${namespace}/getProductPage`, as
     .catch((error) => {
       return rejectWithValue(error)
     })
-    .finally(() => {
-      // dispatch(setLoading(false))
-    })
+    .finally(() => {})
 })
 
 const productPageSlice = createSlice({

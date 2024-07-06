@@ -19,12 +19,22 @@ export const axiosClientFormData = axios.create({
   paramsSerializer: (params) => queryString.stringify(params),
 })
 
-// axiosClient.interceptors.request.use(async (config) => {
-//   const accessToken = localStorage.getItem('wl_accessToken')
+axiosClient.interceptors.request.use(async (config) => {
+  const accessToken = localStorage.getItem('jwt')
 
-//   if (accessToken) {
-//     config.headers.Authorization = `Bearer ${accessToken}`
-//   }
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`
+  }
 
-//   return config
-// })
+  return config
+})
+
+axiosClientFormData.interceptors.request.use(async (config) => {
+  const accessToken = localStorage.getItem('jwt')
+
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`
+  }
+
+  return config
+})

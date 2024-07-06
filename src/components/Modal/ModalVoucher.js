@@ -1,4 +1,4 @@
-import PartVouchers from 'feature/Account/AccountBody/Content/MyVouchers/PartVouchers'
+import PartVouchers from 'feature/Account/Content/MyVouchers/PartVouchers'
 import Button from 'components/Button'
 import { useDispatch } from 'react-redux'
 import { setVoucher } from 'slice/accountSlice'

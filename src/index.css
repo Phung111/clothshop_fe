@@ -65,9 +65,9 @@ input::-webkit-inner-spin-button {
     @apply text-[13px];
   }
 
-  input {
+  /* input {
     @apply outline-none;
-  }
+  } */
 }
 
 @layer components {
@@ -156,5 +156,10 @@ input::-webkit-inner-spin-button {
 
   .custom-checkbox .ant-checkbox-checked .ant-checkbox-inner {
     @apply border-primary bg-primary; /* Màu nền và viền khi được chọn */
+  }
+
+  .ant-select-selector:hover,
+  .ant-select-selector:focus-within {
+    border: 1px solid red !important;
   }
 }
