@@ -1,3 +1,3 @@
 export default function Unauthorized() {
-  return <></>
+  return <>Unauthorized</>
 }
