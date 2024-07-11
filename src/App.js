@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Outlet, HashRouter } from 'react-router-dom'
 import Utils from 'utils/Utils'
 import Home from 'feature/Home'
 import ProductDetail from 'feature/ProductDetail'
@@ -39,8 +39,8 @@ export default function App() {
       {isArlert && <SweetArlet />}
       <Utils />
       <Modal />
-
-      <BrowserRouter>
+      <HashRouter>
+        {/* <BrowserRouter> */}
         <Routes>
           <Route element={<LayoutLogin />}>
             <Route path="/login" element={<FormLogin />} />
@@ -64,7 +64,8 @@ export default function App() {
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/notfound" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
+        {/* </BrowserRouter> */}
+      </HashRouter>
     </>
   )
 }
