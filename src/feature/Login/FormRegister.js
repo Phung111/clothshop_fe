@@ -184,7 +184,6 @@ export default function FormRegister() {
                   className={`${cnSelect} ${errorsFE.pronvice || (errorsBE && errorsBE.pronvice) ? cnError : cnNormal}`}
                   options={pronvices.map((item) => ({ label: item, value: item }))}
                   onChange={(value) => {
-                    console.log('value', value)
                     setValue('pronvice', value, { shouldValidate: true })
                     trigger('pronvice')
                   }}
@@ -200,7 +199,6 @@ export default function FormRegister() {
                   className={`${cnSelect} ${errorsFE.gender || (errorsBE && errorsBE.gender) ? cnError : cnNormal}`}
                   options={genders.map((item) => ({ label: item, value: item }))}
                   onChange={(value) => {
-                    console.log('value', value)
                     setValue('gender', value, { shouldValidate: true })
                     trigger('gender')
                   }}

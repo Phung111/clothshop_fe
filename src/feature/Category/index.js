@@ -28,10 +28,8 @@ export default function Category() {
 
   return (
     <>
-      <Header />
       <h1 className="my-5 text-center text-[28px] text-[#55555A]">{category}</h1>
       <Seemore />
-      <Footer />
     </>
   )
 }

@@ -1,34 +1,42 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from 'slice/authSlice'
 import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { emptyCart } from 'slice/orderSlice'
 
 export default function Account() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const authSlice = useSelector((state) => state.authSlice)
-  const data = authSlice.data
-  const name = data.name
+  const customer = authSlice.customer
+  const name = customer.name
 
-  const isEmpty = !data || Object.keys(data).length === 0
+  const [isCustomer, setIsCustomer] = useState({})
+
+  useEffect(() => {
+    setIsCustomer(!customer || Object.keys(customer).length === 0)
+  }, [customer])
 
   const classP = 'flex justify-center rounded-sm py-2 hover:bg-gray'
 
   const handleLogOut = () => {
     dispatch(logout())
+    dispatch(emptyCart())
+    navigate('/')
   }
 
   const handleToMyAccount = () => {}
 
   return (
     <>
-      {!isEmpty && (
+      {!isCustomer && (
         <div className="group relative cursor-pointer" onClick={handleToMyAccount}>
           <div className="flex h-full items-center gap-2 text-white ">
             <i className="fa-solid fa-circle-user" />
             <p className="hover:opacity-70">{name}</p>
           </div>
-          <div className="animate__animated group-hover:animate__fadeInDown absolute z-[2000] w-[150px] rounded-sm bg-white opacity-0 shadow-2xl group-hover:opacity-100">
+          <div className="absolute z-[2000] max-h-0 w-[150px] overflow-hidden rounded-sm bg-white shadow-2xl transition-all duration-500 ease-in-out group-hover:max-h-[1000px]">
             <a href="#">
               <p className={classP}>My Account</p>
             </a>
@@ -41,7 +49,7 @@ export default function Account() {
           </div>
         </div>
       )}
-      {isEmpty && (
+      {isCustomer && (
         <div className="flex items-center gap-2">
           <a href="/register" className="text-white hover:opacity-70">
             <p>Sign Up</p>

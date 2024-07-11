@@ -28,8 +28,6 @@ const accountSlice = createSlice({
         item[key] = key === account
       })
 
-      console.log('ádasdas :', state.accounts)
-
       state.myAccounts.forEach((item) => {
         const key = Object.keys(item)[0]
         item[key] = key === 'profile' ? true : false

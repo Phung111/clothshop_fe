@@ -3,13 +3,15 @@ import { HTTP_STATUS } from 'app/global'
 import clothShopService from 'services/clothShopService'
 import { toast } from 'react-toastify'
 import { setLoading } from 'slice/baseSlice'
+import { setCountCartItem } from './orderSlice'
 
 const namespace = 'authSlice'
 
 const customer = JSON.parse(localStorage.getItem('customer'))
 
 const initialState = {
-  data: customer || {},
+  customer: customer || {},
+  data: {},
   status: HTTP_STATUS.IDLE,
   errorMessage: null,
   errorStatus: null,
@@ -23,6 +25,7 @@ export const login = createAsyncThunk(`${namespace}/login`, async (obj, { reject
     .login(obj)
     .then((response) => {
       toast.success('Login Successfully !')
+      dispatch(setCountCartItem(response.data.countCartItem))
       return response.data
     })
     .catch((error) => {
@@ -64,7 +67,9 @@ const authSlice = createSlice({
     logout: (state, { payload }) => {
       localStorage.removeItem('jwt')
       localStorage.removeItem('customer')
+      localStorage.removeItem('countCartItem')
       state.data = {}
+      state.customer = {}
     },
   },
   extraReducers(builder) {
@@ -75,6 +80,7 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, { payload }) => {
         state.status = HTTP_STATUS.FULFILLED
         state.data = payload
+        state.customer = payload
         const customer = payload
         localStorage.setItem('customer', JSON.stringify(customer))
         const jwt = payload.jwt

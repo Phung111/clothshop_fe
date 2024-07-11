@@ -1,7 +1,7 @@
 import Side from 'feature/Account/Side/Side'
 import Content from 'feature/Account/Content/Content'
 
-export default function AccountBody() {
+export default function Account() {
   return (
     <>
       <div className="bg-gray">

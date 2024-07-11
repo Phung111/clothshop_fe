@@ -18,6 +18,8 @@ import FormLogin from 'feature/Login/FormLogin'
 import FormRegister from 'feature/Login/FormRegister'
 import RequireAuth from 'RequireAuth'
 import { ROLES } from 'app/global'
+import Unauthorized from 'components/Unauthorized'
+import NotFound from 'components/NotFound'
 
 const LayoutWithHeaderFooter = () => (
   <>
@@ -44,18 +46,23 @@ export default function App() {
             <Route path="/login" element={<FormLogin />} />
             <Route path="/register" element={<FormRegister />} />
           </Route>
+
           <Route element={<LayoutWithHeaderFooter />}>
+            <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.USER]} />}>
+              <Route path="/cart" element={<Cart />} />
+            </Route>
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/account" element={<Account />} />
             <Route path="/" element={<Home />} />
             <Route path="/clothshop_fe" element={<Home />} />
             <Route path="/detail/:id" element={<ProductDetail />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/account" element={<Account />} />
             <Route path="/category/:category" element={<Category />} />
           </Route>
           <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN]} />}>
             <Route path="/management" element={<Management />} />
           </Route>
+          <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="/notfound" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -3,7 +3,7 @@ import Part from 'feature/Cart/Part'
 export default function CartItemHead({ children }) {
   return (
     <>
-      <Part>
+      <Part head={true}>
         <p className="text-sm capitalize">product</p>
         <p className="text-sm capitalize">price</p>
         <p className="text-sm capitalize">quantity</p>

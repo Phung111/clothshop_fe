@@ -5,10 +5,17 @@ import { setLoading } from './baseSlice'
 
 const namespace = 'orderSlice'
 
-const savedCart = JSON.parse(localStorage.getItem('cart'))
+const countCartItemLS = JSON.parse(localStorage.getItem('countCartItem'))
 
 const initialState = {
-  cart: savedCart || [],
+  cart: {
+    cartId: null,
+    cartItems: [],
+    count: null,
+  },
+  countCartItem: countCartItemLS || null,
+  selectCartItems: [],
+  cartItemsTotal: 0,
   cartItem: {
     idProduct: 0,
     size: '',
@@ -22,7 +29,6 @@ export const getCart = createAsyncThunk(`${namespace}/getCart`, async (id, { rej
   return await clothShopService
     .getCart(id)
     .then((response) => {
-      localStorage.setItem('cart', JSON.stringify(response.data))
       return response.data
     })
     .catch((error) => {
@@ -35,8 +41,6 @@ export const getCart = createAsyncThunk(`${namespace}/getCart`, async (id, { rej
 
 export const addCartItem = createAsyncThunk(`${namespace}/addCartItem`, async (obj, { getState }) => {
   const { cartItem } = getState().orderSlice
-  console.log('cartItem', cartItem)
-  // const idProduct = cartItem.idProduct
   let formData = new FormData()
   formData.append('idProduct', cartItem.idProduct)
   formData.append('size', cartItem.size)
@@ -56,6 +60,12 @@ export const increaseCartItem = createAsyncThunk(`${namespace}/increaseCartItem`
 
 export const decreaseCartItem = createAsyncThunk(`${namespace}/decreaseCartItem`, async (id) => {
   return await clothShopService.decreaseCartItem(id).then((response) => {
+    return response.data
+  })
+})
+
+export const changeQuantityCartItem = createAsyncThunk(`${namespace}/changeQuantityCartItem`, async (id, obj) => {
+  return await clothShopService.changeQuantityCartItem(id, obj).then((response) => {
     return response.data
   })
 })
@@ -85,6 +95,10 @@ const baseSlice = createSlice({
     setCart: (state, action) => {
       state.cart = action.payload
     },
+    setCountCartItem: (state, action) => {
+      state.countCartItem = action.payload
+      localStorage.setItem('countCartItem', JSON.stringify(action.payload))
+    },
     setCartItemIDProduct: (state, action) => {
       state.cartItem.idProduct = action.payload
     },
@@ -97,33 +111,83 @@ const baseSlice = createSlice({
     setCartItemQuantity: (state, action) => {
       state.cartItem.quantity = action.payload
     },
+    emptyCart: (state) => {
+      state.cart = {}
+      state.countCartItem = null
+      localStorage.removeItem('countCartItem')
+    },
+    selectCartItem: (state, action) => {
+      state.selectCartItems.push(action.payload)
+    },
+    deselectCartItem: (state, action) => {
+      state.selectCartItems = state.selectCartItems.filter((item) => item.cartItemId !== action.payload.cartItemId)
+    },
+    selectAllCartItems: (state) => {
+      state.selectCartItems = state.cart.cartItems.slice()
+    },
+    deselectAllCartItems: (state) => {
+      state.selectCartItems = []
+    },
+    calCartItemsTotal: (state) => {
+      state.cartItemsTotal = state.selectCartItems.reduce((total, item) => total + item.total, 0)
+    },
   },
   extraReducers(builder) {
     builder
       .addCase(getCart.fulfilled, (state, { payload }) => {
         state.status = HTTP_STATUS.FULFILLED
         state.cart = payload
+        localStorage.setItem('cart', JSON.stringify(payload))
       })
       .addCase(addCartItem.fulfilled, (state, { payload }) => {
         state.status = HTTP_STATUS.FULFILLED
         state.cart = payload
+        state.countCartItem = payload.count
+        localStorage.setItem('countCartItem', JSON.stringify(payload.count))
       })
-      // .addCase(addCartItem.rejected, (state, { payload }) => {
-      //   state.status = HTTP_STATUS.REJECTED
-
-      //   if (payload.response) {
-      //     state.errorMessage = payload.response.statusText
-      //     state.errorStatus = payload.response.status
-      //   }
-      // })
       .addCase(increaseCartItem.fulfilled, (state, { payload }) => {
         state.status = HTTP_STATUS.FULFILLED
+
+        const updatedCartItems = state.cart.cartItems.map((item) => (item.cartItemId === payload.cartItemId ? payload : item))
+        state.cart.cartItems = updatedCartItems
+
+        state.selectCartItems = state.selectCartItems.map((item) => {
+          if (item.cartItemId === payload.cartItemId) {
+            return payload
+          }
+          return item
+        })
       })
       .addCase(decreaseCartItem.fulfilled, (state, { payload }) => {
         state.status = HTTP_STATUS.FULFILLED
+
+        const updatedCartItems = state.cart.cartItems.map((item) => (item.cartItemId === payload.cartItemId ? payload : item))
+        state.cart.cartItems = updatedCartItems
+
+        // Cập nhật selectCartItems
+        state.selectCartItems = state.selectCartItems.map((item) => {
+          if (item.cartItemId === payload.cartItemId) {
+            return payload
+          }
+          return item
+        })
+      })
+      .addCase(changeQuantityCartItem.fulfilled, (state, { payload }) => {
+        state.status = HTTP_STATUS.FULFILLED
+
+        const updatedCartItems = state.cart.cartItems.map((item) => (item.cartItemId === payload.cartItemId ? payload : item))
+        state.cart.cartItems = updatedCartItems
+
+        state.selectCartItems = state.selectCartItems.map((item) => {
+          if (item.cartItemId === payload.cartItemId) {
+            return payload
+          }
+          return item
+        })
       })
       .addCase(deleteCartItem.fulfilled, (state, { payload }) => {
         state.status = HTTP_STATUS.FULFILLED
+        state.cart.cartItems = state.cart.cartItems.filter((item) => item.cartItemId !== payload.cartItemId)
       })
       .addCase(checkout.fulfilled, (state, { payload }) => {
         state.status = HTTP_STATUS.FULFILLED
@@ -136,6 +200,6 @@ const baseSlice = createSlice({
 
 const { reducer, actions } = baseSlice
 
-export const { setCartItemQuantity, setCartItemColor, setCartItemSize, setCartItemIDProduct, setCart } = actions
+export const { calCartItemsTotal, selectCartItem, deselectCartItem, selectAllCartItems, deselectAllCartItems, setCountCartItem, emptyCart, setCartItemQuantity, setCartItemColor, setCartItemSize, setCartItemIDProduct, setCart } = actions
 
 export default reducer
