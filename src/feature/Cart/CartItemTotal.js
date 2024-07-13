@@ -1,10 +1,12 @@
 import Button from 'components/Button'
-import { selectAllCartItems, deselectAllCartItems, calCartItemsTotal } from 'slice/orderSlice'
+import { selectAllCartItems, deselectAllCartItems, calCartItemsTotal, checkout } from 'slice/orderSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function CartItemTotal() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const orderSlice = useSelector((state) => state.orderSlice)
   const cart = orderSlice.cart
@@ -22,10 +24,13 @@ export default function CartItemTotal() {
     }
   }
 
+  const handleCheckout = () => {
+    dispatch(checkout()).then(() => {
+      navigate('/checkout')
+    })
+  }
+
   useEffect(() => {
-    // thêm 1 hàm tính toán giá khi đánh tích xong, tăng giảm số lượng sp
-    // cart.cartItems -> selectCartItems
-    // sửa lại khi change xoá thì onClick ra ngoài thì hỏi cho về giá trị trc đó
     dispatch(calCartItemsTotal())
   }, [selectCartItems])
 
@@ -44,7 +49,7 @@ export default function CartItemTotal() {
         <div className="flex shrink-0 items-center gap-5">
           <p className="text-sm">Total (0 item):</p>
           <p className="text-2xl text-primary">₫{window.formatNumberNođ(cartItemsTotal)}</p>
-          <div className="h-[40px] w-[180px]">
+          <div className="h-[40px] w-[180px]" onClick={handleCheckout}>
             <Button type={'solid'}>check out</Button>
           </div>
         </div>

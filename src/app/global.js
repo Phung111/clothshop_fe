@@ -62,7 +62,7 @@ export const CLOTHSHOP_API_URL = {
     ADD_CART_ITEM: `${CART_URL}/addCartItem`,
     INCREASE_CART_ITEM: `${CART_URL}/increaseCartItem`,
     DECREASE_CART_ITEM: `${CART_URL}/decreaseCartItem`,
-    CHANGE_QUANTITY_CART_ITEM: `${CART_URL}/decreaseCartItem`,
+    CHANGE_QUANTITY_CART_ITEM: `${CART_URL}/changeQuantityCartItem`,
     DELETE_CART_ITEM: `${CART_URL}/deleteCartItem`,
     CHECKOUT: `${CART_URL}/checkout`,
   },

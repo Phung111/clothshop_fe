@@ -60,7 +60,27 @@ export default function CartItem({ item }) {
       })
     } else {
       setQuantity(quantityInput)
-      dispatch(decreaseCartItem(item.cartItemId, quantityInput))
+      dispatch(changeQuantityCartItem({ cartItemId: item.cartItemId, quantity: quantityInput }))
+    }
+  }
+
+  const handleBlur = () => {
+    if (quantity === 0 || quantity == null || quantity == '') {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(deleteCartItem(item.cartItemId))
+        } else {
+          setQuantity(item.quantity)
+        }
+      })
     }
   }
 
@@ -111,7 +131,7 @@ export default function CartItem({ item }) {
               <i className="fa-solid fa-minus text-xs"></i>
             </button>
             <div className="flex w-14 items-center justify-center border-x-[0.5px] border-black/20">
-              <input type="number" value={quantity} onChange={handleChange} className="h-full w-full text-center outline-none" />
+              <input type="number" value={quantity} onChange={handleChange} onBlur={handleBlur} className="h-full w-full text-center outline-none" />
             </div>
             <button className="flex aspect-square items-center justify-center" onClick={increaseQuantity}>
               <i className="fa-solid fa-plus text-xs"></i>

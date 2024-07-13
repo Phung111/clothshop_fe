@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import clothShopService from 'services/clothShopService'
 import { HTTP_STATUS } from 'app/global'
 import { setLoading } from './baseSlice'
+import Swal from 'sweetalert2'
 
 const namespace = 'orderSlice'
 
@@ -22,12 +23,14 @@ const initialState = {
     color: '',
     quantity: 0,
   },
+  selectCartItemsID: [],
+  checkout: {},
 }
 
 export const getCart = createAsyncThunk(`${namespace}/getCart`, async (id, { rejectWithValue, dispatch }) => {
   dispatch(setLoading(true))
   return await clothShopService
-    .getCart(id)
+    .getCart()
     .then((response) => {
       return response.data
     })
@@ -64,8 +67,8 @@ export const decreaseCartItem = createAsyncThunk(`${namespace}/decreaseCartItem`
   })
 })
 
-export const changeQuantityCartItem = createAsyncThunk(`${namespace}/changeQuantityCartItem`, async (id, obj) => {
-  return await clothShopService.changeQuantityCartItem(id, obj).then((response) => {
+export const changeQuantityCartItem = createAsyncThunk(`${namespace}/changeQuantityCartItem`, async ({ cartItemId, quantity }) => {
+  return await clothShopService.changeQuantityCartItem(cartItemId, quantity).then((response) => {
     return response.data
   })
 })
@@ -76,10 +79,23 @@ export const deleteCartItem = createAsyncThunk(`${namespace}/deleteCartItem`, as
   })
 })
 
-export const checkout = createAsyncThunk(`${namespace}/checkout`, async (cartItemIDs) => {
-  return await clothShopService.checkout(cartItemIDs).then((response) => {
-    return response.data
-  })
+export const checkout = createAsyncThunk(`${namespace}/checkout`, async (_, { getState, rejectWithValue, dispatch }) => {
+  dispatch(setLoading(true))
+  const { selectCartItems } = getState().orderSlice
+
+  const selectCartItemIDs = selectCartItems.map((item) => item.cartItemId)
+
+  return await clothShopService
+    .checkout(selectCartItemIDs)
+    .then((response) => {
+      return response.data
+    })
+    .catch((error) => {
+      return rejectWithValue(error)
+    })
+    .finally(() => {
+      dispatch(setLoading(false))
+    })
 })
 
 export const order = createAsyncThunk(`${namespace}/order`, async (obj) => {
@@ -164,7 +180,6 @@ const baseSlice = createSlice({
         const updatedCartItems = state.cart.cartItems.map((item) => (item.cartItemId === payload.cartItemId ? payload : item))
         state.cart.cartItems = updatedCartItems
 
-        // Cập nhật selectCartItems
         state.selectCartItems = state.selectCartItems.map((item) => {
           if (item.cartItemId === payload.cartItemId) {
             return payload
@@ -191,7 +206,21 @@ const baseSlice = createSlice({
       })
       .addCase(checkout.fulfilled, (state, { payload }) => {
         state.status = HTTP_STATUS.FULFILLED
+        state.checkout = payload
       })
+      .addCase(checkout.rejected, (state, { payload }) => {
+        state.status = HTTP_STATUS.REJECTED
+
+        const msg = payload.response.data
+        const status = payload.response.status
+        if (msg && status === 400) {
+          Swal.fire({
+            icon: 'error',
+            text: payload.response.data,
+          })
+        }
+      })
+
       .addCase(order.fulfilled, (state, { payload }) => {
         state.status = HTTP_STATUS.FULFILLED
       })

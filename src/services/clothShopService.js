@@ -47,8 +47,8 @@ const clothShopService = {
   logout: async () => {
     return await axiosClient.post(`${CLOTHSHOP_API_URL}/logout`)
   },
-  getCart: async (cartId) => {
-    return await axiosClient.get(`${CLOTHSHOP_API_URL.CART.GET_CART}/${cartId}`)
+  getCart: async () => {
+    return await axiosClient.get(`${CLOTHSHOP_API_URL.CART.GET_CART}`)
   },
   addCartItem: async (obj) => {
     return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.CART.ADD_CART_ITEM}`, obj)
@@ -60,7 +60,7 @@ const clothShopService = {
     return await axiosClient.post(`${CLOTHSHOP_API_URL.CART.DECREASE_CART_ITEM}/${cartItemID}`)
   },
   changeQuantityCartItem: async (cartItemID, quantity) => {
-    return await axiosClient.post(`${CLOTHSHOP_API_URL.CART.CHANGE_QUANTITY_CART_ITEM}/${cartItemID}`, quantity)
+    return await axiosClient.post(`${CLOTHSHOP_API_URL.CART.CHANGE_QUANTITY_CART_ITEM}/${cartItemID},${quantity}`)
   },
   deleteCartItem: async (cartItemID) => {
     return await axiosClient.delete(`${CLOTHSHOP_API_URL.CART.DELETE_CART_ITEM}/${cartItemID}`)
