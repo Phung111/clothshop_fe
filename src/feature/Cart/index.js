@@ -16,13 +16,11 @@ export default function Cart() {
 
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(setLoading(true))
     Promise.all([dispatch(getCart(customer.cartId))])
       .then(() => {})
       .catch((error) => {})
       .finally(() => {
         window.scrollTo(0, 0)
-        dispatch(setLoading(false))
       })
   }, [])
 

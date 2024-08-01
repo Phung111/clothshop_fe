@@ -6,9 +6,11 @@ import Search from 'components/Header/Search'
 import Cart from 'components/Header/Cart'
 import { jwtDecode } from 'jwt-decode'
 import { ROLES } from 'app/global'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { getCustomer } from 'slice/authSlice'
 
 export default function Header() {
+  const dispatch = useDispatch()
   const [isHaveManagerment, setIsHaveManagerment] = useState(false)
   const authSlice = useSelector((state) => state.authSlice)
   const customer = authSlice.customer
@@ -20,7 +22,6 @@ export default function Header() {
         const decodedToken = jwtDecode(accessToken)
         const exp = new Date(decodedToken.exp * 1000).getTime()
         const timeNow = new Date().getTime()
-
         if (exp > timeNow) {
           if (decodedToken.role === ROLES.ADMIN) {
             setIsHaveManagerment(true)

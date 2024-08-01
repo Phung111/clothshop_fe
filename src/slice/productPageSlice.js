@@ -94,6 +94,9 @@ export const getProductPage = createAsyncThunk(`${namespace}/getProductPage`, as
   formData.set('priceFrom', request.priceFrom)
   formData.set('priceTo', request.priceTo)
 
+  // const formDataObj = Object.fromEntries(formData.entries())
+  // console.log(formDataObj)
+
   return await clothShopService
     .getProductPage(formData)
     .then((response) => {
@@ -143,7 +146,7 @@ const productPageSlice = createSlice({
       state.request.topsales = action.payload
     },
     setECategories: (state, action) => {
-      state.request.eCategories = [...state.request.eCategories, action.payload]
+      state.request.eCategories = action.payload
     },
     emptyECategories: (state) => {
       state.request.eCategories = []
@@ -255,7 +258,8 @@ const productPageSlice = createSlice({
       })
       .addCase(getProductPage.rejected, (state, { payload }) => {
         state.status = HTTP_STATUS.REJECTED
-        if (payload.response) {
+
+        if (payload && payload.response) {
           state.errorMessage = payload.response.statusText
           state.errorStatus = payload.response.status
         }
@@ -265,6 +269,39 @@ const productPageSlice = createSlice({
 
 const { reducer, actions } = productPageSlice
 
-export const { emptyECategories, upCount, resetCount, setSeeMore, emptySeeMore, setProductSize, setCurrentPage, setKeySearch, setLatest, setNameAsc, setPriceAsc, setTopsales, setECategories, setETopLengths, setECountries, setESeasons, setEStyles, setEShipsFroms, setPriceFrom, setPriceTo, setSize, setNumberOfElements, setTotalElements, setOffset, setPageNumber, setTotalPages, setLast, setFirst, setEmpty, setProducts, clearAllFilters } = actions
+/* prettier-ignore */
+export const { 
+  emptyECategories, 
+  upCount, 
+  resetCount, 
+  setSeeMore, 
+  emptySeeMore, 
+  setProductSize, 
+  setCurrentPage, 
+  setKeySearch, 
+  setLatest, 
+  setNameAsc, 
+  setPriceAsc, 
+  setTopsales, 
+  setECategories, 
+  setETopLengths, 
+  setECountries, 
+  setESeasons, 
+  setEStyles, 
+  setEShipsFroms, 
+  setPriceFrom, 
+  setPriceTo, 
+  setSize, 
+  setNumberOfElements, 
+  setTotalElements, 
+  setOffset, 
+  setPageNumber, 
+  setTotalPages, 
+  setLast, 
+  setFirst, 
+  setEmpty, 
+  setProducts, 
+  clearAllFilters 
+} = actions
 
 export default reducer

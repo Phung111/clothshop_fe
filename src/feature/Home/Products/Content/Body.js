@@ -1,7 +1,7 @@
 import Product from 'components/Product/Product'
 import { useSelector } from 'react-redux'
 
-import Page from 'feature/Management/Body/Page'
+import PaginationProduct from 'components/Pagination/PaginationProduct'
 
 export default function Body() {
   const productPageSlice = useSelector((state) => state.productPageSlice)
@@ -12,7 +12,7 @@ export default function Body() {
     <>
       <div className="flex flex-col gap-10">
         <div className="grid grid-cols-5 gap-3">{products && products.map((item, index) => <Product type={'product'} href={'#'} key={index} product={item} />)}</div>
-        <Page />
+        <PaginationProduct />
       </div>
     </>
   )

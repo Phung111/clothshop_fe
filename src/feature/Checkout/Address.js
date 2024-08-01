@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { setModalSelectAddress, setIsUpdateAddress } from 'slice/modalSlice'
 
 export default function Address() {
   const dispatch = useDispatch()
@@ -9,6 +10,11 @@ export default function Address() {
   const orderSlice = useSelector((state) => state.orderSlice)
   const checkout = orderSlice.checkout
   const address = checkout.address
+
+  const handleChangeAddress = () => {
+    dispatch(setIsUpdateAddress())
+    dispatch(setModalSelectAddress(true))
+  }
 
   return (
     <>
@@ -23,10 +29,16 @@ export default function Address() {
               {address.nameCustomer} - {address.phone}
             </p>
             <p className="text-base capitalize">
-              {address.address}, {address.epronvince}
+              {address.address}, {address.province}
             </p>
-            <div className="flex h-5 w-10 items-center justify-center border border-primary text-[10px] text-primary">Default</div>
-            <button className="text-blue">Change</button>
+            {address.isDefault && (
+              <div className="flex h-6 items-center">
+                <div className="flex h-5 w-10 items-center justify-center border border-primary text-[10px] text-primary">Default</div>
+              </div>
+            )}
+            <div onClick={handleChangeAddress}>
+              <button className="text-blue">Change</button>
+            </div>
           </div>
         </div>
       )}

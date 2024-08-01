@@ -19,8 +19,6 @@ const initialState = {
 }
 
 export const login = createAsyncThunk(`${namespace}/login`, async (obj, { rejectWithValue, dispatch }) => {
-  dispatch(setLoading(true))
-
   return await clothShopService
     .login(obj)
     .then((response) => {
@@ -32,13 +30,10 @@ export const login = createAsyncThunk(`${namespace}/login`, async (obj, { reject
       toast.error('Incorrect username or password')
       return rejectWithValue(error)
     })
-    .finally(() => {
-      dispatch(setLoading(false))
-    })
+    .finally(() => {})
 })
 
 export const signup = createAsyncThunk(`${namespace}/signup`, async (obj, { rejectWithValue, dispatch }) => {
-  dispatch(setLoading(true))
   return await clothShopService
     .signup(obj)
     .then(() => {
@@ -48,9 +43,7 @@ export const signup = createAsyncThunk(`${namespace}/signup`, async (obj, { reje
       toast.error('Sign Up Fail !')
       return rejectWithValue(error)
     })
-    .finally(() => {
-      dispatch(setLoading(false))
-    })
+    .finally(() => {})
 })
 
 const authSlice = createSlice({
@@ -61,15 +54,29 @@ const authSlice = createSlice({
       state.data = payload
     },
     clearAuth: (state) => {
-      localStorage.removeItem('accessToken')
+      localStorage.removeItem('jwt')
+      localStorage.removeItem('customer')
+      localStorage.removeItem('countCartItem')
+      localStorage.removeItem('cart')
+      localStorage.removeItem('product')
+      localStorage.removeItem('seemore')
+      localStorage.removeItem('checkout')
       state.data = {}
     },
     logout: (state, { payload }) => {
       localStorage.removeItem('jwt')
       localStorage.removeItem('customer')
       localStorage.removeItem('countCartItem')
+      localStorage.removeItem('checkout')
+      localStorage.removeItem('cart')
+      localStorage.removeItem('product')
+      localStorage.removeItem('seemore')
       state.data = {}
       state.customer = {}
+    },
+    getCustomer: (state, { payload }) => {
+      const customerLC = JSON.parse(localStorage.getItem('customer'))
+      state.customer = customerLC
     },
   },
   extraReducers(builder) {
@@ -112,6 +119,6 @@ const authSlice = createSlice({
 })
 
 const { reducer, actions } = authSlice
-export const { setAuth, logout } = actions
+export const { getCustomer, setAuth, logout, clearAuth } = actions
 
 export default reducer

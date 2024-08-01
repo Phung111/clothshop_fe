@@ -13,20 +13,10 @@ const initialState = {
   isUpdateProduct: false,
 }
 
-export const getProductById = createAsyncThunk(`${namespace}/getProductById`, async (id, { rejectWithValue, dispatch }) => {
-  dispatch(setLoading(true))
-  return await clothShopService
-    .getProductById(id)
-    .then((response) => {
-      localStorage.setItem('product', JSON.stringify(response.data))
-      return response.data
-    })
-    .catch((error) => {
-      return rejectWithValue(error)
-    })
-    .finally(() => {
-      dispatch(setLoading(false))
-    })
+export const getProductById = createAsyncThunk(`${namespace}/getProductById`, async (id, { dispatch }) => {
+  return await clothShopService.getProductById(id).then((response) => {
+    return response.data
+  })
 })
 
 export const createProduct = createAsyncThunk(`${namespace}/createProduct`, async (obj) => {
@@ -36,6 +26,7 @@ export const createProduct = createAsyncThunk(`${namespace}/createProduct`, asyn
 })
 
 export const updateProduct = createAsyncThunk(`${namespace}/updateProduct`, async (obj, { getState }) => {
+  console.log('obj', obj)
   const { product } = getState().productSlice
   const productID = product.id
   return await clothShopService.updateProduct(productID, obj).then((response) => {
@@ -72,6 +63,7 @@ const productSlice = createSlice({
     builder
       .addCase(getProductById.fulfilled, (state, { payload }) => {
         state.status = HTTP_STATUS.FULFILLED
+        localStorage.setItem('product', JSON.stringify(payload))
         state.product = payload
       })
       .addCase(createProduct.fulfilled, (state, { payload }) => {
@@ -82,6 +74,12 @@ const productSlice = createSlice({
 
 const { reducer, actions } = productSlice
 
-export const { setIsCreateProduct, setIsUpdateProduct, setProduct, emptyProduct } = actions
+/* prettier-ignore */
+export const { 
+  setIsCreateProduct, 
+  setIsUpdateProduct, 
+  setProduct, 
+  emptyProduct 
+} = actions
 
 export default reducer

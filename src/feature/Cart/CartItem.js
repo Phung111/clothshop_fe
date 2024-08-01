@@ -1,12 +1,15 @@
 import Part from 'feature/Cart/Part'
-import { useState, useEffect } from 'react'
+
 import { CLOUDINARY } from 'app/global'
 import { increaseCartItem, decreaseCartItem, changeQuantityCartItem, deleteCartItem } from 'slice/orderSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+
 import Swal from 'sweetalert2'
 
 export default function CartItem({ item }) {
   const dispatch = useDispatch()
+
   const [quantity, setQuantity] = useState(item.quantity)
 
   const [priceAfter, setPriceAfter] = useState((item.price * (100 - item.discount.percent)) / 100)
@@ -100,6 +103,10 @@ export default function CartItem({ item }) {
     })
   }
 
+  const toProductDetail = () => {
+    window.open(`/detail/${item.productId}`, '_blank')
+  }
+
   useEffect(() => {
     setTotal(priceAfter * quantity)
   }, [quantity, priceAfter])
@@ -108,7 +115,7 @@ export default function CartItem({ item }) {
     <>
       <Part item={item}>
         <>
-          <div className="flex items-center gap-2">
+          <div className="flex cursor-pointer items-center gap-2" onClick={toProductDetail}>
             <div className="aspect-square w-20 shrink-0 bg-gray">
               <img src={`${CLOUDINARY.url}/${CLOUDINARY.SCALE_IMAGE_100_100}/${item.image.fileFolder}/${item.image.fileName}`} alt="cart item" className="h-full w-full object-none" />
             </div>

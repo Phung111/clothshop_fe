@@ -1,12 +1,11 @@
 import Button from 'components/Button'
 import PartAdresses from 'feature/Account/Content/MyAccount/Adresses/PartAdresses'
 import { useDispatch } from 'react-redux'
-import { setMyAdress, setCreateAddress } from 'slice/accountSlice'
-
+import { setModalSelectAddress, setIsCreateAddress } from 'slice/modalSlice'
 export default function Adresses() {
   const dispatch = useDispatch()
   const handleClickCreateAddress = () => {
-    dispatch(setCreateAddress(true))
+    dispatch(setIsCreateAddress(true))
   }
   return (
     <>

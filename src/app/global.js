@@ -67,7 +67,7 @@ export const CLOTHSHOP_API_URL = {
     CHECKOUT: `${CART_URL}/checkout`,
   },
   ORDER: {
-    PLACE_ORDER: `${ORDER_URL}/place`,
+    PLACE_ORDER: `${ORDER_URL}/placeOrder`,
   },
   ADDRESS: {
     GET_ALL: `${ADDRESS_URL}`,

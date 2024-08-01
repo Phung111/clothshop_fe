@@ -1,23 +1,7 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { setSide, setMyAccounts } from 'slice/accountSlice'
-
 export default function Side() {
-  const dispatch = useDispatch()
+  const handleClickSide = (target) => {}
 
-  const accounts = useSelector((state) => state.accountSlice.accounts)
-  const myAccount = accounts.find((item) => item.myAccount)
-  const myVoucher = accounts.find((item) => item.myVoucher)
-  const myAccounts = useSelector((state) => state.accountSlice.myAccounts)
-  const profile = myAccounts.find((item) => item.profile)
-  const addresses = myAccounts.find((item) => item.addresses)
-
-  const handleClickSide = (target) => {
-    dispatch(setSide(target))
-  }
-
-  const handleClickMyAccounts = (target) => {
-    dispatch(setMyAccounts(target))
-  }
+  const handleClickMyAccounts = (target) => {}
 
   return (
     <>
@@ -42,17 +26,11 @@ export default function Side() {
             <div className="flex aspect-square h-[20px] items-center justify-center">
               <i className="fa-regular fa-user"></i>
             </div>
-            <div className={`relative flex flex-col items-start ${myAccount && 'gap-3'}`}>
-              <button className={`text-sm capitalize hover:text-primary ${myAccount && 'text-primary'}`} onClick={() => handleClickSide('myAccount')}>
-                my account
-              </button>
-              <div className={`${myAccount ? 'max-h-48' : 'max-h-0'} flex flex-col items-start gap-3 overflow-hidden pl-2 transition-all`}>
-                <button className={`text-sm capitalize hover:text-primary ${myAccount && profile && 'text-primary'}`} onClick={() => handleClickMyAccounts('profile')}>
-                  profile
-                </button>
-                <button className={`text-sm capitalize hover:text-primary ${myAccount && addresses && 'text-primary'}`} onClick={() => handleClickMyAccounts('addresses')}>
-                  addresses
-                </button>
+            <div className={`relative flex flex-col items-start `}>
+              <button className={`text-sm capitalize hover:text-primary `}>my account</button>
+              <div className={`flex max-h-0 flex-col items-start gap-3 overflow-hidden pl-2 transition-all`}>
+                <button className={`text-sm capitalize hover:text-primary `}>profile</button>
+                <button className={`text-sm capitalize hover:text-primary `}>addresses</button>
               </div>
             </div>
           </div>
@@ -60,9 +38,7 @@ export default function Side() {
             <div className="flex aspect-square w-[20px] items-center justify-center">
               <i className="fa-solid fa-ticket"></i>
             </div>
-            <button className={`text-sm capitalize hover:text-primary ${myVoucher && 'text-primary'}`} onClick={() => handleClickSide('myVoucher')}>
-              my voucher
-            </button>
+            <button className={`text-sm capitalize hover:text-primary`}>my voucher</button>
           </div>
         </div>
       </div>

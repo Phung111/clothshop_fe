@@ -1,33 +1,35 @@
-import { BrowserRouter, Route, Routes, Outlet, HashRouter } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, HashRouter, Navigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { ROLES } from 'app/global'
+
+import RequireAuth from 'RequireAuth'
+
 import Utils from 'utils/Utils'
+
+import Modal from 'components/Modal'
+import Loading from 'components/Loading/Loading'
+import SweetArlet from 'components/SweetArlet/SweetArlet'
+import Unauthorized from 'components/Unauthorized'
+import NotFound from 'components/NotFound'
+import LayoutHeaderFooter from 'components/Layout/LayoutHeaderFooter'
+import LayoutLogin from 'components/Layout/LayoutLogin'
+import LayoutManagement from 'components/Layout/LayoutManagement'
+
+import FormLogin from 'feature/Login/FormLogin'
+import FormRegister from 'feature/Login/FormRegister'
+
 import Home from 'feature/Home'
 import ProductDetail from 'feature/ProductDetail'
 import Cart from 'feature/Cart'
 import Checkout from 'feature/Checkout'
 import Account from 'feature/Account'
-import Management from 'feature/Management'
-import Modal from 'components/Modal/Modal'
-import Loading from 'components/Loading/Loading'
-import SweetArlet from 'components/SweetArlet/SweetArlet'
 import Category from 'feature/Category'
-import Header from 'components/Header/Header'
-import Footer from 'components/Footer/Footer'
-import { useSelector } from 'react-redux'
-import LayoutLogin from 'feature/Login/LayoutLogin'
-import FormLogin from 'feature/Login/FormLogin'
-import FormRegister from 'feature/Login/FormRegister'
-import RequireAuth from 'RequireAuth'
-import { ROLES } from 'app/global'
-import Unauthorized from 'components/Unauthorized'
-import NotFound from 'components/NotFound'
 
-const LayoutWithHeaderFooter = () => (
-  <>
-    <Header />
-    <Outlet />
-    <Footer />
-  </>
-)
+import Dasboard from 'feature/Management/Dasboard'
+import Products from 'feature/Management/Products'
+import Banners from 'feature/Management/Banners'
+import Vouchers from 'feature/Management/Vouchers'
+import Orders from 'feature/Management/Orders'
 
 export default function App() {
   const isLoading = useSelector((state) => state.baseSlice.loading)
@@ -39,33 +41,45 @@ export default function App() {
       {isArlert && <SweetArlet />}
       <Utils />
       <Modal />
-      {/* <HashRouter> */}
-      <BrowserRouter>
+      <HashRouter>
+        {/* <BrowserRouter> */}
         <Routes>
           <Route element={<LayoutLogin />}>
             <Route path="/login" element={<FormLogin />} />
             <Route path="/register" element={<FormRegister />} />
           </Route>
 
-          <Route element={<LayoutWithHeaderFooter />}>
+          <Route element={<LayoutHeaderFooter />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.USER]} />}>
               <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/account" element={<Account />} />
             </Route>
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/account" element={<Account />} />
+
             <Route path="/" element={<Home />} />
             <Route path="/clothshop_fe" element={<Home />} />
             <Route path="/detail/:id" element={<ProductDetail />} />
             <Route path="/category/:category" element={<Category />} />
           </Route>
-          <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN]} />}>
-            <Route path="/management" element={<Management />} />
+
+          <Route element={<LayoutManagement />}>
+            <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN]} />}>
+              <Route path="/management">
+                <Route index element={<Navigate to="dashboard" />} />
+                <Route path="dashboard" element={<Dasboard />} />
+                <Route path="products" element={<Products />} />
+                <Route path="orders" element={<Orders />} />
+                <Route path="banners" element={<Banners />} />
+                <Route path="vouchers" element={<Vouchers />} />
+              </Route>
+            </Route>
           </Route>
+
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/notfound" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
-      {/* </HashRouter> */}
+        {/* </BrowserRouter> */}
+      </HashRouter>
     </>
   )
 }

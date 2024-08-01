@@ -12,22 +12,13 @@ export default function Ordered() {
   const orderSlice = useSelector((state) => state.orderSlice)
   const checkout = orderSlice.checkout
   const cartItems = checkout.cartItems
-  console.log('length', cartItems.length)
 
   return (
     <>
       <div className="flex flex-col">
         <div className="flex flex-col gap-10">
           <Head />
-          <div className="flex flex-col gap-5">
-            {cartItems &&
-              cartItems.map((item, index) => (
-                <React.Fragment key={item.id}>
-                  <Item item={item} />
-                  {index !== cartItems.length - 1 && <div className="line" />}
-                </React.Fragment>
-              ))}
-          </div>
+          <div className="flex flex-col gap-5">{cartItems && cartItems.map((item, index) => <Item item={item} key={index} />)}</div>
         </div>
       </div>
     </>

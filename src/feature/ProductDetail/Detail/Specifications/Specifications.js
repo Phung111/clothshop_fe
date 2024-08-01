@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 
 export default function Specifications() {
   const product = useSelector((state) => state.productSlice.product)
+  const isLoading = useSelector((state) => state.baseSlice.loading)
 
   const [category, setCategory] = useState('')
   const [style, setStyle] = useState('')
@@ -13,19 +14,21 @@ export default function Specifications() {
   const [shipfrom, setShipFrom] = useState('')
 
   useEffect(() => {
-    if (product) {
-      setCategory(product.ecategory)
-      setSeason(product.productDetail.eseason)
-      setStyle(product.productDetail.estyle)
-      setCountry(product.productDetail.ecountry)
-      setTopLength(product.productDetail.etopLength)
-      setShipFrom(product.productDetail.eshipsFrom)
+    if (product && !isLoading) {
+      if (product.productDetail) {
+        setCategory(product.ecategory)
+        setSeason(product.productDetail.eseason)
+        setStyle(product.productDetail.estyle)
+        setCountry(product.productDetail.ecountry)
+        setTopLength(product.productDetail.etopLength)
+        setShipFrom(product.productDetail.eshipsFrom)
+      }
     }
-  }, [product])
+  }, [])
 
   return (
     <>
-      {product && (
+      {product && !isLoading && (
         <div className="flex flex-col gap-3 p-4">
           <Model spec={'category'} info={category} />
           <Model spec={'style'} info={style} />

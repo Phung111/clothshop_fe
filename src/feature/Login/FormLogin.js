@@ -90,7 +90,9 @@ export default function FormLogin() {
           </div>
 
           <div className="h-10 w-full overflow-hidden rounded-sm">
-            <Button type={'solid'}>Sign in</Button>
+            <Button type={'solid'} submit={true}>
+              Sign in
+            </Button>
           </div>
         </form>
         <div className="mt-4 flex justify-center">

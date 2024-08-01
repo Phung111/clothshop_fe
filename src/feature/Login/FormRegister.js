@@ -118,7 +118,7 @@ export default function FormRegister() {
                   className={`${cnInput} ${errorsFE.name || (errorsBE && errorsBE.name) ? cnError : cnNormal}`}
                   onBlur={() => trigger('name')}
                 />
-                <ErrorText>{(errorsFE.name && errorsFE.name.message) || (errorsBE && errorsBE.name)} </ErrorText>
+                <ErrorText>{(errorsFE.name && errorsFE.name.message) || (errorsBE && errorsBE.name)}</ErrorText>
               </div>
               <div>
                 <input
@@ -173,7 +173,7 @@ export default function FormRegister() {
                     trigger('dob')
                   }}
                 />
-                <ErrorText>{(errorsFE.dob && errorsFE.dob.message) || (errorsBE && errorsBE.dob)} </ErrorText>
+                <ErrorText>{(errorsFE.dob && errorsFE.dob.message) || (errorsBE && errorsBE.dob)}</ErrorText>
               </div>
               <div>
                 <Select
@@ -207,7 +207,9 @@ export default function FormRegister() {
               </div>
             </div>
             <div className="h-10 w-full overflow-hidden rounded-sm">
-              <Button type={'solid'}>Sign Up</Button>
+              <Button type={'solid'} submit={true}>
+                Sign Up
+              </Button>
             </div>
           </div>
         </form>

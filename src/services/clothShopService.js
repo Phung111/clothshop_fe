@@ -69,19 +69,19 @@ const clothShopService = {
     return await axiosClient.post(`${CLOTHSHOP_API_URL.CART.CHECKOUT}`, cartItemIDs)
   },
   order: async (obj) => {
-    return await axiosClient.post(`${CLOTHSHOP_API_URL.ORDER.PLACE_ORDER}`, obj)
+    return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.ORDER.PLACE_ORDER}`, obj)
   },
   getAllAddress: async () => {
     return await axiosClient.get(`${CLOTHSHOP_API_URL.ADDRESS.GET_ALL}`)
   },
   createAddress: async (obj) => {
-    return await axiosClient.post(`${CLOTHSHOP_API_URL.ADDRESS.CREATE}`, obj)
+    return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.ADDRESS.CREATE}`, obj)
   },
   defaultAddress: async (addressID) => {
     return await axiosClient.post(`${CLOTHSHOP_API_URL.ADDRESS.DEFAULT}/${addressID}`)
   },
   updateAddress: async (addressID, obj) => {
-    return await axiosClient.post(`${CLOTHSHOP_API_URL.ADDRESS.UPDATE}/${addressID}`, obj)
+    return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.ADDRESS.UPDATE}/${addressID}`, obj)
   },
   deleteAddress: async (addressID) => {
     return await axiosClient.delete(`${CLOTHSHOP_API_URL.ADDRESS.DELETE}/${addressID}`)
@@ -93,13 +93,13 @@ const clothShopService = {
     return await axiosClient.get(`${CLOTHSHOP_API_URL.VOUCHER.GET_ALL}`)
   },
   createVoucher: async (obj) => {
-    return await axiosClient.post(`${CLOTHSHOP_API_URL.VOUCHER.CREATE}`, obj)
+    return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.VOUCHER.CREATE}`, obj)
   },
   choseVoucher: async (voucherID) => {
     return await axiosClient.post(`${CLOTHSHOP_API_URL.VOUCHER.CHOSE}/${voucherID}`)
   },
   createDiscount: async (obj) => {
-    return await axiosClient.post(`${CLOTHSHOP_API_URL.DISCOUNT.CREATE}`, obj)
+    return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.DISCOUNT.CREATE}`, obj)
   },
   checkDateDiscount: async () => {
     return await axiosClient.post(`${CLOTHSHOP_API_URL.DISCOUNT.CHECK_DATE}`)
@@ -108,13 +108,13 @@ const clothShopService = {
     return await axiosClient.get(`${CLOTHSHOP_API_URL.BANNER.GET_ALL}`)
   },
   createBanner: async (obj) => {
-    return await axiosClient.post(`${CLOTHSHOP_API_URL.BANNER.CREATE}`, obj)
+    return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.BANNER.CREATE}`, obj)
   },
   deleteBanner: async (bannerID) => {
     return await axiosClient.post(`${CLOTHSHOP_API_URL.BANNER.DELETE}/${bannerID}`)
   },
   deletesBanner: async (bannerIDs) => {
-    return await axiosClient.delete(`${CLOTHSHOP_API_URL.BANNER.DELETEs}`, bannerIDs)
+    return await axiosClient.delete(`${CLOTHSHOP_API_URL.BANNER.DELETES}`, bannerIDs)
   },
 }
 

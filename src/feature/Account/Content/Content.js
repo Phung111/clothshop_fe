@@ -1,5 +1,5 @@
-import MyAccount from 'feature/Account/Content/MyAccount/MyAccount'
-import MyVouchers from 'feature/Account/Content/MyVouchers/MyVouchers'
+import MyAccount from 'feature/Account/Content/MyAccount'
+import MyVouchers from 'feature/Account/Content/MyVouchers'
 
 import { useSelector } from 'react-redux'
 

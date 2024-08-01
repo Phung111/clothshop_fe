@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function PartImg({ file, index, removeImg }) {
   return (
     <div className="group relative rounded-lg bg-white">

@@ -162,4 +162,23 @@ input::-webkit-inner-spin-button {
   .ant-select-selector:focus-within {
     border: 1px solid red !important;
   }
+
+  /* Form Validate */
+  .input {
+    height: 2.5rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 0.5px solid rgba(0, 0, 0, 0.2);
+    padding: 0 1rem;
+    font-size: 0.875rem;
+  }
+
+  .error {
+    border-color: red;
+    border-width: 1px;
+  }
+
+  .normal {
+    border-color: rgba(0, 0, 0, 0.2);
+  }
 }

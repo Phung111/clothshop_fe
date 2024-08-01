@@ -57,7 +57,8 @@
     "git": "git add . && git commit -m 'update' && git push",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "up": "npm run git && npm run deploy"
+    "up": "npm run git && npm run deploy",
+    "clear": "npm cache clean --force && Remove-Item -Recurse -Force node_modules && npm i --force"
   },
   "eslintConfig": {
     "extends": [

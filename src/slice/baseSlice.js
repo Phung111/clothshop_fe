@@ -30,52 +30,32 @@ const initialState = {
   },
 }
 
-export const getHome = createAsyncThunk(`${namespace}/getHome`, async (obj, { rejectWithValue, dispatch }) => {
-  dispatch(setLoading(true))
+export const getHome = createAsyncThunk(`${namespace}/getHome`, async (obj, { rejectWithValue }) => {
   return await clothShopService
     .getHome(obj)
-    .then((response) => {
-      return response.data
-    })
-    .catch((error) => {
-      return rejectWithValue(error)
-    })
-    .finally(() => {
-      dispatch(setLoading(false))
-    })
+    .then((response) => response.data)
+    .catch((error) => rejectWithValue(error))
 })
 
 export const getCollection = createAsyncThunk(`${namespace}/getCollection`, async (obj, { rejectWithValue }) => {
   return await clothShopService
     .getCollection()
-    .then((response) => {
-      return response.data
-    })
-    .catch((error) => {
-      return rejectWithValue(error)
-    })
+    .then((response) => response.data)
+    .catch((error) => rejectWithValue(error))
 })
 
 export const getPronvice = createAsyncThunk(`${namespace}/getPronvice`, async (obj, { rejectWithValue }) => {
   return await clothShopService
     .getPronvice()
-    .then((response) => {
-      return response.data
-    })
-    .catch((error) => {
-      return rejectWithValue(error)
-    })
+    .then((response) => response.data)
+    .catch((error) => rejectWithValue(error))
 })
 
 export const getGender = createAsyncThunk(`${namespace}/getGender`, async (obj, { rejectWithValue }) => {
   return await clothShopService
     .getGender()
-    .then((response) => {
-      return response.data
-    })
-    .catch((error) => {
-      return rejectWithValue(error)
-    })
+    .then((response) => response.data)
+    .catch((error) => rejectWithValue(error))
 })
 
 const baseSlice = createSlice({

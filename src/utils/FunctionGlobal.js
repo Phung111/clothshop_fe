@@ -44,4 +44,14 @@ export default function FunctionGlobal() {
 
     return `${day}-${month}-${year}`
   }
+
+  window.convertDateFormatDot = function (dateString) {
+    const dateParts = dateString.split('-')
+
+    const day = dateParts[0]
+    const month = dateParts[1]
+    const year = dateParts[2]
+
+    return `${day}.${month}.${year}`
+  }
 }

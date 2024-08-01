@@ -14,7 +14,6 @@ export default function Category() {
   const { category } = useParams()
 
   useEffect(() => {
-    dispatch(setLoading(true))
     Promise.all([dispatch(emptyECategories()), dispatch(setECategories(category)), dispatch(setProductSize(20)), dispatch(setCurrentPage(1)), dispatch(emptySeeMore()), dispatch(resetCount()), dispatch(getProductPage())])
     dispatch(getProductPage())
       .then(() => {})
@@ -22,7 +21,6 @@ export default function Category() {
       .finally(() => {
         dispatch(setSeeMore())
         window.scrollTo(0, 0)
-        dispatch(setLoading(false))
       })
   }, [])
 

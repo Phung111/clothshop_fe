@@ -2,7 +2,7 @@ import { jwtDecode } from 'jwt-decode'
 import { useDispatch } from 'react-redux'
 import { useLocation, Navigate, Outlet } from 'react-router-dom'
 import { useEffect } from 'react'
-import { setAuth } from 'slice/authSlice'
+import { setAuth, clearAuth } from 'slice/authSlice'
 
 const RequireAuth = ({ allowedRoles }) => {
   const location = useLocation()

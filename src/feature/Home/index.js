@@ -9,20 +9,16 @@ import ContentHead from 'feature/Home/HomeHead'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getHome, getCollection, setLoading } from 'slice/baseSlice'
-import { getProductPage, setLatest } from 'slice/productPageSlice'
+import { getProductPage, setLatest, emptyECategories } from 'slice/productPageSlice'
 
 export default function Home() {
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(setLoading(true))
-    Promise.all([dispatch(getHome()), dispatch(setLatest(true)), dispatch(getCollection()), dispatch(getProductPage())])
-      .then(() => {
-        dispatch(setLoading(false))
-      })
-      .catch((error) => {})
-      .finally(() => {
-        dispatch(setLoading(false))
-      })
+    dispatch(getHome())
+    dispatch(emptyECategories())
+    dispatch(setLatest(true))
+    dispatch(getCollection())
+    dispatch(getProductPage())
   }, [])
 
   return (
