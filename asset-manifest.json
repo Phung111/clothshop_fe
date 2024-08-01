@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/clothshop_fe/static/css/main.e1095f08.css",
-    "main.js": "/clothshop_fe/static/js/main.dce3c39d.js",
+    "main.css": "/clothshop_fe/static/css/main.d2917b8e.css",
+    "main.js": "/clothshop_fe/static/js/main.514fd002.js",
     "static/media/fontawesome-webfont.svg?v=4.7.0": "/clothshop_fe/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
     "static/media/fa-solid-900.ttf": "/clothshop_fe/static/media/fa-solid-900.bacd5de623fb563b961a.ttf",
     "static/media/inter.ttf": "/clothshop_fe/static/media/inter.3f7acfe50aad7ad68548.ttf",
@@ -31,11 +31,11 @@
     "static/media/fa-v4compatibility.ttf": "/clothshop_fe/static/media/fa-v4compatibility.c8e090db312b0bea2aa2.ttf",
     "static/media/fa-v4compatibility.woff2": "/clothshop_fe/static/media/fa-v4compatibility.cf7f5903d06b79ad60f1.woff2",
     "index.html": "/clothshop_fe/index.html",
-    "main.e1095f08.css.map": "/clothshop_fe/static/css/main.e1095f08.css.map",
-    "main.dce3c39d.js.map": "/clothshop_fe/static/js/main.dce3c39d.js.map"
+    "main.d2917b8e.css.map": "/clothshop_fe/static/css/main.d2917b8e.css.map",
+    "main.514fd002.js.map": "/clothshop_fe/static/js/main.514fd002.js.map"
   },
   "entrypoints": [
-    "static/css/main.e1095f08.css",
-    "static/js/main.dce3c39d.js"
+    "static/css/main.d2917b8e.css",
+    "static/js/main.514fd002.js"
   ]
 }
