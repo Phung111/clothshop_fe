@@ -128,17 +128,16 @@ export default function ModalProduct() {
       setValue('price', product.price || '')
       setValue('quantity', product.quantity || '')
 
-      setValue('category', product.ecategory || '')
-      setValue('color', product.ecolor || '')
-      setValue('size', product.esize || '')
+      setValue('category', product.category || '')
+      setValue('color', product.color || '')
+      setValue('size', product.size || '')
 
       if (product.productDetail) {
-        console.log('product.productDetail', product.productDetail)
-        setValue('country', product.productDetail.ecountry || '')
-        setValue('topLength', product.productDetail.etopLength || '')
-        setValue('season', product.productDetail.eseason || '')
-        setValue('style', product.productDetail.estyle || '')
-        setValue('shipFrom', product.productDetail.eshipsFrom || '')
+        setValue('country', product.productDetail.country || '')
+        setValue('topLength', product.productDetail.topLength || '')
+        setValue('season', product.productDetail.season || '')
+        setValue('style', product.productDetail.style || '')
+        setValue('shipsFrom', product.productDetail.shipsFrom || '')
       }
 
       if (product.discountResDTO) {
@@ -348,7 +347,7 @@ export default function ModalProduct() {
                     <>shipFrom</>
                     {/* prettier-ignore */}
                     <FormValidateSelect 
-                      name="shipFrom" 
+                      name="shipsFrom" 
                       validationRules={{ required: 'shipFrom is required' }} 
                       options={shipfroms.map((item) => ({ label: item, value: item }))} 
                     />
