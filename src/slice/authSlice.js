@@ -3,7 +3,7 @@ import { HTTP_STATUS } from 'app/global'
 import clothShopService from 'services/clothShopService'
 import { toast } from 'react-toastify'
 import { setLoading } from 'slice/baseSlice'
-import { setCountCartItem } from './orderSlice'
+import { setCountCartItem, setCart } from './orderSlice'
 
 const namespace = 'authSlice'
 
@@ -22,8 +22,14 @@ export const login = createAsyncThunk(`${namespace}/login`, async (obj, { reject
   return await clothShopService
     .login(obj)
     .then((response) => {
+      const data = response.data
+      const customer = JSON.stringify(data.customer)
+      const cart = data.cart
+      const jwt = data.jwt
+      dispatch(setCart(cart))
+      localStorage.setItem('customer', customer)
+      localStorage.setItem('jwt', jwt)
       toast.success('Login Successfully !')
-      dispatch(setCountCartItem(response.data.countCartItem))
       return response.data
     })
     .catch((error) => {
@@ -87,11 +93,7 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, { payload }) => {
         state.status = HTTP_STATUS.FULFILLED
         state.data = payload
-        state.customer = payload
-        const customer = payload
-        localStorage.setItem('customer', JSON.stringify(customer))
-        const jwt = payload.jwt
-        localStorage.setItem('jwt', jwt)
+        state.customer = payload.customer
       })
       .addCase(login.rejected, (state, { payload }) => {
         state.status = HTTP_STATUS.REJECTED

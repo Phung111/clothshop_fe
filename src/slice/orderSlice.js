@@ -1,32 +1,28 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import clothShopService from 'services/clothShopService'
 import { HTTP_STATUS } from 'app/global'
-import { setLoading } from './baseSlice'
 import Swal from 'sweetalert2'
 import { toast } from 'react-toastify'
 
 const namespace = 'orderSlice'
 
-const countCartItemLS = JSON.parse(localStorage.getItem('countCartItem'))
-
+const cartLS = JSON.parse(localStorage.getItem('cart'))
 const checkoutLS = JSON.parse(localStorage.getItem('checkout'))
 
 const initialState = {
-  cart: {
+  cart: cartLS || {
     cartId: null,
     cartItems: [],
     count: null,
   },
-  countCartItem: countCartItemLS || null,
   selectCartItems: [],
   cartItemsTotal: 0,
   cartItem: {
     idProduct: 0,
     size: '',
     color: '',
-    quantity: 0,
+    quantity: 1,
   },
-  selectCartItemsID: [],
   checkout: checkoutLS || {
     address: {},
     cartItems: [],
@@ -38,9 +34,10 @@ const initialState = {
       grandTotal: 0,
     },
   },
+  status: HTTP_STATUS.IDLE,
 }
 
-export const getCart = createAsyncThunk(`${namespace}/getCart`, async (id, { rejectWithValue, dispatch }) => {
+export const getCart = createAsyncThunk(`${namespace}/getCart`, async (id, { rejectWithValue }) => {
   return await clothShopService
     .getCart()
     .then((response) => {
@@ -52,7 +49,7 @@ export const getCart = createAsyncThunk(`${namespace}/getCart`, async (id, { rej
     .finally(() => {})
 })
 
-export const addCartItem = createAsyncThunk(`${namespace}/addCartItem`, async (obj, { getState }) => {
+export const addCartItem = createAsyncThunk(`${namespace}/addCartItem`, async (obj, { rejectWithValue, getState }) => {
   const { cartItem } = getState().orderSlice
   let formData = new FormData()
   formData.append('idProduct', cartItem.idProduct)
@@ -60,9 +57,17 @@ export const addCartItem = createAsyncThunk(`${namespace}/addCartItem`, async (o
   formData.append('color', cartItem.color)
   formData.append('quantity', cartItem.quantity)
 
-  return await clothShopService.addCartItem(formData).then((response) => {
-    return response.data
-  })
+  return await clothShopService
+    .addCartItem(formData)
+    .then((response) => {
+      toast.success('Add product to cart successfully!')
+      return response.data
+    })
+    .catch((error) => {
+      toast.error('Please select Size and Color')
+      return rejectWithValue(error)
+    })
+    .finally(() => {})
 })
 
 export const increaseCartItem = createAsyncThunk(`${namespace}/increaseCartItem`, async (id) => {
@@ -142,10 +147,7 @@ const orderSlice = createSlice({
   reducers: {
     setCart: (state, action) => {
       state.cart = action.payload
-    },
-    setCountCartItem: (state, action) => {
-      state.countCartItem = action.payload
-      localStorage.setItem('countCartItem', JSON.stringify(action.payload))
+      localStorage.setItem('cart', JSON.stringify(action.payload))
     },
     setCartItemIDProduct: (state, action) => {
       state.cartItem.idProduct = action.payload
@@ -161,8 +163,7 @@ const orderSlice = createSlice({
     },
     emptyCart: (state) => {
       state.cart = {}
-      state.countCartItem = null
-      localStorage.removeItem('countCartItem')
+      localStorage.removeItem('cart')
     },
     selectCartItem: (state, action) => {
       state.selectCartItems.push(action.payload)
@@ -246,8 +247,8 @@ const orderSlice = createSlice({
       .addCase(addCartItem.fulfilled, (state, { payload }) => {
         state.status = HTTP_STATUS.FULFILLED
         state.cart = payload
-        state.countCartItem = payload.count
-        localStorage.setItem('countCartItem', JSON.stringify(payload.count))
+        state.cart.count = payload.count
+        localStorage.setItem('cart', JSON.stringify(state.cart))
       })
       .addCase(increaseCartItem.fulfilled, (state, { payload }) => {
         state.status = HTTP_STATUS.FULFILLED
@@ -261,6 +262,7 @@ const orderSlice = createSlice({
           }
           return item
         })
+        localStorage.setItem('cart', JSON.stringify(state.cart))
       })
       .addCase(decreaseCartItem.fulfilled, (state, { payload }) => {
         state.status = HTTP_STATUS.FULFILLED
@@ -274,6 +276,7 @@ const orderSlice = createSlice({
           }
           return item
         })
+        localStorage.setItem('cart', JSON.stringify(state.cart))
       })
       .addCase(changeQuantityCartItem.fulfilled, (state, { payload }) => {
         state.status = HTTP_STATUS.FULFILLED
@@ -287,10 +290,12 @@ const orderSlice = createSlice({
           }
           return item
         })
+        localStorage.setItem('cart', JSON.stringify(state.cart))
       })
       .addCase(deleteCartItem.fulfilled, (state, { payload }) => {
         state.status = HTTP_STATUS.FULFILLED
         state.cart.cartItems = state.cart.cartItems.filter((item) => item.cartItemId !== payload.cartItemId)
+        localStorage.setItem('cart', JSON.stringify(state.cart))
       })
       .addCase(checkout.fulfilled, (state, { payload }) => {
         state.status = HTTP_STATUS.FULFILLED
@@ -309,15 +314,61 @@ const orderSlice = createSlice({
           })
         }
       })
-
+      .addCase(order.pending, (state, { payload }) => {
+        state.status = HTTP_STATUS.PENDING
+      })
       .addCase(order.fulfilled, (state, { payload }) => {
+        // Lấy danh sách cartItemId từ checkout
+        const checkoutCartItemIds = state.checkout.cartItems.map((item) => item.cartItemId)
+
+        // Lọc cartItems trong cart, loại bỏ các item có cartItemId trùng với checkout
+        state.cart.cartItems = state.cart.cartItems.filter((item) => !checkoutCartItemIds.includes(item.cartItemId))
+        state.cart.count = state.cart.cartItems.length
+
+        // Đưa cartItems của checkout về mảng rỗng
+        state.checkout.address = {}
+        state.checkout.cartItems = []
+        state.checkout.voucher = {}
+        state.checkout.total.itemsTotal = 0
+        state.checkout.total.shipTotal = 0
+        state.checkout.total.voucherTotal = 0
+        state.checkout.total.grandTotal = 0
+        // Cập nhật lại cart và checkout trong localStorage
+        localStorage.setItem('cart', JSON.stringify(state.cart))
+        localStorage.setItem('checkout', JSON.stringify(state.checkout))
+
         state.status = HTTP_STATUS.FULFILLED
+      })
+      .addCase(order.rejected, (state, { payload }) => {
+        state.status = HTTP_STATUS.REJECTED
       })
   },
 })
 
 const { reducer, actions } = orderSlice
 
-export const { calVoucherTotal, calGrandTotal, setVoucherTotal, setShipTotal, setItemTotal, setAddress, emptyVoucher, setVoucher, calCartItemsTotal, selectCartItem, deselectCartItem, selectAllCartItems, deselectAllCartItems, setCountCartItem, emptyCart, setCartItemQuantity, setCartItemColor, setCartItemSize, setCartItemIDProduct, setCart } = actions
+/* prettier-ignore */
+export const { 
+  calVoucherTotal, 
+  calGrandTotal, 
+  setVoucherTotal, 
+  setShipTotal, 
+  setItemTotal,
+  setAddress,
+  emptyVoucher,
+  setVoucher,
+  calCartItemsTotal,
+  selectCartItem,
+  deselectCartItem,
+  selectAllCartItems,
+  deselectAllCartItems,
+  setCountCartItem,
+  emptyCart,
+  setCartItemQuantity,
+  setCartItemColor,
+  setCartItemSize, 
+  setCartItemIDProduct, 
+  setCart 
+} = actions
 
 export default reducer

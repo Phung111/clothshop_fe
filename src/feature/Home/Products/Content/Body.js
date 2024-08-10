@@ -11,7 +11,7 @@ export default function Body() {
   return (
     <>
       <div className="flex flex-col gap-10">
-        <div className="grid grid-cols-5 gap-3">{products && products.map((item, index) => <Product type={'product'} href={'#'} key={index} product={item} />)}</div>
+        <div className="grid grid-cols-5 gap-4">{products && products.map((item, index) => <Product type={'product'} href={'#'} key={index} product={item} />)}</div>
         <PaginationProduct />
       </div>
     </>

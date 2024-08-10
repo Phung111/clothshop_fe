@@ -16,15 +16,15 @@ export default function Specifications() {
   useEffect(() => {
     if (product && !isLoading) {
       if (product.productDetail) {
-        setCategory(product.ecategory)
-        setSeason(product.productDetail.eseason)
-        setStyle(product.productDetail.estyle)
-        setCountry(product.productDetail.ecountry)
-        setTopLength(product.productDetail.etopLength)
-        setShipFrom(product.productDetail.eshipsFrom)
+        setCategory(product.category)
+        setSeason(product.productDetail.season)
+        setStyle(product.productDetail.style)
+        setCountry(product.productDetail.country)
+        setTopLength(product.productDetail.topLength)
+        setShipFrom(product.productDetail.shipsFrom)
       }
     }
-  }, [])
+  }, [product, isLoading])
 
   return (
     <>

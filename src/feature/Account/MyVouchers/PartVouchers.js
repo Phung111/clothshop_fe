@@ -12,6 +12,10 @@ export default function PartVouchers({ noRadio, item }) {
     dispatch(setVoucher(item))
   }
 
+  // useEffect(() => {
+  //   console.log('item', item)
+  // }, [])
+
   return (
     <>
       <label htmlFor={item.id} className="flex cursor-pointer">
@@ -26,14 +30,21 @@ export default function PartVouchers({ noRadio, item }) {
             <p className="flex items-center gap-1 text-black/50">
               <i className="fa-regular fa-clock text-xs" />
               <span className="capitalize">use from:</span>
-              <span className="">{window.convertDateFormatDot(item.dateStart)}</span>
+              <span className="">{item.dateStart && window.convertDateFormatDot(item.dateStart)}</span>
               <span className="">-</span>
-              <span className="">{window.convertDateFormatDot(item.dateEnd)}</span>
+              <span className="">{item.dateEnd && window.convertDateFormatDot(item.dateEnd)}</span>
             </p>
           </div>
           {!noRadio && (
             <div className="flex">
-              <input checked={voucher && voucher.id === item.id} type="radio" id={item.id} name="voucherOption" className="mt-1 aspect-square w-4 cursor-pointer accent-primary" onChange={handleRadioChange} />
+              {/* prettier-ignore */}
+              <input 
+                checked={voucher ? voucher.id === item.id : false} 
+                type="radio" id={item.id} 
+                name="voucherOption" 
+                className="mt-1 aspect-square w-4 cursor-pointer accent-primary" 
+                onChange={handleRadioChange} 
+              />
             </div>
           )}
         </div>

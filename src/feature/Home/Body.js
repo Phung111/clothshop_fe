@@ -4,7 +4,7 @@ import Bestsales from 'feature/Home/BestSales'
 import Categories from 'feature/Home/Categories'
 import Products from 'feature/Home/HomeBody/Products/Products'
 
-import ContentHead from 'feature/Home/HomeHead'
+import ContentHead from 'feature/Home/ContentHead'
 
 export default function Body() {
   return (

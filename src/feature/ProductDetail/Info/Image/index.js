@@ -28,7 +28,7 @@ export default function Image() {
 
   return (
     <>
-      <div className="flex w-[450px] flex-col gap-3">
+      <div className="flex !w-[450px] shrink-0 flex-col gap-3">
         <img src={mainImage} className="aspect-square w-full object-contain" alt="Main Product" />
         <Swiper
           style={{
@@ -45,14 +45,23 @@ export default function Image() {
           }}
           slidesPerView={5}
           spaceBetween={12}
-          className="h-full w-full"
+          className="h-[80px] w-full"
         >
           {images &&
-            images.map((image, index) => (
-              <SwiperSlide key={index} className={`cursor-pointer outline-2 -outline-offset-2 outline-primary ${image.id === imgIndex && 'outline'} hover:outline`} onMouseEnter={() => handleImageClick(image)}>
-                <img src={`${CLOUDINARY.url}/${CLOUDINARY.SCALE_IMAGE_100_100}/${image.fileFolder}/${image.fileName}`} className="aspect-square w-20 object-cover" alt={`Product ${index}`} />
+            images.map((image, index) =>
+              /* prettier-ignore */
+              <SwiperSlide 
+                key={index} 
+                className={`cursor-pointer outline-2 -outline-offset-2 outline-primary ${image.id === imgIndex && 'outline'} hover:outline`} 
+                onMouseEnter={() => handleImageClick(image)}
+              >
+                <img 
+                  src={`${CLOUDINARY.url}/${CLOUDINARY.SCALE_IMAGE_100_100}/${image.fileFolder}/${image.fileName}`} 
+                  className="aspect-square w-20 object-cover" 
+                  alt={`Product ${index}`} 
+                />
               </SwiperSlide>
-            ))}
+            )}
           <button className="swiper-button-prev" />
           <button className="swiper-button-next" />
         </Swiper>

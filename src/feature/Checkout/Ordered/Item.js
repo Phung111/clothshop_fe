@@ -5,6 +5,8 @@ export default function Item({ item }) {
     window.open(`/detail/${item.productId}`, '_blank')
   }
 
+  console.log('item', item)
+
   return (
     <>
       <Part>

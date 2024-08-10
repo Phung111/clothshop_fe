@@ -55,17 +55,6 @@ export default function Head() {
               />
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <p className="">1/9</p>
-            <div className="flex h-full gap-1">
-              <button className="flex aspect-square h-full w-9 items-center justify-center border-[0.5px] border-black/10 disabled:bg-white disabled:opacity-40" disabled>
-                <i className="fa-solid fa-chevron-left text-sm"></i>
-              </button>
-              <button className="flex aspect-square h-full w-9 items-center justify-center border-[0.5px] border-black/10">
-                <i className="fa-solid fa-chevron-right text-sm"></i>
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </>

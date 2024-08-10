@@ -32,19 +32,19 @@ export default function Side() {
 
           <PartHead>order</PartHead>
           <Part href={'/management/orders'} select={selected === '/management/orders'}>
-            <i className="fa-regular fa-clipboard"></i>
+            <i className="fa-solid fa-clipboard"></i>
             <>order</>
           </Part>
 
           <PartHead>banner</PartHead>
           <Part href={'/management/banners'} select={selected === '/management/banners'}>
-            <i className="fa-regular fa-clipboard"></i>
+            <i className="fa-solid fa-panorama"></i>
             <>banner</>
           </Part>
 
           <PartHead>voucher</PartHead>
           <Part href={'/management/vouchers'} select={selected === '/management/vouchers'}>
-            <i className="fa-regular fa-clipboard"></i>
+            <i className="fa-solid fa-ticket"></i>
             <>voucher</>
           </Part>
         </div>

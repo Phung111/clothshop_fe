@@ -3,18 +3,19 @@ import { useEffect, useState } from 'react'
 
 export default function Cart() {
   const orderSlice = useSelector((state) => state.orderSlice)
-  const countCartItem = orderSlice.countCartItem
+  const cart = orderSlice.cart
 
-  const [count, setCount] = useState(countCartItem)
+  const [count, setCount] = useState(cart.count)
 
   useEffect(() => {
-    const countCartItem = JSON.parse(localStorage.getItem('countCartItem'))
-    if (countCartItem) {
-      setCount(countCartItem)
+    const cartLS = JSON.parse(localStorage.getItem('cart'))
+    if (cartLS && cartLS.count != null) {
+      const countLS = cartLS.count
+      setCount(countLS)
     } else {
       setCount(null)
     }
-  }, [countCartItem])
+  }, [cart])
 
   return (
     <>

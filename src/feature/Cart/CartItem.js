@@ -2,7 +2,7 @@ import Part from 'feature/Cart/Part'
 
 import { CLOUDINARY } from 'app/global'
 import { increaseCartItem, decreaseCartItem, changeQuantityCartItem, deleteCartItem } from 'slice/orderSlice'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 
 import Swal from 'sweetalert2'
@@ -12,7 +12,7 @@ export default function CartItem({ item }) {
 
   const [quantity, setQuantity] = useState(item.quantity)
 
-  const [priceAfter, setPriceAfter] = useState((item.price * (100 - item.discount.percent)) / 100)
+  const [priceAfter, setPriceAfter] = useState(item.priceTotal)
 
   const [total, setTotal] = useState(item.total)
 
@@ -68,7 +68,7 @@ export default function CartItem({ item }) {
   }
 
   const handleBlur = () => {
-    if (quantity === 0 || quantity == null || quantity == '') {
+    if (quantity === 0 || quantity === null || quantity === '') {
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -128,8 +128,8 @@ export default function CartItem({ item }) {
         </>
         <>
           <div className="flex justify-center gap-2">
-            <p className="text-black/50 line-through">₫{window.formatNumberNođ(item.price)}</p>
-            <p className="text-sm">₫{window.formatNumberNođ(priceAfter)}</p>
+            {item.discount && <p className="text-black/50 line-through">₫{window.formatNumberNođ(item.price)}</p>}
+            <p className="text-sm">₫{window.formatNumberNođ(item.priceTotal)}</p>
           </div>
         </>
         <>

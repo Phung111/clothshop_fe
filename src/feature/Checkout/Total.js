@@ -18,10 +18,15 @@ export default function Total() {
 
   useEffect(() => {
     dispatch(calGrandTotal())
-  }, [total])
+  }, [total, dispatch])
 
   const placeOrder = () => {
-    dispatch(order())
+    Promise.all([dispatch(order())])
+      .then(() => {
+        navigate('/account/purchase')
+      })
+      .catch((error) => {})
+      .finally(() => {})
   }
 
   return (

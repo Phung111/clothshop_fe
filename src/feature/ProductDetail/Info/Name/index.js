@@ -1,6 +1,6 @@
-import Size from 'feature/ProductDetail/Info/Name/Size/Size'
-import Color from 'feature/ProductDetail/Info/Name/Color/Color'
-import Quantity from 'feature/ProductDetail/Info/Name/Quantity/Quantity'
+import Size from 'feature/ProductDetail/Info/Name/Size'
+import Color from 'feature/ProductDetail/Info/Name/Color'
+import Quantity from 'feature/ProductDetail/Info/Name/Quantity'
 import Button from 'components/Button'
 import { useSelector, useDispatch } from 'react-redux'
 import { addCartItem } from 'slice/orderSlice'
@@ -31,11 +31,11 @@ export default function Name() {
         {discount && (
           <div className="bg-[url('assets/images/bg_sale_time.jpg')]">
             <div className="flex h-9 items-center justify-between px-5">
-              <img src={require(`assets/images/flash_sale.png`)} className="h-[21px] w-[122px] object-contain" />
+              <img src={require(`assets/images/flash_sale.png`)} className="h-[21px] w-[122px] object-contain" alt="product" />
               <div className="flex items-center gap-2 text-white">
                 <i className="fa-regular fa-clock" />
                 <p className="uppercase">ends in</p>
-                <p className="">{discount.dateEnd}</p>
+                <p className="">{window.convertDateFormat(discount.dateEnd)}</p>
               </div>
             </div>
           </div>

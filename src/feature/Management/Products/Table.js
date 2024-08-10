@@ -1,9 +1,9 @@
 import { setModalProduct, setIsUpdateProduct } from 'slice/modalSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductById } from 'slice/productSlice'
-import { setLoading } from 'slice/baseSlice'
 import { CLOUDINARY } from 'app/global'
 import SweetArlet from 'components/SweetArlet/SweetArlet'
+import NoData from 'components/NoData'
 
 export default function Table() {
   let thClass = 'border border-slate-600 capitalize px-2 whitespace-nowrap py-2'
@@ -37,7 +37,7 @@ export default function Table() {
 
   return (
     <>
-      {noData && <div className="flex h-10 w-full items-center justify-center">NO DATA</div>}
+      {noData && <NoData />}
       {!noData && products && (
         <table className="w-full table-auto border-collapse">
           <thead className="sticky left-0 top-0 bg-white shadow">
@@ -77,15 +77,15 @@ export default function Table() {
                   <td className={`${tdClass} whitespace-nowrap text-right`}>{window.formatCurrency(item.price)}</td>
                   <td className={`${tdClass} text-right`}>{item.quantity}</td>
                   <td className={`${tdClass} text-right`}>{item.sold}</td>
-                  <td className={`${tdClass} uppercase`}>{item.ecategory}</td>
+                  <td className={`${tdClass} uppercase`}>{item.category}</td>
                   <td className={`${tdClass} text-right`}>{item.discountResDTO ? item.discountResDTO.percent : 0}%</td>
-                  <td className={`${tdClass} whitespace-nowrap`}>{item.discountResDTO ? item.discountResDTO.dateStart : ''}</td>
-                  <td className={`${tdClass} whitespace-nowrap`}>{item.discountResDTO ? item.discountResDTO.dateEnd : ''}</td>
-                  <td className={`${tdClass} uppercase`}>{item.productDetail.etopLength}</td>
-                  <td className={`${tdClass} uppercase`}>{item.productDetail.ecountry}</td>
-                  <td className={`${tdClass} uppercase`}>{item.productDetail.eseason}</td>
-                  <td className={`${tdClass} uppercase`}>{item.productDetail.estyle}</td>
-                  <td className={`${tdClass} uppercase`}>{item.productDetail.eshipsFrom}</td>
+                  <td className={`${tdClass} whitespace-nowrap`}>{item.discountResDTO ? window.convertDateFormat(item.discountResDTO.dateStart) : ''}</td>
+                  <td className={`${tdClass} whitespace-nowrap`}>{item.discountResDTO ? window.convertDateFormat(item.discountResDTO.dateEnd) : ''}</td>
+                  <td className={`${tdClass} uppercase`}>{item.productDetail.topLength}</td>
+                  <td className={`${tdClass} uppercase`}>{item.productDetail.country}</td>
+                  <td className={`${tdClass} uppercase`}>{item.productDetail.season}</td>
+                  <td className={`${tdClass} uppercase`}>{item.productDetail.style}</td>
+                  <td className={`${tdClass} uppercase`}>{item.productDetail.shipsFrom}</td>
                 </tr>
               ))}
           </tbody>

@@ -56,26 +56,28 @@ export default function Account() {
     navigate('/')
   }
 
-  const handleToMyAccount = () => {}
+  const handleToMyAccount = () => {
+    navigate('/account')
+  }
 
   return (
     <>
       {isCustomer && (
-        <div className="group relative cursor-pointer" onClick={handleToMyAccount}>
-          <div className="flex h-full items-center gap-2 text-white ">
+        <div className="group relative cursor-pointer">
+          <div onClick={() => navigate('/account')} className="flex h-full items-center gap-2 text-white ">
             <i className="fa-solid fa-circle-user" />
             <p className="hover:opacity-70">{name}</p>
           </div>
           <div className="absolute z-[2000] max-h-0 w-[150px] overflow-hidden rounded-sm bg-white shadow-2xl transition-all duration-500 ease-in-out group-hover:max-h-[1000px]">
-            <a href="#">
-              <p className={classP}>My Account</p>
-            </a>
-            <a href="#">
-              <p className={classP}>My Purchase</p>
-            </a>
-            <a href="#" onClick={handleLogOut}>
-              <p className={classP}>Log Out</p>
-            </a>
+            <p onClick={() => navigate('/account')} className={classP}>
+              My Account
+            </p>
+            <p onClick={() => navigate('/account/purchase')} className={classP}>
+              My Purchase
+            </p>
+            <p onClick={handleLogOut} className={classP}>
+              Log Out
+            </p>
           </div>
         </div>
       )}

@@ -1,3 +1,5 @@
+import Part from 'feature/Account/Side/Part'
+
 export default function Side() {
   const handleClickSide = (target) => {}
 
@@ -22,6 +24,10 @@ export default function Side() {
           <div className="line"></div>
         </div>
         <div className="flex flex-col gap-4">
+          <Part>
+            <i className="fa-solid fa-ticket"></i>
+            <>my voucher</>
+          </Part>
           <div className="flex gap-3">
             <div className="flex aspect-square h-[20px] items-center justify-center">
               <i className="fa-regular fa-user"></i>

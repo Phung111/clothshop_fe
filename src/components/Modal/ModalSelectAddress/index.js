@@ -1,5 +1,5 @@
 import Button from 'components/Button'
-import PartAdresses from 'feature/Account/Content/MyAccount/Adresses/PartAdresses'
+import PartAdresses from 'feature/Account/MyAddesses/PartAdresses'
 import { setModalSelectAddress, setIsCreateAddress, setModalEditAddress } from 'slice/modalSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -46,7 +46,7 @@ export default function ModalSelectAddress() {
           <div className="flex h-full w-full flex-col gap-3">
             <h2 className="text-xl font-normal capitalize">my address</h2>
             <div className="line" />
-            <div className="flex flex-col gap-3">{addresses && addresses.map((item, index) => <PartAdresses item={item} isDefault={true} key={index} />)}</div>
+            <div className="flex flex-col gap-3">{addresses && addresses.map((item, index) => <PartAdresses item={item} key={index} />)}</div>
             <div className="flex h-10 w-[180px]" onClick={createAddress}>
               <Button>
                 <i className="fa-solid fa-plus" /> add new address

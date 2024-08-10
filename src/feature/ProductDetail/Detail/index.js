@@ -1,6 +1,6 @@
 import Head from 'feature/ProductDetail/Detail/Head'
-import Specifications from 'feature/ProductDetail/Detail/Specifications/Specifications'
-import Description from 'feature/ProductDetail/Detail/Description/Description'
+import Specifications from 'feature/ProductDetail/Detail/Specifications'
+import Description from 'feature/ProductDetail/Detail/Description'
 
 export default function Detail() {
   return (

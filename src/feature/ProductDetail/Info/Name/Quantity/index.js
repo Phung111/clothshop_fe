@@ -2,11 +2,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import Chose from 'feature/ProductDetail/Info/Name/Chose'
 import { setCartItemQuantity } from 'slice/orderSlice'
 
-export default function Quantity({}) {
+export default function Quantity() {
   const dispatch = useDispatch()
   const quantity = useSelector((state) => state.orderSlice.cartItem.quantity)
   const decreaseQuantity = () => {
-    dispatch(setCartItemQuantity(Math.max(quantity - 1, 0)))
+    if (quantity > 1) {
+      dispatch(setCartItemQuantity(quantity - 1))
+    }
   }
 
   const increaseQuantity = () => {

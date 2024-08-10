@@ -4,12 +4,12 @@ import Bestsales from 'feature/Home/BestSales'
 import Categories from 'feature/Home/Categories'
 import Products from 'feature/Home/Products'
 
-import ContentHead from 'feature/Home/HomeHead'
+import ContentHead from 'feature/Home/ContentHead'
 
-import { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getHome, getCollection, setLoading } from 'slice/baseSlice'
-import { getProductPage, setLatest, emptyECategories } from 'slice/productPageSlice'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { getHome, getCollection } from 'slice/baseSlice'
+import { getProductPage, setLatest, emptyECategories, setSize, setCurrentPage } from 'slice/productPageSlice'
 
 export default function Home() {
   const dispatch = useDispatch()
@@ -18,8 +18,10 @@ export default function Home() {
     dispatch(emptyECategories())
     dispatch(setLatest(true))
     dispatch(getCollection())
+    dispatch(setSize(60))
+    dispatch(setCurrentPage(1))
     dispatch(getProductPage())
-  }, [])
+  }, [dispatch])
 
   return (
     <>

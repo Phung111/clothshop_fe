@@ -71,6 +71,15 @@ const clothShopService = {
   order: async (obj) => {
     return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.ORDER.PLACE_ORDER}`, obj)
   },
+  getOrder: async (obj) => {
+    return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.ORDER.GET_ORDER}`, obj)
+  },
+  getMore: async (obj) => {
+    return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.ORDER.GET_ORDER_BY_CUSTOMER}`, obj)
+  },
+  getOrderbyID: async (orderID) => {
+    return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.ORDER.GET_ORDER}/${orderID}`)
+  },
   getAllAddress: async () => {
     return await axiosClient.get(`${CLOTHSHOP_API_URL.ADDRESS.GET_ALL}`)
   },
@@ -91,6 +100,12 @@ const clothShopService = {
   },
   getAllVoucher: async () => {
     return await axiosClient.get(`${CLOTHSHOP_API_URL.VOUCHER.GET_ALL}`)
+  },
+  getVoucherPage: async (obj) => {
+    return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.VOUCHER.GET_PAGE}`, obj)
+  },
+  getVoucherPageValid: async (obj) => {
+    return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.VOUCHER.GET_PAGE_VALID}`, obj)
   },
   createVoucher: async (obj) => {
     return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.VOUCHER.CREATE}`, obj)

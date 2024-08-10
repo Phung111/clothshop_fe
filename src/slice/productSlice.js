@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import clothShopService from 'services/clothShopService'
 import { HTTP_STATUS } from 'app/global'
-import { setLoading } from './baseSlice'
 
 const namespace = 'productSlice'
 
@@ -26,7 +25,6 @@ export const createProduct = createAsyncThunk(`${namespace}/createProduct`, asyn
 })
 
 export const updateProduct = createAsyncThunk(`${namespace}/updateProduct`, async (obj, { getState }) => {
-  console.log('obj', obj)
   const { product } = getState().productSlice
   const productID = product.id
   return await clothShopService.updateProduct(productID, obj).then((response) => {

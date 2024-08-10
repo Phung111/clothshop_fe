@@ -4,6 +4,7 @@ import ModalSelectVoucher from 'components/Modal/ModalSelectVoucher'
 import ModalProduct from './ModalProduct'
 import ModalCreateVoucher from './ModalCreateVoucher'
 import ModalCreateBanner from './ModalCreateBanner'
+import ModalOrderDetail from './ModalOrderDetail'
 
 import { useSelector } from 'react-redux'
 
@@ -15,6 +16,7 @@ export default function Modal() {
   const modalCreateVoucher = modalSlice.modalCreateVoucher
   const modalSelectAddress = modalSlice.modalSelectAddress
   const modalEditAddress = modalSlice.modalEditAddress
+  const modalOrderDetail = modalSlice.modalOrderDetail
 
   return (
     <>
@@ -28,6 +30,7 @@ export default function Modal() {
       {modalSelectAddress && <ModalSelectAddress />}
       {modalEditAddress && <ModalEditAddress />}
 
+      {modalOrderDetail && <ModalOrderDetail />}
       <ModalCreateBanner />
     </>
   )

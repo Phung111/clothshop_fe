@@ -22,9 +22,13 @@ export default function FormUploadImage({ name }) {
   const validateImage = (files) => {
     if (files || files.length > 0) {
       files.forEach((file, index) => {
-        if (!file.type.startsWith('image/')) {
-          setError(`${name}Errors.${index}`, { type: 'manual', message: `not image` })
+        const validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp'] // Thêm các đuôi ảnh khác nếu cần
+        const fileExtension = file.name.split('.').pop().toLowerCase()
+
+        if (!validExtensions.includes(fileExtension)) {
+          setError(`${name}Errors.${index}`, { type: 'manual', message: `Invalid image format.` })
         }
+
         if (file.size > 5 * 1024 * 1024) {
           setError(`${name}Errors.${index}`, { type: 'manual', message: `5MB size limit.` })
         }

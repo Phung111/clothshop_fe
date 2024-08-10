@@ -1,4 +1,4 @@
-import PartVouchers from 'feature/Account/Content/MyVouchers/PartVouchers'
+import PartVouchers from 'feature/Account/MyVouchers/PartVouchers'
 import Button from 'components/Button'
 import { setModalSelectVoucher } from 'slice/modalSlice'
 import { getAllVoucher, choseVoucher } from 'slice/otherSlice'
@@ -52,7 +52,10 @@ export default function ModalSelectVoucher() {
             </div>
 
             <div className="line" />
-            <div className="flex max-h-[384px] flex-col gap-3 overflow-scroll">{vouchers && vouchers.map((item, index) => <PartVouchers item={item} key={index} />)}</div>
+            <div className="flex max-h-[384px] flex-col gap-3 overflow-scroll">
+              {/* prettier-ignore */}
+              {vouchers && vouchers.map((item, index) => <PartVouchers item={item} key={index} />)}
+            </div>
             <div className="flex justify-end gap-3">
               <div className="h-9 w-[140px] overflow-hidden rounded-sm" onClick={cancelSelectVoucher}>
                 <Button>cancel</Button>

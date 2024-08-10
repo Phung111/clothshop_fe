@@ -1,4 +1,4 @@
-export default function HomeHead({ title, href, seeAll, top }) {
+export default function ContentHead({ title, href, seeAll, top }) {
   return (
     <>
       <div className="flex h-[60px] items-center justify-between">

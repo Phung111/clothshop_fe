@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setModalProduct } from 'slice/modalSlice'
 import { createProduct, updateProduct, deleteProduct, emptyProduct } from 'slice/productSlice'
-import { setLoading, setArlert, setArlertIcon, setArlertTitle } from 'slice/baseSlice'
+import { setArlert, setArlertIcon, setArlertTitle } from 'slice/baseSlice'
 import { getProductPage } from 'slice/productPageSlice'
 import Swal from 'sweetalert2'
 import { useForm, FormProvider, useWatch } from 'react-hook-form'
@@ -145,6 +145,7 @@ export default function ModalProduct() {
         setValue('dateStart', product.discountResDTO ? product.discountResDTO.dateStart : '')
         setValue('dateEnd', product.discountResDTO ? product.discountResDTO.dateEnd : '')
       }
+
       if (product.decription) {
         setValue('description', product.decription || '')
       }
@@ -163,7 +164,7 @@ export default function ModalProduct() {
       topLength: '',
       season: '',
       style: '',
-      shipFrom: '',
+      shipsFrom: '',
       percent: '',
       dateStart: '',
       dateEnd: '',

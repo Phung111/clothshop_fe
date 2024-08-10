@@ -4,10 +4,9 @@ import { useEffect, useState } from 'react'
 import { setIsUpdateAddress, setModalEditAddress } from 'slice/modalSlice'
 import { deleteAddress, defaultAddress } from 'slice/otherSlice'
 import Swal from 'sweetalert2'
-import { set } from 'react-hook-form'
 import { setAddress } from 'slice/orderSlice'
 
-export default function PartMyAccount({ item }) {
+export default function PartAdresses({ item, noRadio }) {
   const dispatch = useDispatch()
 
   const orderSlice = useSelector((state) => state.orderSlice)
@@ -45,7 +44,16 @@ export default function PartMyAccount({ item }) {
   return (
     <>
       <label htmlFor={`address_${item.id}`} className="flex cursor-pointer items-start gap-2">
-        <input onChange={handleSelectAddress} checked={address.id === item.id} type="radio" name="addressOption" id={`address_${item.id}`} className="mt-1 aspect-square w-4 cursor-pointer accent-primary" />
+        {/* prettier-ignore */ !noRadio &&   
+        <input 
+          onChange={handleSelectAddress} 
+          checked={address.id === item.id} 
+          id={`address_${item.id}`} 
+          type="radio" 
+          name="addressOption"
+          className="mt-1 aspect-square w-4 cursor-pointer accent-primary" 
+        />}
+
         <div className="flex w-full justify-between">
           <div className="flex w-[350px] flex-col gap-2">
             <div className="flex items-center gap-2">

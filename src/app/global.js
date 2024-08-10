@@ -45,7 +45,7 @@ export const CLOTHSHOP_API_URL = {
 
   PRODUCT: {
     GET_ALL: `${PRODUCT_URL}/get-all`,
-    GET_PAGE: `${PRODUCT_URL}/get-page`,
+    GET_PAGE: `${PRODUCT_URL}/get-product-page`,
     GET_DETAIL: `${PRODUCT_URL}`,
     CREATE: `${PRODUCT_URL}/create`,
     UPDATE: `${PRODUCT_URL}/update`,
@@ -68,6 +68,9 @@ export const CLOTHSHOP_API_URL = {
   },
   ORDER: {
     PLACE_ORDER: `${ORDER_URL}/placeOrder`,
+    GET_ORDER: `${ORDER_URL}/get-order`,
+    GET_ORDER_BY_CUSTOMER: `${ORDER_URL}/get-order-by-customer`,
+    GET_ORDER_BY_ID: `${ORDER_URL}/get-order`,
   },
   ADDRESS: {
     GET_ALL: `${ADDRESS_URL}`,
@@ -79,6 +82,8 @@ export const CLOTHSHOP_API_URL = {
   },
   VOUCHER: {
     GET_ALL: `${VOUCHER_URL}`,
+    GET_PAGE: `${VOUCHER_URL}/get-voucher-page`,
+    GET_PAGE_VALID: `${VOUCHER_URL}/get-voucher-page-valid`,
     CREATE: `${VOUCHER_URL}/create`,
     CHOSE: `${VOUCHER_URL}/chose`,
   },

@@ -14,6 +14,7 @@ import NotFound from 'components/NotFound'
 import LayoutHeaderFooter from 'components/Layout/LayoutHeaderFooter'
 import LayoutLogin from 'components/Layout/LayoutLogin'
 import LayoutManagement from 'components/Layout/LayoutManagement'
+import LayoutAccount from 'components/Layout/LayoutAccount'
 
 import FormLogin from 'feature/Login/FormLogin'
 import FormRegister from 'feature/Login/FormRegister'
@@ -22,8 +23,12 @@ import Home from 'feature/Home'
 import ProductDetail from 'feature/ProductDetail'
 import Cart from 'feature/Cart'
 import Checkout from 'feature/Checkout'
-import Account from 'feature/Account'
 import Category from 'feature/Category'
+
+import MyAccount from 'feature/Account/MyAccount'
+import MyAddesses from 'feature/Account/MyAddesses'
+import MyVouchers from 'feature/Account/MyVouchers'
+import MyPurchase from 'feature/Account/MyPurchase'
 
 import Dasboard from 'feature/Management/Dasboard'
 import Products from 'feature/Management/Products'
@@ -41,8 +46,8 @@ export default function App() {
       {isArlert && <SweetArlet />}
       <Utils />
       <Modal />
-      {/* <HashRouter> */}
-      <BrowserRouter>
+      <HashRouter>
+        {/* <BrowserRouter> */}
         <Routes>
           <Route element={<LayoutLogin />}>
             <Route path="/login" element={<FormLogin />} />
@@ -51,20 +56,25 @@ export default function App() {
 
           <Route element={<LayoutHeaderFooter />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.USER]} />}>
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/account" element={<Account />} />
+              <Route path="cart" element={<Cart />} />
+              <Route path="checkout" element={<Checkout />} />
+              <Route path="account" element={<LayoutAccount />}>
+                <Route path="" element={<MyAccount />} />
+                <Route path="addresses" element={<MyAddesses />} />
+                <Route path="vouchers" element={<MyVouchers />} />
+                <Route path="purchase" element={<MyPurchase />} />
+              </Route>
             </Route>
 
-            <Route path="/" element={<Home />} />
-            <Route path="/clothshop_fe" element={<Home />} />
-            <Route path="/detail/:id" element={<ProductDetail />} />
-            <Route path="/category/:category" element={<Category />} />
+            <Route path="" element={<Home />} />
+            <Route path="clothshop_fe" element={<Home />} />
+            <Route path="detail/:id" element={<ProductDetail />} />
+            <Route path="category/:category" element={<Category />} />
           </Route>
 
           <Route element={<LayoutManagement />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN]} />}>
-              <Route path="/management">
+              <Route path="management">
                 <Route index element={<Navigate to="dashboard" />} />
                 <Route path="dashboard" element={<Dasboard />} />
                 <Route path="products" element={<Products />} />
@@ -78,8 +88,8 @@ export default function App() {
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/notfound" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
-      {/* </HashRouter> */}
+        {/* </BrowserRouter> */}
+      </HashRouter>
     </>
   )
 }
