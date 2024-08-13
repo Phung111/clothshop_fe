@@ -1,27 +1,20 @@
 {
   "files": {
-    "main.css": "/clothshop_fe/static/css/main.8aa8e022.css",
-    "main.js": "/clothshop_fe/static/js/main.949f7dff.js",
+    "main.css": "/clothshop_fe/static/css/main.11a90431.css",
+    "main.js": "/clothshop_fe/static/js/main.971fb205.js",
     "static/media/fontawesome-webfont.svg?v=4.7.0": "/clothshop_fe/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
     "static/media/fa-solid-900.ttf": "/clothshop_fe/static/media/fa-solid-900.bacd5de623fb563b961a.ttf",
     "static/media/inter.ttf": "/clothshop_fe/static/media/inter.3f7acfe50aad7ad68548.ttf",
     "static/media/Inter-Regular.ttf": "/clothshop_fe/static/media/Inter-Regular.9ca9ba81e9dcaa12b3a1.ttf",
-    "static/media/banner7.jpg": "/clothshop_fe/static/media/banner7.6ed727d8fc15e31a4df8.jpg",
     "static/media/fa-brands-400.ttf": "/clothshop_fe/static/media/fa-brands-400.60127e352b7a11f7f1bc.ttf",
-    "static/media/banner5.jpg": "/clothshop_fe/static/media/banner5.04228981a9073961c2f3.jpg",
-    "static/media/banner4.jpg": "/clothshop_fe/static/media/banner4.10839037d842a0632961.jpg",
-    "static/media/banner1.jpg": "/clothshop_fe/static/media/banner1.88f92a1e82d4e3244b14.jpg",
     "static/media/fontawesome-webfont.eot": "/clothshop_fe/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
     "static/media/fontawesome-webfont.ttf?v=4.7.0": "/clothshop_fe/static/media/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf",
     "static/media/fa-solid-900.woff2": "/clothshop_fe/static/media/fa-solid-900.4d986b00ff9ca3828fbd.woff2",
     "static/media/fa-brands-400.woff2": "/clothshop_fe/static/media/fa-brands-400.455ea818179b4def0c43.woff2",
-    "static/media/banner6.jpg": "/clothshop_fe/static/media/banner6.b176765f2466a276b6d1.jpg",
     "static/media/fontawesome-webfont.woff?v=4.7.0": "/clothshop_fe/static/media/fontawesome-webfont.f691f37e57f04c152e23.woff",
     "static/media/logo.png": "/clothshop_fe/static/media/logo.dff1708bc26f120fb0ec.png",
-    "static/media/banner3.jpg": "/clothshop_fe/static/media/banner3.60e7ca236b5a18518c27.jpg",
     "static/media/fontawesome-webfont.woff2?v=4.7.0": "/clothshop_fe/static/media/fontawesome-webfont.20fd1704ea223900efa9.woff2",
     "static/media/fa-regular-400.ttf": "/clothshop_fe/static/media/fa-regular-400.eb91f7b948a42799f678.ttf",
-    "static/media/banner2.jpg": "/clothshop_fe/static/media/banner2.46d0679f267f03d71d24.jpg",
     "static/media/bg-login.jpg": "/clothshop_fe/static/media/bg-login.812f691ea04a4a753785.jpg",
     "static/media/add_image.png": "/clothshop_fe/static/media/add_image.1af97953cb939b403f72.png",
     "static/media/avablank.png": "/clothshop_fe/static/media/avablank.7dd3935658f865fcf81c.png",
@@ -31,11 +24,11 @@
     "static/media/fa-v4compatibility.ttf": "/clothshop_fe/static/media/fa-v4compatibility.c8e090db312b0bea2aa2.ttf",
     "static/media/fa-v4compatibility.woff2": "/clothshop_fe/static/media/fa-v4compatibility.cf7f5903d06b79ad60f1.woff2",
     "index.html": "/clothshop_fe/index.html",
-    "main.8aa8e022.css.map": "/clothshop_fe/static/css/main.8aa8e022.css.map",
-    "main.949f7dff.js.map": "/clothshop_fe/static/js/main.949f7dff.js.map"
+    "main.11a90431.css.map": "/clothshop_fe/static/css/main.11a90431.css.map",
+    "main.971fb205.js.map": "/clothshop_fe/static/js/main.971fb205.js.map"
   },
   "entrypoints": [
-    "static/css/main.8aa8e022.css",
-    "static/js/main.949f7dff.js"
+    "static/css/main.11a90431.css",
+    "static/js/main.971fb205.js"
   ]
 }
