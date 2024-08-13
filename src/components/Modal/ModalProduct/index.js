@@ -191,8 +191,8 @@ export default function ModalProduct() {
   }
 
   const handleImgClick = () => {
-    dispatch(setModalImage(true))
-    dispatch(setImages(product.images))
+    // dispatch(setModalImage(true))
+    // dispatch(setImages(product.images))
   }
 
   return (
