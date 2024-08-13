@@ -31,7 +31,18 @@ const RequireAuth = ({ allowedRoles }) => {
     }
   }, [isAuth, tokenDecode, dispatch])
 
-  return isAuth ? allowedRoles.find((role) => tokenDecode?.role === role) ? <Outlet /> : <Navigate to="/unauthorized" state={{ from: location }} replace /> : <Navigate to="/login" state={{ from: location }} replace />
+  useEffect(() => {
+    console.log(
+      'variable',
+      allowedRoles.find((role) => tokenDecode?.role === role)
+    )
+  }, [])
+
+  /* prettier-ignore */
+  return isAuth && allowedRoles.find((role) => tokenDecode?.role === role) 
+      ? <Outlet /> 
+      : <Navigate to="/unauthorized" state={{ from: location }} replace />
+  // : <Navigate to="/login" state={{ from: location }} replace />
 }
 
 export default RequireAuth

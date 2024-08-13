@@ -89,8 +89,8 @@ const clothShopService = {
   defaultAddress: async (addressID) => {
     return await axiosClient.post(`${CLOTHSHOP_API_URL.ADDRESS.DEFAULT}/${addressID}`)
   },
-  updateAddress: async (addressID, obj) => {
-    return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.ADDRESS.UPDATE}/${addressID}`, obj)
+  updateAddress: async (obj) => {
+    return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.ADDRESS.UPDATE}/${obj.id}`, obj.address)
   },
   deleteAddress: async (addressID) => {
     return await axiosClient.delete(`${CLOTHSHOP_API_URL.ADDRESS.DELETE}/${addressID}`)
@@ -121,6 +121,9 @@ const clothShopService = {
   },
   getAllBanner: async () => {
     return await axiosClient.get(`${CLOTHSHOP_API_URL.BANNER.GET_ALL}`)
+  },
+  getBannerPage: async (obj) => {
+    return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.BANNER.GET_PAGE}`, obj)
   },
   createBanner: async (obj) => {
     return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.BANNER.CREATE}`, obj)

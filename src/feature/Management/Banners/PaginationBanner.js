@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
+import { getBannerPage } from 'slice/bannerPageSlice'
 import { useForm, useWatch } from 'react-hook-form'
-import { getOrder } from 'slice/orderPageSlice'
 
-export default function PaginationOrder() {
+export default function PaginationBanner() {
   const {
     handleSubmit,
     setValue,
@@ -17,8 +17,8 @@ export default function PaginationOrder() {
   })
 
   const dispatch = useDispatch()
-  const orderPageSlice = useSelector((state) => state.orderPageSlice)
-  const data = orderPageSlice.data
+  const bannerPageSlice = useSelector((state) => state.bannerPageSlice)
+  const data = bannerPageSlice.data
 
   const size = useWatch({ control, name: 'size', defaultValue: data.size })
   const page = useWatch({ control, name: 'page', defaultValue: data.page })
@@ -46,7 +46,7 @@ export default function PaginationOrder() {
   }
 
   const onSubmit = (formData) => {
-    dispatch(getOrder(formData))
+    dispatch(getBannerPage(formData))
   }
 
   useEffect(() => {

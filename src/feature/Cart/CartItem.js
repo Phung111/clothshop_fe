@@ -1,7 +1,7 @@
 import Part from 'feature/Cart/Part'
 
 import { CLOUDINARY } from 'app/global'
-import { increaseCartItem, decreaseCartItem, changeQuantityCartItem, deleteCartItem } from 'slice/orderSlice'
+import { increaseCartItem, decreaseCartItem, changeQuantityCartItem, deleteCartItem, getCart } from 'slice/orderSlice'
 import { useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 
@@ -98,7 +98,9 @@ export default function CartItem({ item }) {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteCartItem(item.cartItemId))
+        dispatch(deleteCartItem(item.cartItemId)).then((result) => {
+          dispatch(getCart())
+        })
       }
     })
   }

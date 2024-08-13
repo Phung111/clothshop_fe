@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { setIsUpdateAddress, setModalEditAddress } from 'slice/modalSlice'
 import { deleteAddress, defaultAddress } from 'slice/otherSlice'
 import Swal from 'sweetalert2'
-import { setAddress } from 'slice/orderSlice'
+import { setAddress, setAddressEdit } from 'slice/orderSlice'
 
 export default function PartAdresses({ item, noRadio }) {
   const dispatch = useDispatch()
@@ -13,6 +13,7 @@ export default function PartAdresses({ item, noRadio }) {
   const address = orderSlice.checkout.address
 
   const handleEditAddress = () => {
+    dispatch(setAddressEdit(item))
     dispatch(setIsUpdateAddress())
     dispatch(setModalEditAddress(true))
   }

@@ -1,12 +1,13 @@
 import Button from 'components/Button'
 import { setModalEditAddress } from 'slice/modalSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { createAddress, updateAddress } from 'slice/otherSlice'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import ErrorText from 'components/ErrorText'
 import { Select } from 'antd'
 import { getPronvice } from 'slice/baseSlice'
+import { emptyAddressEdit } from 'slice/orderSlice'
 
 export default function ModalEditAddress() {
   const dispatch = useDispatch()
@@ -17,13 +18,22 @@ export default function ModalEditAddress() {
   const baseSlice = useSelector((state) => state.baseSlice.data)
   const pronvices = baseSlice.pronvices
 
+  const orderSlice = useSelector((state) => state.orderSlice)
+  const address = orderSlice.address
+
   const {
     register,
     handleSubmit,
     setValue,
     trigger,
+    control,
     formState: { errors: errorsFE },
   } = useForm()
+
+  const selectedProvince = useWatch({
+    control,
+    name: 'province',
+  })
 
   const cnInput = 'h-10 w-full rounded-sm border-[0.5px] border-black/20 px-4 text-sm'
   const cnError = 'border-red border-2'
@@ -31,6 +41,7 @@ export default function ModalEditAddress() {
   const cnSelect = 'h-10 w-full text-sm rounded-[8px]'
 
   const handleCancelEditAddres = () => {
+    dispatch(emptyAddressEdit())
     dispatch(setModalEditAddress(false))
   }
 
@@ -40,7 +51,8 @@ export default function ModalEditAddress() {
         dispatch(setModalEditAddress(false))
       })
     } else {
-      dispatch(updateAddress(data)).then(() => {
+      const updateData = { address: data, id: address.id }
+      dispatch(updateAddress(updateData)).then(() => {
         dispatch(setModalEditAddress(false))
       })
     }
@@ -49,6 +61,15 @@ export default function ModalEditAddress() {
   useEffect(() => {
     dispatch(getPronvice())
   }, [])
+
+  useEffect(() => {
+    if (address && Object.keys(address).length !== 0) {
+      setValue('nameCustomer', address.nameCustomer)
+      setValue('phone', address.phone)
+      setValue('province', address.province)
+      setValue('address', address.address)
+    }
+  }, [address])
 
   return (
     <>
@@ -95,18 +116,19 @@ export default function ModalEditAddress() {
               </div>
               <div>
                 <Select
-                  {...register('pronvice', {
-                    required: 'Pronvice is required',
+                  {...register('province', {
+                    required: 'Province is required',
                   })}
-                  placeholder="Pronvice"
-                  className={`${cnSelect} ${errorsFE.pronvice ? cnError : cnNormal}`}
+                  placeholder="Province"
+                  value={selectedProvince}
+                  className={`${cnSelect} ${errorsFE.province ? cnError : cnNormal}`}
                   options={pronvices.map((item) => ({ label: item, value: item }))}
                   onChange={(value) => {
-                    setValue('pronvice', value, { shouldValidate: true })
-                    trigger('pronvice')
+                    setValue('province', value, { shouldValidate: true })
+                    trigger('province')
                   }}
                 />
-                <ErrorText>{errorsFE.pronvice && errorsFE.pronvice.message}</ErrorText>
+                <ErrorText>{errorsFE.province && errorsFE.province.message}</ErrorText>
               </div>
               <div>
                 <input
@@ -125,13 +147,6 @@ export default function ModalEditAddress() {
                 <ErrorText>{errorsFE.address && errorsFE.address.message}</ErrorText>
               </div>
             </div>
-            {!isCreateAddress && (
-              <label htmlFor="setAdrDefault" className="flex cursor-pointer gap-2 hover:text-primary">
-                <input type="checkbox" name="" id="setAdrDefault" className="aspect-square w-4 cursor-pointer accent-primary" />
-                <p className="text-sm">Set as Default Address</p>
-              </label>
-            )}
-
             <div className="flex justify-end gap-3">
               <div className="h-9 w-[140px] overflow-hidden rounded-sm" onClick={handleCancelEditAddres}>
                 <Button>cancel</Button>

@@ -34,6 +34,7 @@ const initialState = {
       grandTotal: 0,
     },
   },
+  address: {},
   status: HTTP_STATUS.IDLE,
 }
 
@@ -236,6 +237,12 @@ const orderSlice = createSlice({
 
       localStorage.setItem('checkout', JSON.stringify(state.checkout))
     },
+    setAddressEdit: (state, action) => {
+      state.address = action.payload
+    },
+    emptyAddressEdit: (state) => {
+      state.address = {}
+    },
   },
   extraReducers(builder) {
     builder
@@ -368,7 +375,9 @@ export const {
   setCartItemColor,
   setCartItemSize, 
   setCartItemIDProduct, 
-  setCart 
+  setCart,
+  setAddressEdit,
+  emptyAddressEdit
 } = actions
 
 export default reducer

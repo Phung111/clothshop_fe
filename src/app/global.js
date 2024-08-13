@@ -17,6 +17,7 @@ export const ROLES = Object.freeze({
 
 export const CLOUDINARY = {
   url: CLOUDINARY_URL,
+  SCALE_IMAGE_560_170: 'c_limit,w_560,h_170,q_100',
   SCALE_IMAGE_450_450: 'c_limit,w_450,h_450,q_100',
   SCALE_IMAGE_300_300: 'c_limit,w_300,h_300,q_100',
   SCALE_IMAGE_200_200: 'c_limit,w_200,h_200,q_100',
@@ -93,6 +94,7 @@ export const CLOTHSHOP_API_URL = {
   },
   BANNER: {
     GET_ALL: `${BANNER_URL}`,
+    GET_PAGE: `${BANNER_URL}/get-banner-page`,
     CREATE: `${BANNER_URL}/create`,
     DELETE: `${BANNER_URL}/delete`,
     DELETES: `${BANNER_URL}/deletes`,

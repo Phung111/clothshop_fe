@@ -1,10 +1,10 @@
 import Button from 'components/Button'
-import Part from './PartAdresses'
 import PartAdresses from 'feature/Account/MyAddesses/PartAdresses'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { setIsCreateAddress, setModalEditAddress } from 'slice/modalSlice'
 import { getAllAddress } from 'slice/otherSlice'
+import { emptyAddressEdit } from 'slice/orderSlice'
 
 export default function MyAddesses() {
   const dispatch = useDispatch()
@@ -13,6 +13,7 @@ export default function MyAddesses() {
   const addresses = otherSlice.addresses
 
   const handleClickCreateAddress = () => {
+    dispatch(emptyAddressEdit())
     dispatch(setIsCreateAddress(true))
     dispatch(setModalEditAddress(true))
   }
@@ -35,7 +36,10 @@ export default function MyAddesses() {
             </div>
           </div>
           <div className="line" />
-          <div className="flex flex-col gap-3">{addresses && addresses.map((item, index) => <PartAdresses item={item} key={index} noRadio={true} />)}</div>
+          {/* prettier-ignore */}
+          <div className="flex flex-col gap-3">
+            {addresses && addresses.map((item, index) => <PartAdresses item={item} key={index} noRadio={true} />)}
+          </div>
         </div>
       </div>
     </>

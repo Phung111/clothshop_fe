@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import clothShopService from 'services/clothShopService'
 import { toast } from 'react-toastify'
-import { setLoading } from 'slice/baseSlice'
 import { calGrandTotal, setVoucherTotal, setShipTotal, setItemTotal, setVoucher, setAddress, calVoucherTotal, emptyVoucher } from 'slice/orderSlice'
 
 const namespace = 'otherSlice'
@@ -12,6 +11,8 @@ const initialState = {
   banners: [],
   selectBanners: [],
   addresses: [],
+  images: [],
+  image: {},
 }
 
 export const getAllVoucher = createAsyncThunk(`${namespace}/getAllVoucher`, async (obj, { rejectWithValue }) => {
@@ -30,9 +31,11 @@ export const createVoucher = createAsyncThunk(`${namespace}/createVoucher`, asyn
   return await clothShopService
     .createVoucher(obj)
     .then((response) => {
+      toast.success('Create Voucher Successfully!')
       return response.data
     })
     .catch((error) => {
+      toast.error('Create Voucher Fail')
       return rejectWithValue(error)
     })
     .finally(() => {})
@@ -73,9 +76,11 @@ export const createBanner = createAsyncThunk(`${namespace}/createBanner`, async 
   return await clothShopService
     .createBanner(obj)
     .then((response) => {
+      toast.success('Add Banner Successfully !')
       return response.data
     })
     .catch((error) => {
+      toast.error('Add Banner Fail')
       return rejectWithValue(error)
     })
     .finally(() => {})
@@ -121,11 +126,11 @@ export const createAddress = createAsyncThunk(`${namespace}/createAddress`, asyn
   return await clothShopService
     .createAddress(obj)
     .then((response) => {
-      toast.success('Add New Address Successfully !')
+      toast.success('Add Address Successfully !')
       return response.data
     })
     .catch((error) => {
-      toast.error('Add New Address Fail')
+      toast.error('Add Address Fail')
       return rejectWithValue(error)
     })
     .finally(() => {})
@@ -144,7 +149,7 @@ export const defaultAddress = createAsyncThunk(`${namespace}/defaultAddress`, as
     .finally(() => {})
 })
 
-export const updateAddress = createAsyncThunk(`${namespace}/updateAddress`, async (obj, { rejectWithValue, dispatch }) => {
+export const updateAddress = createAsyncThunk(`${namespace}/updateAddress`, async (obj, { rejectWithValue }) => {
   return await clothShopService
     .updateAddress(obj)
     .then((response) => {
@@ -189,8 +194,11 @@ const otherSlice = createSlice({
   name: namespace,
   initialState,
   reducers: {
-    setData: (state, action) => {
-      state.data = action.payload
+    setImages: (state, action) => {
+      state.images = action.payload
+    },
+    setImage: (state, action) => {
+      state.image = action.payload
     },
   },
   extraReducers(builder) {
@@ -246,6 +254,6 @@ const otherSlice = createSlice({
 
 const { reducer, actions } = otherSlice
 
-export const { setData } = actions
+export const { setImages, setImage } = actions
 
 export default reducer

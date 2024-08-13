@@ -1,13 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import { useSelector } from 'react-redux'
 import { CLOUDINARY } from 'app/global'
+import { setImages } from 'slice/otherSlice'
+import { setModalImage } from 'slice/modalSlice'
 
 export default function Image() {
+  const dispatch = useDispatch()
+
   const product = useSelector((state) => state.productSlice.product)
   const images = product.images
 
@@ -24,6 +28,11 @@ export default function Image() {
   const handleImageClick = (image) => {
     setMainImage(`${CLOUDINARY.url}/${CLOUDINARY.SCALE_IMAGE_450_450}/${image.fileFolder}/${image.fileName}`)
     setImgIndex(image.id)
+  }
+
+  const handleImgClick = () => {
+    dispatch(setModalImage(true))
+    dispatch(setImages(images))
   }
 
   return (
@@ -54,6 +63,7 @@ export default function Image() {
                 key={index} 
                 className={`cursor-pointer outline-2 -outline-offset-2 outline-primary ${image.id === imgIndex && 'outline'} hover:outline`} 
                 onMouseEnter={() => handleImageClick(image)}
+                onClick={handleImgClick}
               >
                 <img 
                   src={`${CLOUDINARY.url}/${CLOUDINARY.SCALE_IMAGE_100_100}/${image.fileFolder}/${image.fileName}`} 

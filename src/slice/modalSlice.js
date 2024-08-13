@@ -14,6 +14,8 @@ const initialState = {
   isCreateAddress: false,
   isUpdateAddress: false,
   modalOrderDetail: false,
+  modalImage: false,
+  modalBanner: false,
 }
 
 const modalSlice = createSlice({
@@ -63,6 +65,12 @@ const modalSlice = createSlice({
     setModalOrderDetail: (state, action) => {
       state.modalOrderDetail = action.payload
     },
+    setModalImage: (state, action) => {
+      state.modalImage = action.payload
+    },
+    setModalBanner: (state, action) => {
+      state.modalBanner = action.payload
+    },
   },
 })
 
@@ -80,7 +88,9 @@ export const {
   setIsCreateProduct, 
   setIsUpdateProduct, 
   setModalProduct,
-  setModalOrderDetail
+  setModalOrderDetail,
+  setModalImage,
+  setModalBanner,
 } = actions
 
 export default reducer

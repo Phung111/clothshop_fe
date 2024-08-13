@@ -173,34 +173,7 @@ const productPageSlice = createSlice({
       state.request.priceTo = action.payload
     },
     setSize: (state, action) => {
-      state.respond.size = action.payload
-    },
-    setNumberOfElements: (state, action) => {
-      state.respond.numberOfElements = action.payload
-    },
-    setTotalElements: (state, action) => {
-      state.respond.totalElements = action.payload
-    },
-    setOffset: (state, action) => {
-      state.respond.offset = action.payload
-    },
-    setPageNumber: (state, action) => {
-      state.respond.pageNumber = action.payload
-    },
-    setTotalPages: (state, action) => {
-      state.respond.totalPages = action.payload
-    },
-    setLast: (state, action) => {
-      state.respond.last = action.payload
-    },
-    setFirst: (state, action) => {
-      state.respond.first = action.payload
-    },
-    setEmpty: (state, action) => {
-      state.respond.empty = action.payload
-    },
-    setProducts: (state, action) => {
-      state.respond.products = action.payload
+      state.request.productSize = action.payload
     },
     clearAllFilters: (state) => {
       state.request.latest = true
@@ -292,15 +265,6 @@ export const {
   setPriceFrom, 
   setPriceTo, 
   setSize, 
-  setNumberOfElements, 
-  setTotalElements, 
-  setOffset, 
-  setPageNumber, 
-  setTotalPages, 
-  setLast, 
-  setFirst, 
-  setEmpty, 
-  setProducts, 
   clearAllFilters 
 } = actions
 

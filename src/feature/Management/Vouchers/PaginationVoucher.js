@@ -63,6 +63,12 @@ export default function PaginationVoucher() {
     const pageNumbers = []
     const maxVisiblePages = 10
 
+    pageNumbers.push(
+      <span key="first" className={`flex h-8 w-10 items-center justify-center text-black/50 ${first ? 'opacity-20' : 'cursor-pointer hover:text-primary'}`} onClick={() => !first && handlePageClick(page - 1)}>
+        <i className="fa-solid fa-chevron-left" />
+      </span>
+    )
+
     if (totalPages <= maxVisiblePages) {
       for (let i = 1; i <= totalPages; i++) {
         pageNumbers.push(
@@ -72,12 +78,6 @@ export default function PaginationVoucher() {
         )
       }
     } else {
-      pageNumbers.push(
-        <span key="first" className={`flex h-8 w-10 items-center justify-center text-black/50 ${first ? 'opacity-20' : 'cursor-pointer hover:text-primary'}`} onClick={() => !first && handlePageClick(page - 1)}>
-          <i className="fa-solid fa-chevron-left" />
-        </span>
-      )
-
       pageNumbers.push(
         <span key="1" className={`flex h-8 w-10 items-center justify-center text-black/50 ${page === 1 ? 'bg-primary text-white' : 'cursor-pointer hover:text-primary'}`} onClick={() => handlePageClick(1)}>
           1
@@ -116,13 +116,13 @@ export default function PaginationVoucher() {
           {totalPages}
         </span>
       )
-
-      pageNumbers.push(
-        <span key="last" className={`flex h-8 w-10 items-center justify-center text-black/50 ${last ? 'opacity-20' : 'cursor-pointer hover:text-primary'}`} onClick={() => !last && handlePageClick(page + 1)}>
-          <i className="fa-solid fa-chevron-right" />
-        </span>
-      )
     }
+
+    pageNumbers.push(
+      <span key="last" className={`flex h-8 w-10 items-center justify-center text-black/50 ${last ? 'opacity-20' : 'cursor-pointer hover:text-primary'}`} onClick={() => !last && handlePageClick(page + 1)}>
+        <i className="fa-solid fa-chevron-right" />
+      </span>
+    )
 
     return pageNumbers
   }

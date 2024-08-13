@@ -9,6 +9,7 @@ import authSlice from 'slice/authSlice'
 import otherSlice from 'slice/otherSlice'
 import voucherPageSlice from 'slice/voucherPageSlice'
 import orderPageSlice from 'slice/orderPageSlice'
+import bannerPageSlice from 'slice/bannerPageSlice'
 
 import loadingMiddleware from './loadingMiddleware'
 
@@ -23,6 +24,7 @@ const store = configureStore({
     otherSlice: otherSlice,
     voucherPageSlice: voucherPageSlice,
     orderPageSlice: orderPageSlice,
+    bannerPageSlice: bannerPageSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(loadingMiddleware),
 })

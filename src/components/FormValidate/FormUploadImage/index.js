@@ -1,8 +1,9 @@
 import PartImg from 'components/FormValidate/FormUploadImage/PartImg'
 import { useFormContext, useWatch } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
-export default function FormUploadImage({ name }) {
+export default function FormUploadImage({ name, onClick }) {
   const {
     register,
     setValue,
@@ -13,6 +14,8 @@ export default function FormUploadImage({ name }) {
     formState: { errors },
   } = useFormContext()
 
+  const dispatch = useDispatch()
+
   const [isUploadImg, setUploadImg] = useState(false)
 
   const multipartFiles = watch(name, [])
@@ -22,7 +25,7 @@ export default function FormUploadImage({ name }) {
   const validateImage = (files) => {
     if (files || files.length > 0) {
       files.forEach((file, index) => {
-        const validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp'] // Thêm các đuôi ảnh khác nếu cần
+        const validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp']
         const fileExtension = file.name.split('.').pop().toLowerCase()
 
         if (!validExtensions.includes(fileExtension)) {
@@ -84,9 +87,9 @@ export default function FormUploadImage({ name }) {
             <button onClick={cancelUploadImg} className="absolute right-0 top-0 z-[70] flex aspect-square w-[32px] -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-black/50 hover:bg-black">
               <i className="fa-solid fa-xmark text-[28px] text-white" />
             </button>
-            <div className="grid h-full w-full grid-cols-4 grid-rows-4 gap-5 p-5">
+            <div className="grid h-full w-full auto-rows-min grid-cols-4 gap-5 overflow-auto p-5">
               {multipartFiles.map((file, index) => (
-                <PartImg key={index} file={file} index={index} removeImg={removeImg} error={errors[`${name}Errors`]?.[index]?.message} />
+                <PartImg onClick={onClick} key={index} file={file} index={index} removeImg={removeImg} error={errors[`${name}Errors`]?.[index]?.message} />
               ))}
               <div className="rounded-lg bg-gray6 p-2.5 hover:bg-gray7">
                 <label htmlFor={name} className="flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-white">

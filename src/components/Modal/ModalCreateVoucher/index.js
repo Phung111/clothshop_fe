@@ -83,8 +83,10 @@ export default function ModalCreateVoucher() {
     setValue('dateRange', value)
     trigger('dateRange')
     if (value) {
-      let start = moment(value[0].$d).format('DD-MM-YYYY')
-      let end = moment(value[1].$d).format('DD-MM-YYYY')
+      // let start = moment(value[0].$d).format('DD-MM-YYYY')
+      // let end = moment(value[1].$d).format('DD-MM-YYYY')
+      let start = value[0]
+      let end = value[1]
       setValue('dateStart', start)
       setValue('dateEnd', end)
     } else {

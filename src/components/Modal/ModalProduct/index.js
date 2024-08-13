@@ -15,6 +15,8 @@ import FormValidateSelect from 'components/FormValidate/FormValidateSelect'
 import FormValidatePercentBar from 'components/FormValidate/FormValidatePercentBar'
 import FormValidateDateRange from 'components/FormValidate/FormValidateDateRange'
 import FormUploadImage from 'components/FormValidate/FormUploadImage'
+import { setImages } from 'slice/otherSlice'
+import { setModalImage } from 'slice/modalSlice'
 
 export default function ModalProduct() {
   const dispatch = useDispatch()
@@ -43,7 +45,7 @@ export default function ModalProduct() {
       .unwrap()
       .then(() => {
         dispatch(getProductPage())
-        // cancel()
+        cancel()
         dispatch(setArlertIcon('success'))
         dispatch(setArlertTitle('Create Product Successfully!'))
       })
@@ -61,7 +63,7 @@ export default function ModalProduct() {
       .unwrap()
       .then(() => {
         dispatch(getProductPage())
-        // cancel()
+        cancel()
         dispatch(setArlertIcon('success'))
         dispatch(setArlertTitle('Update Product Successfully!'))
       })
@@ -188,7 +190,10 @@ export default function ModalProduct() {
     }
   }
 
-  // const decription = useWatch({ name: 'decription' })
+  const handleImgClick = () => {
+    dispatch(setModalImage(true))
+    dispatch(setImages(product.images))
+  }
 
   return (
     <div className="fixed z-[60] h-full w-full bg-black/50 ">
@@ -214,7 +219,7 @@ export default function ModalProduct() {
               </div>
             </div>
             <div className="flex h-full w-full justify-between gap-5 2xl:gap-8">
-              <FormUploadImage name="multipartFiles" />
+              <FormUploadImage name="multipartFiles" onClick={handleImgClick} />
 
               <div className="flex h-full w-full flex-col gap-5 overflow-auto rounded-xl bg-gray p-5">
                 <PartHeader>Info</PartHeader>

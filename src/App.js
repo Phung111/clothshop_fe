@@ -24,6 +24,7 @@ import ProductDetail from 'feature/ProductDetail'
 import Cart from 'feature/Cart'
 import Checkout from 'feature/Checkout'
 import Category from 'feature/Category'
+import Search from 'feature/Search'
 
 import MyAccount from 'feature/Account/MyAccount'
 import MyAddesses from 'feature/Account/MyAddesses'
@@ -70,6 +71,7 @@ export default function App() {
             <Route path="clothshop_fe" element={<Home />} />
             <Route path="detail/:id" element={<ProductDetail />} />
             <Route path="category/:category" element={<Category />} />
+            <Route path="search/:keySearch?" element={<Search />} />
           </Route>
 
           <Route element={<LayoutManagement />}>

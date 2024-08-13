@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
+import { setImage } from 'slice/otherSlice'
 
-export default function PartImg({ file, index, removeImg, error }) {
+export default function PartImg({ file, index, removeImg, error, onClick }) {
   const [objectURL, setObjectURL] = useState('')
 
   useEffect(() => {
@@ -13,7 +14,7 @@ export default function PartImg({ file, index, removeImg, error }) {
 
   return (
     <>
-      <div className="group relative rounded-lg bg-white">
+      <div className="group relative aspect-square cursor-pointer rounded-lg bg-white" onClick={onClick}>
         <img src={objectURL} alt="" className="h-full w-full rounded-lg object-cover" />
         {error && (
           <div className="absolute left-0 top-0 h-full w-full rounded-lg bg-red/50">

@@ -10,9 +10,12 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { getHome, getCollection } from 'slice/baseSlice'
 import { getProductPage, setLatest, emptyECategories, setSize, setCurrentPage } from 'slice/productPageSlice'
+import { useLocation } from 'react-router-dom'
 
 export default function Home() {
   const dispatch = useDispatch()
+  const location = useLocation()
+
   useEffect(() => {
     dispatch(getHome())
     dispatch(emptyECategories())
