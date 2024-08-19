@@ -21,14 +21,15 @@ export default function Voucher() {
         <div className="flex gap-5">
           {voucher && Object.keys(voucher).length > 0 && (
             <div className="flex h-full shrink-0 items-center gap-2">
-              <p className="text-base">{voucher.price !== 0 && window.formatCurrency2(voucher.price)}, </p>
+              <p className="text-base">{voucher.price !== 0 && window.formatCurrency(voucher.price)}</p>
+              {voucher.price && voucher.percent ? ',' : ''}
               <p className="text-base">{voucher.percent !== 0 && voucher.percent + '%'}</p>
               <p className="flex items-center gap-1 text-black/50">
                 <i className="fa-regular fa-clock text-xs" />
                 <span className="capitalize">use from:</span>
-                <span className="">{voucher.dateStart && window.convertDateFormatDot(voucher.dateStart)}</span>
+                <span className="">{voucher.dateStart && window.formatDate(voucher.dateStart)}</span>
                 <span className="">-</span>
-                <span className="">{voucher.dateEnd && window.convertDateFormatDot(voucher.dateEnd)}</span>
+                <span className="">{voucher.dateEnd && window.formatDate(voucher.dateEnd)}</span>
               </p>
             </div>
           )}

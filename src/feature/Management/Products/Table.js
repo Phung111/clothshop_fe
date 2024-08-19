@@ -79,8 +79,8 @@ export default function Table() {
                   <td className={`${tdClass} text-right`}>{item.sold}</td>
                   <td className={`${tdClass} uppercase`}>{item.category}</td>
                   <td className={`${tdClass} text-right`}>{item.discountResDTO ? item.discountResDTO.percent : 0}%</td>
-                  <td className={`${tdClass} whitespace-nowrap`}>{item.discountResDTO ? window.convertDateFormat(item.discountResDTO.dateStart) : ''}</td>
-                  <td className={`${tdClass} whitespace-nowrap`}>{item.discountResDTO ? window.convertDateFormat(item.discountResDTO.dateEnd) : ''}</td>
+                  <td className={`${tdClass} whitespace-nowrap`}>{item.discountResDTO ? window.formatDate(item.discountResDTO.dateStart) : ''}</td>
+                  <td className={`${tdClass} whitespace-nowrap`}>{item.discountResDTO ? window.formatDate(item.discountResDTO.dateEnd) : ''}</td>
                   <td className={`${tdClass} uppercase`}>{item.productDetail.topLength}</td>
                   <td className={`${tdClass} uppercase`}>{item.productDetail.country}</td>
                   <td className={`${tdClass} uppercase`}>{item.productDetail.season}</td>

@@ -104,9 +104,6 @@ const clothShopService = {
   getVoucherPage: async (obj) => {
     return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.VOUCHER.GET_PAGE}`, obj)
   },
-  getVoucherPageValid: async (obj) => {
-    return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.VOUCHER.GET_PAGE_VALID}`, obj)
-  },
   createVoucher: async (obj) => {
     return await axiosClientFormData.post(`${CLOTHSHOP_API_URL.VOUCHER.CREATE}`, obj)
   },

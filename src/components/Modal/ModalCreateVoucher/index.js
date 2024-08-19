@@ -7,6 +7,7 @@ import moment from 'moment'
 import ErrorText from 'components/ErrorText'
 import { useForm, Controller } from 'react-hook-form'
 import { createVoucher } from 'slice/otherSlice'
+import { getVoucherPage } from 'slice/voucherPageSlice'
 
 export default function ModalCreateVoucher() {
   const dispatch = useDispatch()
@@ -48,6 +49,11 @@ export default function ModalCreateVoucher() {
       return
     }
     dispatch(createVoucher(data))
+      .unwrap()
+      .then(() => {
+        dispatch(getVoucherPage())
+        dispatch(setModalCreateVoucher(false))
+      })
   }
 
   const handleCloseModalCreateVoucher = () => {
@@ -173,12 +179,16 @@ export default function ModalCreateVoucher() {
                     const [startDate, endDate] = dates
                     const today = moment().startOf('day')
 
-                    if (startDate.isBefore(today)) {
-                      return 'Start date must be today or later'
-                    }
+                    // if (startDate.isBefore(today)) {
+                    //   return 'Start date must be today or later'
+                    // }
 
                     if (startDate.isAfter(endDate)) {
                       return 'Start date must be before or on the same day as end date'
+                    }
+
+                    if (endDate.isBefore(today) || endDate.isSame(today)) {
+                      return 'End date must after today'
                     }
 
                     return true

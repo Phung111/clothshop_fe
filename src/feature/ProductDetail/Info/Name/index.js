@@ -35,15 +35,15 @@ export default function Name() {
               <div className="flex items-center gap-2 text-white">
                 <i className="fa-regular fa-clock" />
                 <p className="uppercase">ends in</p>
-                <p className="">{window.convertDateFormat(discount.dateEnd)}</p>
+                <p className="">{window.formatDate(discount.dateEnd)}</p>
               </div>
             </div>
           </div>
         )}
 
         <div className="flex h-[66px] items-center gap-2 bg-gray px-5">
-          {discount && <p className="text-base text-black/50 line-through">{window.formatCurrency2(product.price)}</p>}
-          <p className="text-[30px] text-primary">{window.formatCurrency2(product.priceTotal)}</p>
+          {discount && <p className="text-base text-black/50 line-through">{window.formatCurrency(product.price)}</p>}
+          <p className="text-[30px] text-primary">{window.formatCurrency(product.priceTotal)}</p>
           {discount && <p className="bg-primary px-1 py-0.5 text-xs font-bold uppercase text-white">{discount.percent}% off</p>}
         </div>
         <div className="flex h-full flex-col justify-between gap-6 px-5">
@@ -56,9 +56,6 @@ export default function Name() {
                 <i className="fa-solid fa-cart-plus" />
                 add to cart
               </Button>
-            </div>
-            <div className="h-12 w-[180px]">
-              <Button type={'solid'}>buy now</Button>
             </div>
           </div>
         </div>

@@ -5,6 +5,8 @@ export default function MyAccount() {
   const authSlice = useSelector((state) => state.authSlice)
   const customer = authSlice.customer
 
+  console.log('customer.dob', customer.dob)
+
   return (
     <>
       <>
@@ -30,7 +32,7 @@ export default function MyAccount() {
                 </Part>
                 <Part>
                   <>date of birth</>
-                  <>{window.convertDateFormat(customer.dob)}</>
+                  <>{window.formatDate(customer.dob)}</>
                 </Part>
               </div>
             )}

@@ -21,7 +21,7 @@ export default function Part({ item }) {
         <div className="flex items-center justify-end gap-2">
           <i className="fa-solid fa-sack-dollar text-[16px] text-primary" />
           <p className="text-[14px]">Order Total</p>
-          <p className="text-[24px] text-primary">{window.formatCurrency2(item.total)}</p>
+          <p className="text-[24px] text-primary">{window.formatCurrency(item.total)}</p>
         </div>
       </div>
     </>

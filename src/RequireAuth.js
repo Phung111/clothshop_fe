@@ -31,13 +31,6 @@ const RequireAuth = ({ allowedRoles }) => {
     }
   }, [isAuth, tokenDecode, dispatch])
 
-  useEffect(() => {
-    console.log(
-      'variable',
-      allowedRoles.find((role) => tokenDecode?.role === role)
-    )
-  }, [])
-
   /* prettier-ignore */
   return isAuth && allowedRoles.find((role) => tokenDecode?.role === role) 
       ? <Outlet /> 

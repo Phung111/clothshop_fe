@@ -1,8 +1,7 @@
 import PartVouchers from 'feature/Account/MyVouchers/PartVouchers'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { getVoucherPageValid, setSize, setPage, setMore, emptyMore, upCount, resetCount } from 'slice/voucherPageSlice'
-import Button from 'components/Button'
+import { useEffect, useState, useRef } from 'react'
+import { getMore, setSize, setPage, setMore, emptyMore, upCount, resetCount } from 'slice/voucherPageSlice'
 
 export default function MyVouchers() {
   const dispatch = useDispatch()
@@ -12,8 +11,11 @@ export default function MyVouchers() {
   const count = voucherPageSlice.count
   const last = voucherPageSlice.last
 
+  const [loadingMore, setLoadingMore] = useState(false)
+  const scrollContainerRef = useRef(null)
+
   useEffect(() => {
-    Promise.all([dispatch(emptyMore()), dispatch(resetCount()), dispatch(setSize(15)), dispatch(setPage(1)), dispatch(getVoucherPageValid())])
+    Promise.all([dispatch(emptyMore()), dispatch(resetCount()), dispatch(setSize(8)), dispatch(setPage(1)), dispatch(getMore())])
       .then(() => {
         dispatch(setMore())
       })
@@ -22,13 +24,37 @@ export default function MyVouchers() {
   }, [])
 
   const handleSeeMore = () => {
-    Promise.all([dispatch(upCount()), dispatch(setPage(count)), dispatch(getVoucherPageValid())])
-      .then(() => {
+    if (!last && !loadingMore) {
+      setLoadingMore(true)
+      Promise.all([dispatch(upCount()), dispatch(setPage(count)), dispatch(getMore())]).then(() => {
         dispatch(setMore())
+        setLoadingMore(false)
       })
-      .catch((error) => {})
-      .finally(() => {})
+    }
   }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const seemoreElement = document.getElementById('seemore')
+      if (seemoreElement) {
+        const rect = seemoreElement.getBoundingClientRect()
+        const scrollContainerRect = scrollContainerRef.current.getBoundingClientRect()
+
+        const isVisible = rect.top >= scrollContainerRect.top && rect.bottom <= scrollContainerRect.bottom
+
+        if (isVisible) {
+          handleSeeMore()
+        }
+      }
+    }
+
+    const scrollContainer = scrollContainerRef.current
+    scrollContainer.addEventListener('scroll', handleScroll)
+
+    return () => {
+      scrollContainer.removeEventListener('scroll', handleScroll)
+    }
+  }, [last, loadingMore])
 
   return (
     <>
@@ -39,16 +65,10 @@ export default function MyVouchers() {
           </div>
           <div className="line" />
           {/* prettier-ignore */}
-          <div className="grid grid-cols-2 gap-5 max-h-[450px] overflow-scroll">
+          <div ref={scrollContainerRef} className="grid grid-cols-2 gap-5 max-h-[450px] overflow-scroll">
             {vouchers && vouchers.map((item, index) => <PartVouchers item={item} key={index} noRadio={true}/>)}
+          {!last && <div id="seemore" />}
           </div>
-          {!last && (
-            <div className="flex justify-center ">
-              <div className="h-[40px] w-[100px]" onClick={handleSeeMore}>
-                <Button type="button">See More</Button>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </>

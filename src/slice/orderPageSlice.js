@@ -128,6 +128,6 @@ const orderPageSlice = createSlice({
 
 const { reducer, actions } = orderPageSlice
 
-export const { setData, setOrder, emptyOrder } = actions
+export const { setData, setOrder, emptyOrder, setMore, emptyMore, setSize, setPage, upCount, resetCount } = actions
 
 export default reducer

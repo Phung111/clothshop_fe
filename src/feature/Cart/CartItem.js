@@ -130,8 +130,8 @@ export default function CartItem({ item }) {
         </>
         <>
           <div className="flex justify-center gap-2">
-            {item.discount && <p className="text-black/50 line-through">₫{window.formatNumberNođ(item.price)}</p>}
-            <p className="text-sm">₫{window.formatNumberNođ(item.priceTotal)}</p>
+            {item.discount && <p className="text-black/50 line-through">{window.formatCurrency(item.price)}</p>}
+            <p className="text-sm">{window.formatCurrency(item.priceTotal)}</p>
           </div>
         </>
         <>
@@ -148,7 +148,7 @@ export default function CartItem({ item }) {
           </div>
         </>
         <>
-          <p className="text-sm text-primary">₫{window.formatNumberNođ(total)}</p>
+          <p className="text-sm text-primary">{window.formatCurrency(total)}</p>
         </>
         <>
           <button className="text-sm hover:text-primary" onClick={handleDeleteCartItem}>

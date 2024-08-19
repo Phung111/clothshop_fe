@@ -15,8 +15,6 @@ import FormValidateSelect from 'components/FormValidate/FormValidateSelect'
 import FormValidatePercentBar from 'components/FormValidate/FormValidatePercentBar'
 import FormValidateDateRange from 'components/FormValidate/FormValidateDateRange'
 import FormUploadImage from 'components/FormValidate/FormUploadImage'
-import { setImages } from 'slice/otherSlice'
-import { setModalImage } from 'slice/modalSlice'
 
 export default function ModalProduct() {
   const dispatch = useDispatch()
@@ -110,50 +108,6 @@ export default function ModalProduct() {
     dispatch(setModalProduct(false))
   }
 
-  useEffect(() => {
-    if (product && Object.keys(product).length !== 0) {
-      if (product.images) {
-        product.images.forEach((element) => {
-          const fileObjects = product.images.map((image) => {
-            return fetch(image.fileUrl)
-              .then((response) => response.blob())
-              .then((blob) => new File([blob], `${image.fileName}.${image.fileType}`))
-          })
-
-          Promise.all(fileObjects).then((files) => {
-            setValue('multipartFiles', files)
-          })
-        })
-      }
-
-      setValue('name', product.name || '')
-      setValue('price', product.price || '')
-      setValue('quantity', product.quantity || '')
-
-      setValue('category', product.category || '')
-      setValue('color', product.color || '')
-      setValue('size', product.size || '')
-
-      if (product.productDetail) {
-        setValue('country', product.productDetail.country || '')
-        setValue('topLength', product.productDetail.topLength || '')
-        setValue('season', product.productDetail.season || '')
-        setValue('style', product.productDetail.style || '')
-        setValue('shipsFrom', product.productDetail.shipsFrom || '')
-      }
-
-      if (product.discountResDTO) {
-        setValue('percent', product.discountResDTO ? product.discountResDTO.percent : '')
-        setValue('dateStart', product.discountResDTO ? product.discountResDTO.dateStart : '')
-        setValue('dateEnd', product.discountResDTO ? product.discountResDTO.dateEnd : '')
-      }
-
-      if (product.decription) {
-        setValue('description', product.decription || '')
-      }
-    }
-  }, [product])
-
   const methods = useForm({
     defaultValues: {
       name: '',
@@ -190,10 +144,47 @@ export default function ModalProduct() {
     }
   }
 
-  const handleImgClick = () => {
-    // dispatch(setModalImage(true))
-    // dispatch(setImages(product.images))
-  }
+  useEffect(() => {
+    if (product && Object.keys(product).length !== 0) {
+      if (product.images) {
+        product.images.forEach((element) => {
+          const fileObjects = product.images.map((image) => {
+            return fetch(image.fileUrl)
+              .then((response) => response.blob())
+              .then((blob) => new File([blob], `${image.fileName}.${image.fileType}`))
+          })
+
+          Promise.all(fileObjects).then((files) => {
+            setValue('multipartFiles', files)
+          })
+        })
+      }
+
+      setValue('name', product.name || '')
+      setValue('price', product.price || '')
+      setValue('quantity', product.quantity || '')
+
+      setValue('category', product.category || '')
+      setValue('color', product.color || '')
+      setValue('size', product.size || '')
+
+      if (product.productDetail) {
+        setValue('country', product.productDetail.country || '')
+        setValue('topLength', product.productDetail.topLength || '')
+        setValue('season', product.productDetail.season || '')
+        setValue('style', product.productDetail.style || '')
+        setValue('shipsFrom', product.productDetail.shipsFrom || '')
+      }
+
+      setValue('percent', product.discountResDTO ? product.discountResDTO.percent : '')
+      setValue('dateStart', product.discountResDTO ? product.discountResDTO.dateStart : '')
+      setValue('dateEnd', product.discountResDTO ? product.discountResDTO.dateEnd : '')
+
+      if (product.decription) {
+        setValue('description', product.decription || '')
+      }
+    }
+  }, [product])
 
   return (
     <div className="fixed z-[60] h-full w-full bg-black/50 ">
@@ -219,7 +210,7 @@ export default function ModalProduct() {
               </div>
             </div>
             <div className="flex h-full w-full justify-between gap-5 2xl:gap-8">
-              <FormUploadImage name="multipartFiles" onClick={handleImgClick} />
+              <FormUploadImage name="multipartFiles" />
 
               <div className="flex h-full w-full flex-col gap-5 overflow-auto rounded-xl bg-gray p-5">
                 <PartHeader>Info</PartHeader>

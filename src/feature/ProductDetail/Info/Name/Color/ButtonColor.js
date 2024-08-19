@@ -10,13 +10,13 @@ export default function ButtonColor({ children, isSelected, onClick }) {
       bgColor += 'red'
       break
     case 'BLUE':
-      bgColor += 'blue-300'
+      bgColor += 'blue'
       break
     case 'YELLOW':
       bgColor += 'yellow-300'
       break
     case 'ORANGE':
-      bgColor += 'orange-400'
+      bgColor += 'orange-500'
       break
     case 'GREEN':
       bgColor += 'green-500'
@@ -37,8 +37,9 @@ export default function ButtonColor({ children, isSelected, onClick }) {
     <>
       <button className={`${baseClass} ${addClass}`} onClick={onClick} />
       <div className="bg-red" hidden />
-      <div className="bg-blue-300" hidden />
+      <div className="bg-blue" hidden />
       <div className="bg-yellow-300" hidden />
+      <div className="bg-orange-500" hidden />
       <div className="bg-green-500" hidden />
       <div className="bg-black" hidden />
       <div className="bg-white" hidden />

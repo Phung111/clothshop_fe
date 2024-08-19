@@ -25,14 +25,14 @@ export default function PartVouchers({ noRadio, item }) {
         </div>
         <div className="flex grow border-[0.5px] border-l-0 border-black/10 px-3">
           <div className="flex grow flex-col justify-center gap-1">
-            <p className="text-base">{item.price !== 0 && window.formatCurrency2(item.price)}</p>
+            <p className="text-base">{item.price !== 0 && window.formatCurrency(item.price)}</p>
             <p className="text-base">{item.percent !== 0 && item.percent + '%'}</p>
             <p className="flex items-center gap-1 text-black/50">
               <i className="fa-regular fa-clock text-xs" />
               <span className="capitalize">use from:</span>
-              <span className="">{item.dateStart && window.convertDateFormatDot(item.dateStart)}</span>
+              <span className="">{item.dateStart && window.formatDate(item.dateStart)}</span>
               <span className="">-</span>
-              <span className="">{item.dateEnd && window.convertDateFormatDot(item.dateEnd)}</span>
+              <span className="">{item.dateEnd && window.formatDate(item.dateEnd)}</span>
             </p>
           </div>
           {!noRadio && (

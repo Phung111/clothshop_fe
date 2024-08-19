@@ -36,19 +36,19 @@ export default function Total() {
           <div className="flex flex-col items-end gap-5">
             <div className="flex items-center gap-5">
               <p className="w-[150px] text-sm text-black/50">Merchandise Subtotal:</p>
-              <p className="w-[150px] text-right text-sm">₫{itemsTotal ? window.formatNumberNođ(total.itemsTotal) : 0}</p>
+              <p className="w-[150px] text-right text-sm">{itemsTotal ? window.formatCurrency(total.itemsTotal) : 0}</p>
             </div>
             <div className="flex items-center gap-5">
               <p className="w-[150px] text-sm text-black/50">Shipping Total:</p>
-              <p className="w-[150px] text-right text-sm">₫{shipTotal ? window.formatNumberNođ(total.shipTotal) : 0}</p>
+              <p className="w-[150px] text-right text-sm">{shipTotal ? window.formatCurrency(total.shipTotal) : 0}</p>
             </div>
             <div className="flex items-center gap-5">
               <p className="w-[150px] text-sm text-black/50">Voucher Total:</p>
-              <p className="w-[150px] text-right text-sm">{voucherTotal ? '-₫ ' + window.formatNumberNođ(total.voucherTotal) : '₫' + 0}</p>
+              <p className="w-[150px] text-right text-sm">{voucherTotal ? '- ' + window.formatCurrency(total.voucherTotal) : 0}</p>
             </div>
             <div className="flex items-center gap-5">
               <p className="w-[150px] text-sm text-black/50">Total Payment:</p>
-              <p className="w-[150px] text-right text-[28px] text-primary">₫{grandTotal ? window.formatNumberNođ(total.grandTotal) : 0}</p>
+              <p className="w-[150px] text-right text-[28px] text-primary">{grandTotal ? window.formatCurrency(total.grandTotal) : 0}</p>
             </div>
           </div>
           <div className="line" />

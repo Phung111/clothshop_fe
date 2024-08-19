@@ -11,7 +11,6 @@ export default function FormLogin() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const loginStatus = useSelector((state) => state.authSlice.status)
   const errorsBE = useSelector((state) => state.authSlice.errorsBE)
 
   const [passwordVisible, setPasswordVisible] = useState(false)
@@ -29,17 +28,15 @@ export default function FormLogin() {
 
   const onSubmit = (data) => {
     dispatch(login(data))
+      .unwrap()
+      .then(() => {
+        navigate(`/`)
+      })
   }
 
   const handleToRegister = () => {
     navigate(`/register`)
   }
-
-  useEffect(() => {
-    if (loginStatus === HTTP_STATUS.FULFILLED) {
-      navigate('/')
-    }
-  }, [loginStatus, navigate])
 
   return (
     <>

@@ -15,8 +15,8 @@ export default function Item({ item }) {
               <p className="text-[14px]">x {item.quantity}</p>
             </div>
             <div className="flex w-[180px] shrink-0 items-center justify-end gap-1">
-              <p className="text-black/50 line-through">{window.formatCurrency2(item.product.price)}</p>
-              <p className="text-primary">{window.formatCurrency2(item.product.priceTotal)}</p>
+              <p className="text-black/50 line-through">{window.formatCurrency(item.product.price)}</p>
+              <p className="text-primary">{window.formatCurrency(item.product.priceTotal)}</p>
             </div>
           </div>
           <div className="line" />

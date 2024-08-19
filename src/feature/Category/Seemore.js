@@ -53,16 +53,7 @@ export default function Seemore() {
           {!isLoading && productsSM && (
             <div className="flex flex-col items-center gap-10 py-5">
               <div className="grid grid-cols-6 gap-3">{productsSM && productsSM.map((item, index) => <Product type={'product'} href={'#'} key={index} product={item} />)}</div>
-              {!last && !isLoading && (
-                <div id="seemore">
-                  <Button type="button">See More</Button>
-                </div>
-              )}
-              {/* {!last && (
-                <div className="h-[40px] w-[100px]" onClick={handleSeeMore}>
-                  <Button type="button">See More</Button>
-                </div>
-              )} */}
+              {!last && !isLoading && <div id="seemore" />}
             </div>
           )}
         </div>

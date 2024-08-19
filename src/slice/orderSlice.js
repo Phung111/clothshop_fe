@@ -186,6 +186,7 @@ const orderSlice = createSlice({
     },
     emptyVoucher: (state, action) => {
       state.checkout.voucher = {}
+      state.checkout.total.voucherTotal = 0
       localStorage.setItem('checkout', JSON.stringify(state.checkout))
     },
     setAddress: (state, action) => {
@@ -213,7 +214,7 @@ const orderSlice = createSlice({
       }
 
       if (voucherTotalTemp) {
-        grandTotalTemp += voucherTotalTemp
+        grandTotalTemp -= voucherTotalTemp
       }
       state.checkout.total.grandTotal = grandTotalTemp
       localStorage.setItem('checkout', JSON.stringify(state.checkout))

@@ -19,13 +19,13 @@ export default function Item({ item }) {
           </div>
         </div>
         <div className="flex h-full w-full items-center justify-center">
-          <p className="text-sm capitalize ">₫{window.formatNumberNođ(item.total / item.quantity)}</p>
+          <p className="text-sm capitalize ">{window.formatCurrency(item.total / item.quantity)}</p>
         </div>
         <div className="flex h-full w-full items-center justify-center">
           <p className="text-sm capitalize">{item.quantity}</p>
         </div>
         <div className="flex h-full w-full items-center justify-end">
-          <p className="text-sm capitalize">₫{window.formatNumberNođ(item.total)}</p>
+          <p className="text-sm capitalize">{window.formatCurrency(item.total)}</p>
         </div>
       </Part>
       <div className="line" />

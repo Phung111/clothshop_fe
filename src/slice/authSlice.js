@@ -39,7 +39,7 @@ export const login = createAsyncThunk(`${namespace}/login`, async (obj, { reject
     .finally(() => {})
 })
 
-export const signup = createAsyncThunk(`${namespace}/signup`, async (obj, { rejectWithValue, dispatch }) => {
+export const signup = createAsyncThunk(`${namespace}/signup`, async (obj, { rejectWithValue }) => {
   return await clothShopService
     .signup(obj)
     .then(() => {

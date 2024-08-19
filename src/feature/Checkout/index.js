@@ -13,27 +13,27 @@ export default function Checkout() {
 
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if (Object.keys(checkout.cartItems).length === 0) {
-      Swal.fire({
-        title: 'Nothing to checkout',
-        text: 'Need to go to cart first',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'To Cart',
-        cancelButtonText: 'Go Back',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          navigate('/cart')
-        }
-        if (result.isDismissed) {
-          navigate(-1)
-        }
-      })
-    }
-  }, [checkout.cartItems, navigate])
+  // useEffect(() => {
+  //   if (Object.keys(checkout.cartItems).length === 0) {
+  //     Swal.fire({
+  //       title: 'Nothing to checkout',
+  //       text: 'Need to go to cart first',
+  //       icon: 'warning',
+  //       showCancelButton: true,
+  //       confirmButtonColor: '#3085d6',
+  //       cancelButtonColor: '#d33',
+  //       confirmButtonText: 'To Cart',
+  //       cancelButtonText: 'Go Back',
+  //     }).then((result) => {
+  //       if (result.isConfirmed) {
+  //         navigate('/cart')
+  //       }
+  //       if (result.isDismissed) {
+  //         navigate(-1)
+  //       }
+  //     })
+  //   }
+  // }, [checkout.cartItems])
 
   return (
     <>

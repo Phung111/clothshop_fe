@@ -64,8 +64,8 @@ export default function Vouchers() {
                   <tr key={index}>
                     <td className={`${tdClass}`}>{totalElements - pageNumber * size - index}</td>
                     <td className={`${tdClass}`}>{item.id}</td>
-                    <td className={`${tdClass}`}>{window.convertDateFormat(item.dateStart)}</td>
-                    <td className={`${tdClass}`}>{window.convertDateFormat(item.dateEnd)}</td>
+                    <td className={`${tdClass}`}>{window.formatDate(item.dateStart)}</td>
+                    <td className={`${tdClass}`}>{window.formatDate(item.dateEnd)}</td>
                     <td className={`${tdClass} text-end`}>{item.percent}%</td>
                     <td className={`${tdClass} text-end`}>{window.formatCurrency(item.price)}</td>
                   </tr>

@@ -16,6 +16,8 @@ export default function CartItemTotal() {
   const allSelected = cart.cartItems && cart.cartItems.length > 0 && cart.cartItems.length === selectCartItems.length
   const isChecked = allSelected
 
+  const count = cart.count
+
   const handleSelectAll = (e) => {
     if (e.target.checked) {
       dispatch(selectAllCartItems())
@@ -42,13 +44,13 @@ export default function CartItemTotal() {
             <input type="checkbox" name="" id="" className="aspect-square w-4 cursor-pointer accent-primary" checked={isChecked} onChange={handleSelectAll} />
           </div>
           <div className="flex gap-5">
-            <button className="men_men text-sm capitalize hover:text-primary">Select All (10)</button>
+            <button className="men_men text-sm capitalize hover:text-primary">Select All ({count})</button>
             <button className="text-sm hover:text-primary">Delete Select</button>
           </div>
         </div>
         <div className="flex shrink-0 items-center gap-5">
           <p className="text-sm">Total (0 item):</p>
-          <p className="text-2xl text-primary">₫{window.formatNumberNođ(cartItemsTotal)}</p>
+          <p className="text-2xl text-primary">{window.formatCurrency(cartItemsTotal)}</p>
           <div className="h-[40px] w-[180px]" onClick={handleCheckout}>
             <Button type={'solid'}>check out</Button>
           </div>

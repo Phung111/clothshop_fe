@@ -8,17 +8,17 @@ import { signup } from 'slice/authSlice'
 import { DatePicker, Select } from 'antd'
 import moment from 'moment'
 import { getPronvice, getGender } from 'slice/baseSlice'
-import { HTTP_STATUS } from 'app/global'
 
 export default function FormRegister() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const loginStatus = useSelector((state) => state.authSlice.status)
   const errorsBE = useSelector((state) => state.authSlice.errorsBE)
   const data = useSelector((state) => state.baseSlice.data)
   const pronvices = data.pronvices
   const genders = data.genders
+
+  const [passwordVisible, setPasswordVisible] = useState(false)
 
   useEffect(() => {
     dispatch(getPronvice())
@@ -34,19 +34,17 @@ export default function FormRegister() {
     formState: { errors: errorsFE },
   } = useForm()
 
-  const onSubmit = (data) => {
+  const onSubmit = (data, event) => {
     dispatch(signup(data))
+      .unwrap()
+      .then(() => {
+        navigate(`/login`)
+      })
   }
 
   const handleToLogin = () => {
     navigate(`/login`)
   }
-
-  useEffect(() => {
-    if (loginStatus === HTTP_STATUS.FULFILLED) {
-      navigate('/login')
-    }
-  }, [loginStatus, navigate])
 
   const cnInput = 'h-10 w-[250px] rounded-sm border-[0.5px] rounded-[8px] border-black/20 px-4 text-sm'
   const cnSelect = 'h-10 w-[250px] text-sm rounded-[8px]'
@@ -88,26 +86,32 @@ export default function FormRegister() {
                 <ErrorText>{(errorsFE.username && errorsFE.username.message) || (errorsBE && errorsBE.usename)}</ErrorText>
               </div>
               <div>
-                <input
-                  {...register('password', {
-                    required: 'Please enter password!',
-                    minLength: {
-                      value: 3,
-                      message: 'Password length should be between 3 and 20 characters!',
-                    },
-                    maxLength: {
-                      value: 20,
-                      message: 'Password length should be between 3 và 20 characters!',
-                    },
-                  })}
-                  type={'text'}
-                  placeholder="Password"
-                  maxLength={20}
-                  className={`${cnInput} ${errorsFE.password ? cnError : cnNormal}`}
-                  onBlur={() => trigger('password')}
-                />
+                <div className="relative flex items-center">
+                  <input
+                    {...register('password', {
+                      required: 'Please enter password!',
+                      minLength: {
+                        value: 3,
+                        message: 'Password length should be between 3 and 20 characters!',
+                      },
+                      maxLength: {
+                        value: 20,
+                        message: 'Password length should be between 3 và 20 characters!',
+                      },
+                    })}
+                    type={passwordVisible ? 'text' : 'password'}
+                    placeholder="Password"
+                    maxLength={20}
+                    className={`${cnInput} ${errorsFE.password ? cnError : cnNormal}`}
+                    onBlur={() => trigger('password')}
+                  />
+                  <div className="absolute right-4 cursor-pointer" onClick={() => setPasswordVisible(!passwordVisible)}>
+                    {passwordVisible ? <i className="fa-solid fa-eye" /> : <i className="fa-solid fa-eye-slash" />}
+                  </div>
+                </div>
                 <ErrorText>{errorsFE.password && errorsFE.password.message}</ErrorText>
               </div>
+
               <div>
                 <input
                   {...register('name', {
@@ -160,11 +164,11 @@ export default function FormRegister() {
                 <DatePicker
                   {...register('dob', {
                     required: 'Date of birth is required',
-                    validate: {
-                      validDate: (value) => moment(value, 'YYYY-MM-DD', true).isValid() || 'Invalid date format',
-                      pastDate: (value) => validatePastDate(value) || 'Date of birth must be in the past',
-                      minimumAge: (value) => validateAge(value) || 'You must be at least 10 years old',
-                    },
+                    // validate: {
+                    //   validDate: (value) => moment(value, 'YYYY-MM-DD', true).isValid() || 'Invalid date format',
+                    //   pastDate: (value) => validatePastDate(value) || 'Date of birth must be in the past',
+                    //   minimumAge: (value) => validateAge(value) || 'You must be at least 10 years old',
+                    // },
                   })}
                   placeholder="Date of birth"
                   className={`${cnInput} ${errorsFE.dob || (errorsBE && errorsBE.dob) ? cnError : cnNormal}`}
@@ -206,11 +210,10 @@ export default function FormRegister() {
                 <ErrorText>{(errorsFE.gender && errorsFE.gender.message) || (errorsBE && errorsBE.gender)}</ErrorText>
               </div>
             </div>
-            <div className="h-10 w-full overflow-hidden rounded-sm">
-              <Button type={'solid'} submit={true}>
-                Sign Up
-              </Button>
-            </div>
+
+            <button onClick={handleSubmit(onSubmit)} className="flex h-10 w-full items-center justify-center gap-2 bg-primary capitalize text-white hover:bg-primary_dark">
+              Sign Up
+            </button>
           </div>
         </form>
 

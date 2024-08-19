@@ -3,7 +3,7 @@ import { useFormContext, useWatch } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
-export default function FormUploadImage({ name, onClick }) {
+export default function FormUploadImage({ name }) {
   const {
     register,
     setValue,
@@ -89,9 +89,9 @@ export default function FormUploadImage({ name, onClick }) {
             </button>
             <div className="grid h-full w-full auto-rows-min grid-cols-4 gap-5 overflow-auto p-5">
               {multipartFiles.map((file, index) => (
-                <PartImg onClick={onClick} key={index} file={file} index={index} removeImg={removeImg} error={errors[`${name}Errors`]?.[index]?.message} />
+                <PartImg key={index} file={file} index={index} removeImg={removeImg} error={errors[`${name}Errors`]?.[index]?.message} />
               ))}
-              <div className="rounded-lg bg-gray6 p-2.5 hover:bg-gray7">
+              <div className="aspect-square rounded-lg bg-gray6 p-2.5 hover:bg-gray7">
                 <label htmlFor={name} className="flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-white">
                   <i className="fa-solid fa-plus text-[80px] text-gray6 hover:text-gray7" />
                 </label>

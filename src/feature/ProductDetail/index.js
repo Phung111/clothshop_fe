@@ -14,8 +14,6 @@ export default function ProductDetail() {
   const dispatch = useDispatch()
   const { id } = useParams()
 
-  const isLoading = useSelector((state) => state.baseSlice.loading)
-
   const product = useSelector((state) => state.productSlice.product)
 
   useEffect(() => {

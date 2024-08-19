@@ -1,19 +1,26 @@
 import PartVouchers from 'feature/Account/MyVouchers/PartVouchers'
 import Button from 'components/Button'
 import { setModalSelectVoucher } from 'slice/modalSlice'
-import { getAllVoucher, choseVoucher } from 'slice/otherSlice'
+import { choseVoucher } from 'slice/otherSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { setVoucher, emptyVoucher } from 'slice/orderSlice'
+import { getMore, setPage, setSize, resetCount, emptyMore, setMore, upCount } from 'slice/voucherPageSlice'
 
 export default function ModalSelectVoucher() {
   const dispatch = useDispatch()
 
-  const otherSlice = useSelector((state) => state.otherSlice)
-  const vouchers = otherSlice.vouchers
+  const [loadingMore, setLoadingMore] = useState(false)
 
   const orderSlice = useSelector((state) => state.orderSlice)
   const voucher = orderSlice.checkout.voucher
+
+  const voucherPageSlice = useSelector((state) => state.voucherPageSlice)
+  const vouchers = voucherPageSlice.more
+  const last = voucherPageSlice.last
+  const count = voucherPageSlice.count
+
+  const scrollContainerRef = useRef(null)
 
   const cancelSelectVoucher = () => {
     const checkoutLS = JSON.parse(localStorage.getItem('checkout'))
@@ -35,8 +42,43 @@ export default function ModalSelectVoucher() {
     dispatch(setModalSelectVoucher(false))
   }
 
+  const handleSeeMore = () => {
+    if (!last && !loadingMore) {
+      setLoadingMore(true)
+      Promise.all([dispatch(upCount()), dispatch(setPage(count)), dispatch(getMore())]).then(() => {
+        dispatch(setMore())
+        setLoadingMore(false)
+      })
+    }
+  }
+
   useEffect(() => {
-    dispatch(getAllVoucher())
+    const handleScroll = () => {
+      const seemoreElement = document.getElementById('seemore')
+      if (seemoreElement) {
+        const rect = seemoreElement.getBoundingClientRect()
+        const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight
+
+        if (isVisible) {
+          handleSeeMore()
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [last, loadingMore])
+
+  useEffect(() => {
+    Promise.all([dispatch(emptyMore()), dispatch(setSize(3)), dispatch(setPage(1)), dispatch(resetCount()), dispatch(getMore())])
+      .then(() => {
+        dispatch(setMore())
+      })
+      .catch((error) => {})
+      .finally(() => {})
   }, [])
 
   return (
@@ -52,9 +94,10 @@ export default function ModalSelectVoucher() {
             </div>
 
             <div className="line" />
-            <div className="flex max-h-[384px] flex-col gap-3 overflow-scroll">
+            <div ref={scrollContainerRef} className="flex max-h-[384px] flex-col gap-3 overflow-scroll">
               {/* prettier-ignore */}
               {vouchers && vouchers.map((item, index) => <PartVouchers item={item} key={index} />)}
+              {!last && <div id="seemore" />}
             </div>
             <div className="flex justify-end gap-3">
               <div className="h-9 w-[140px] overflow-hidden rounded-sm" onClick={cancelSelectVoucher}>

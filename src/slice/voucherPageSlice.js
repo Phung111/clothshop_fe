@@ -7,7 +7,7 @@ const initialState = {
   data: {},
   base: [],
   more: [],
-  size: 2,
+  size: 3,
   page: 1,
   count: 2,
   last: false,
@@ -25,14 +25,14 @@ export const getVoucherPage = createAsyncThunk(`${namespace}/getVoucherPage`, as
     .finally(() => {})
 })
 
-export const getVoucherPageValid = createAsyncThunk(`${namespace}/getVoucherPageValid`, async (obj, { getState, rejectWithValue }) => {
+export const getMore = createAsyncThunk(`${namespace}/getMore`, async (obj, { getState, rejectWithValue }) => {
   const { size, page } = getState().voucherPageSlice
   let formData = new FormData()
   formData.set('size', size)
   formData.set('page', page)
 
   return await clothShopService
-    .getVoucherPageValid(formData)
+    .getVoucherPage(formData)
     .then((response) => {
       return response.data
     })
@@ -75,12 +75,12 @@ const voucherPageSlice = createSlice({
         if (payload) {
         }
       })
-      .addCase(getVoucherPageValid.pending, (state) => {})
-      .addCase(getVoucherPageValid.fulfilled, (state, { payload }) => {
+      .addCase(getMore.pending, (state) => {})
+      .addCase(getMore.fulfilled, (state, { payload }) => {
         state.base = payload.content
         state.last = payload.last
       })
-      .addCase(getVoucherPageValid.rejected, (state, { payload }) => {
+      .addCase(getMore.rejected, (state, { payload }) => {
         if (payload) {
         }
       })
