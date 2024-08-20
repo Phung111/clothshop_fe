@@ -1,7 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "homepage": "https://phung111.github.io/clothshop_fe/",
+  "homepage": "https://clothshop-fe.vercel.app/",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.5.1",
@@ -21,6 +21,7 @@
     "jquery": "^3.7.1",
     "jwt-decode": "^4.0.0",
     "moment": "^2.30.1",
+    "my-app": "file:",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.4",
     "query-string": "^8.1.0",
