@@ -47,7 +47,7 @@ export default function App() {
       {isArlert && <SweetArlet />}
       <Utils />
       <Modal />
-      {/* <HashRouter> */}
+
       <BrowserRouter>
         <Routes>
           <Route element={<LayoutLogin />}>
@@ -91,7 +91,6 @@ export default function App() {
           <Route path="/notfound" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-      {/* </HashRouter> */}
     </>
   )
 }
