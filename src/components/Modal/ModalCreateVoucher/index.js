@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { setModalCreateVoucher } from 'slice/modalSlice'
 import Button from 'components/Button'
@@ -11,7 +11,7 @@ import { getVoucherPage } from 'slice/voucherPageSlice'
 
 export default function ModalCreateVoucher() {
   const dispatch = useDispatch()
-  const data = useSelector((state) => state.slice)
+
   const [price, setPrice] = useState('')
   const [percent, setPercent] = useState('')
   const [percentBar, setPercentBar] = useState('')

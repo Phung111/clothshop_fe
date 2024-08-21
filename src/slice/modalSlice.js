@@ -6,7 +6,6 @@ const initialState = {
   modalProduct: false,
   isCreateProduct: false,
   isUpdateProduct: false,
-  modalCreateBanner: false,
   modalSelectVoucher: false,
   modalCreateVoucher: false,
   modalSelectAddress: false,
@@ -37,10 +36,6 @@ const modalSlice = createSlice({
     setIsUpdateProduct: (state) => {
       state.isCreateProduct = false
       state.isUpdateProduct = true
-    },
-
-    setModalCreateBanner: (state, action) => {
-      state.modalCreateBanner = action.payload
     },
     setModalSelectVoucher: (state, action) => {
       state.modalSelectVoucher = action.payload
@@ -84,7 +79,6 @@ export const {
   setModalSelectAddress, 
   setModalCreateVoucher, 
   setModalSelectVoucher, 
-  setModalCreateBanner, 
   setIsCreateProduct, 
   setIsUpdateProduct, 
   setModalProduct,

@@ -27,7 +27,7 @@ export default function Unauthorized() {
           </div>
           <div className="flex shrink-0 items-center justify-center">
             <div className="aspect-square w-[700px]">
-              <img className="h-full w-full object-contain" src={require(`assets/images/logo.png`)} />
+              <img className="h-full w-full object-contain" src={require(`assets/images/logo.png`)} alt="logo" />
             </div>
           </div>
         </div>

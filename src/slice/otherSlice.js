@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import clothShopService from 'services/clothShopService'
 import { toast } from 'react-toastify'
-import { calGrandTotal, setVoucherTotal, setShipTotal, setItemTotal, setVoucher, setAddress, calVoucherTotal, emptyVoucher } from 'slice/orderSlice'
+import { setShipTotal, setVoucher, calVoucherTotal, emptyVoucher } from 'slice/orderSlice'
 
 const namespace = 'otherSlice'
 

@@ -52,7 +52,7 @@ export default function ProductDetail() {
                 <Detail />
               </div>
               <div className="p-4">
-                <ContentHead title={'products similar to'} href={'#'} />
+                <ContentHead title={'products similar to'} />
                 <Seemore />
               </div>
             </div>

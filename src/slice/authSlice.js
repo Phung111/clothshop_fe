@@ -2,8 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { HTTP_STATUS } from 'app/global'
 import clothShopService from 'services/clothShopService'
 import { toast } from 'react-toastify'
-import { setLoading } from 'slice/baseSlice'
-import { setCountCartItem, setCart } from './orderSlice'
+import { setCart } from './orderSlice'
 
 const namespace = 'authSlice'
 

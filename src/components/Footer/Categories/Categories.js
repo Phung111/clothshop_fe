@@ -4,13 +4,11 @@ import { useEffect } from 'react'
 import { getCollection } from 'slice/baseSlice'
 
 export default function Categories() {
-  let a1 = ['shirt', 'pant', 'jacket', 'shoe', 'croc']
-
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getCollection())
-  }, [])
+  }, [dispatch])
 
   const baseSlice = useSelector((state) => state.baseSlice)
   const collections = baseSlice.data.collections

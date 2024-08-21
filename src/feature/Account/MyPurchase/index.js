@@ -1,6 +1,6 @@
 import Part from 'feature/Account/MyPurchase/Part'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { getMore, emptyMore, setSize, setPage, resetCount, setMore, upCount } from 'slice/orderPageSlice'
 
 export default function MyPurchase() {
@@ -12,8 +12,6 @@ export default function MyPurchase() {
   const orders = orderPageSlice.more
   const last = orderPageSlice.last
   const count = orderPageSlice.count
-
-  const scrollRef = useRef(null)
 
   const handleSeeMore = () => {
     if (!last && !loadingMore) {
@@ -53,6 +51,7 @@ export default function MyPurchase() {
       .catch((error) => {})
       .finally(() => {})
   }, [])
+
   return (
     <>
       <div className="flex w-full flex-col gap-4">

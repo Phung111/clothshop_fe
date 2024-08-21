@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { emptyCart } from 'slice/orderSlice'
 import { jwtDecode } from 'jwt-decode'
-import { ROLES } from 'app/global'
 
 export default function Account() {
   const dispatch = useDispatch()
@@ -54,10 +53,6 @@ export default function Account() {
     dispatch(logout())
     dispatch(emptyCart())
     navigate('/')
-  }
-
-  const handleToMyAccount = () => {
-    navigate('/account')
   }
 
   return (

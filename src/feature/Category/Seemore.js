@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import Product from 'components/Product/Product'
-import Button from 'components/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductPage, setSeeMore, upCount, setCurrentPage } from 'slice/productPageSlice'
 

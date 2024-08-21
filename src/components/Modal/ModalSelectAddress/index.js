@@ -2,7 +2,7 @@ import Button from 'components/Button'
 import PartAdresses from 'feature/Account/MyAddesses/PartAdresses'
 import { setModalSelectAddress, setIsCreateAddress, setModalEditAddress } from 'slice/modalSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { getAllAddress, changeAddress } from 'slice/otherSlice'
 import { setAddress } from 'slice/orderSlice'
 

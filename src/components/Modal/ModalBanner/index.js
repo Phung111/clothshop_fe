@@ -1,15 +1,13 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 import { createBanner } from 'slice/otherSlice'
 import FormUploadImage from 'components/FormValidate/FormUploadImage'
-import { useForm, FormProvider, useWatch } from 'react-hook-form'
-import { setImages } from 'slice/otherSlice'
-import { setModalImage, setModalBanner } from 'slice/modalSlice'
+import { useForm, FormProvider } from 'react-hook-form'
+import { setModalBanner } from 'slice/modalSlice'
+import { getBannerPage } from 'slice/bannerPageSlice'
 
 export default function ModalBanner() {
   const dispatch = useDispatch()
-
-  const [state, setState] = useState('')
 
   const methods = useForm({
     defaultValues: {
@@ -17,27 +15,17 @@ export default function ModalBanner() {
     },
   })
 
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = methods
-
-  const files = useWatch({ control, name: 'files' })
+  const { handleSubmit } = methods
 
   const submit = (data) => {
     dispatch(createBanner(data))
       .unwrap()
       .then(() => {
+        dispatch(getBannerPage())
         cancel()
       })
       .catch((error) => {})
       .finally(() => {})
-  }
-
-  const handleImgClick = () => {
-    // dispatch(setModalImage(true))
-    // dispatch(setImages(files))
   }
 
   const cancel = () => {
@@ -64,7 +52,7 @@ export default function ModalBanner() {
                   </button>
                 </div>
               </div>
-              <FormUploadImage name="files" onClick={handleImgClick} />
+              <FormUploadImage name="files" />
             </form>
           </FormProvider>
         </div>

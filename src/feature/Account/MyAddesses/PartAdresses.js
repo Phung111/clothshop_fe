@@ -1,6 +1,5 @@
 import Button from 'components/Button'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
 import { setIsUpdateAddress, setModalEditAddress } from 'slice/modalSlice'
 import { deleteAddress, defaultAddress } from 'slice/otherSlice'
 import Swal from 'sweetalert2'

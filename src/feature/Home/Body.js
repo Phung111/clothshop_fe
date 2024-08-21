@@ -22,19 +22,19 @@ export default function Body() {
             <div className="flex flex-col gap-7 py-7">
               <div className="bg-white">
                 <div className="flex flex-col">
-                  <ContentHead title={'categories'} href={'#'} />
+                  <ContentHead title={'categories'} />
                   <Categories />
                 </div>
               </div>
               <div className="bg-white">
                 <div className="flex flex-col">
-                  <ContentHead title={'onsale'} href={'#'} seeAll={true} />
+                  <ContentHead title={'onsale'} />
                   <Discounts />
                 </div>
               </div>
               <div className="bg-white">
                 <div className="flex flex-col">
-                  <ContentHead title={'bestSale'} href={'#'} seeAll={true} top={true} />
+                  <ContentHead title={'bestSale'} top={true} />
                   <Bestsales />
                 </div>
               </div>

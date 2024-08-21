@@ -6,11 +6,9 @@ import Search from 'components/Header/Search'
 import Cart from 'components/Header/Cart'
 import { jwtDecode } from 'jwt-decode'
 import { ROLES } from 'app/global'
-import { useSelector, useDispatch } from 'react-redux'
-import { getCustomer } from 'slice/authSlice'
+import { useSelector } from 'react-redux'
 
 export default function Header() {
-  const dispatch = useDispatch()
   const [isHaveManagerment, setIsHaveManagerment] = useState(false)
   const authSlice = useSelector((state) => state.authSlice)
   const customer = authSlice.customer

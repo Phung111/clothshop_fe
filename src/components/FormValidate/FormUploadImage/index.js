@@ -1,6 +1,5 @@
 import PartImg from 'components/FormValidate/FormUploadImage/PartImg'
 import { useFormContext, useWatch } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
 export default function FormUploadImage({ name }) {
@@ -13,8 +12,6 @@ export default function FormUploadImage({ name }) {
     clearErrors,
     formState: { errors },
   } = useFormContext()
-
-  const dispatch = useDispatch()
 
   const [isUploadImg, setUploadImg] = useState(false)
 

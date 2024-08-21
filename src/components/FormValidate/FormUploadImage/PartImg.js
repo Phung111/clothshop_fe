@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { setImage } from 'slice/otherSlice'
 
 export default function PartImg({ file, index, removeImg, error }) {
   const [objectURL, setObjectURL] = useState('')

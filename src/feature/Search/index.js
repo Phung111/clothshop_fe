@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { emptyECategories, setKeySearch, setLatest, setSize, setCurrentPage, getProductPage } from 'slice/productPageSlice'
 import Products from 'feature/Home/Products'
-import { getHome, getCollection } from 'slice/baseSlice'
+import { getCollection } from 'slice/baseSlice'
 
 export default function Search() {
   const { keySearch } = useParams()

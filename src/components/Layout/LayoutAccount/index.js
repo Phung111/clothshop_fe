@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import Side from 'components/Layout/LayoutAccount/Side'
 

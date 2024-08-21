@@ -1,6 +1,5 @@
 import { setVoucher } from 'slice/orderSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
 
 export default function PartVouchers({ noRadio, item }) {
   const dispatch = useDispatch()
@@ -11,10 +10,6 @@ export default function PartVouchers({ noRadio, item }) {
   const handleRadioChange = () => {
     dispatch(setVoucher(item))
   }
-
-  // useEffect(() => {
-  //   console.log('item', item)
-  // }, [])
 
   return (
     <>

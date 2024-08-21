@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { setModalImage } from 'slice/modalSlice'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination, Navigation } from 'swiper/modules'
@@ -67,7 +67,7 @@ export default function ModalImage() {
               {images &&
                 images.map((item, index) => (
                   <SwiperSlide key={index}>
-                    <img className="h-full w-full object-cover" src={item.fileUrl} />
+                    <img className="h-full w-full object-cover" src={item.fileUrl} alt="product" />
                   </SwiperSlide>
                 ))}
             </Swiper>

@@ -1,20 +1,19 @@
-import PartImg from './PartImg'
 import PartItem from './PartItem'
 import PartHeader from './PartHeader'
 import moment from 'moment'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setModalProduct } from 'slice/modalSlice'
 import { createProduct, updateProduct, deleteProduct, emptyProduct } from 'slice/productSlice'
-import { setArlert, setArlertIcon, setArlertTitle } from 'slice/baseSlice'
 import { getProductPage } from 'slice/productPageSlice'
 import Swal from 'sweetalert2'
-import { useForm, FormProvider, useWatch } from 'react-hook-form'
+import { useForm, FormProvider } from 'react-hook-form'
 import FormValidateInput from 'components/FormValidate/FormValidateInput'
 import FormValidateSelect from 'components/FormValidate/FormValidateSelect'
 import FormValidatePercentBar from 'components/FormValidate/FormValidatePercentBar'
 import FormValidateDateRange from 'components/FormValidate/FormValidateDateRange'
 import FormUploadImage from 'components/FormValidate/FormUploadImage'
+import { toast } from 'react-toastify'
 
 export default function ModalProduct() {
   const dispatch = useDispatch()
@@ -38,22 +37,20 @@ export default function ModalProduct() {
   const styles = collections.styles
   const shipfroms = collections.shipfroms
 
+  const btnClass = 'flex h-[40px] w-[80px] items-center justify-center rounded-full text-white'
+
   const create = (data) => {
     dispatch(createProduct(data))
       .unwrap()
       .then(() => {
         dispatch(getProductPage())
         cancel()
-        dispatch(setArlertIcon('success'))
-        dispatch(setArlertTitle('Create Product Successfully!'))
+        toast.success('Create Product Successfully!')
       })
       .catch((error) => {
-        dispatch(setArlertIcon('error'))
-        dispatch(setArlertTitle('Some thing wrong'))
+        toast.error('Some thing wrong!')
       })
-      .finally(() => {
-        dispatch(setArlert(true))
-      })
+      .finally(() => {})
   }
 
   const update = (data) => {
@@ -62,16 +59,12 @@ export default function ModalProduct() {
       .then(() => {
         dispatch(getProductPage())
         cancel()
-        dispatch(setArlertIcon('success'))
-        dispatch(setArlertTitle('Update Product Successfully!'))
+        toast.success('Update Product Successfully!')
       })
       .catch((error) => {
-        dispatch(setArlertIcon('error'))
-        dispatch(setArlertTitle('Some thing wrong'))
+        toast.error('Some thing wrong!')
       })
-      .finally(() => {
-        dispatch(setArlert(true))
-      })
+      .finally(() => {})
   }
 
   const deleted = () => {
@@ -89,16 +82,12 @@ export default function ModalProduct() {
           .then(() => {
             dispatch(getProductPage())
             cancel()
-            dispatch(setArlertIcon('success'))
-            dispatch(setArlertTitle('Deleted Product Successfully!'))
+            toast.success('Deleted Product Successfully!')
           })
           .catch((error) => {
-            dispatch(setArlertIcon('error'))
-            dispatch(setArlertTitle('Some thing wrong'))
+            toast.error('Some thing wrong!')
           })
-          .finally(() => {
-            dispatch(setArlert(true))
-          })
+          .finally(() => {})
       }
     })
   }
@@ -129,11 +118,7 @@ export default function ModalProduct() {
     },
   })
 
-  const {
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = methods
+  const { handleSubmit, setValue } = methods
 
   const submitEditProduct = (data) => {
     if (isCreateProduct) {
@@ -196,15 +181,22 @@ export default function ModalProduct() {
             </button>
             <div className="absolute bottom-0 left-0 h-10 w-full translate-y-1/2 px-8">
               <div className="flex h-full w-full justify-end gap-5">
-                {isCreateProduct && <button className="flex h-[40px] w-[80px] items-center justify-center rounded-full bg-green-500 capitalize text-white hover:bg-green-700">create</button>}
+                {isCreateProduct && (
+                  <button type="submit" className={`${btnClass} bg-green-500 hover:bg-green-700`}>
+                    create
+                  </button>
+                )}
                 {isUpdateProduct && (
-                  <button onClick={deleted} className="flex h-[40px] w-[80px] items-center justify-center rounded-full bg-red capitalize text-white hover:bg-rose-900">
+                  <button onClick={deleted} type="button" className={`${btnClass} bg-red hover:bg-rose-900`}>
                     delete
                   </button>
                 )}
-                {isUpdateProduct && <button className="flex h-[40px] w-[80px] items-center justify-center rounded-full bg-yellow-500 capitalize text-white hover:bg-yellow-700">Update</button>}
-
-                <button onClick={cancel} className="flex h-[40px] w-[80px] items-center justify-center rounded-full bg-rose-500 capitalize text-white hover:bg-rose-700">
+                {isUpdateProduct && (
+                  <button type="submit" className={`${btnClass} bg-yellow-500 hover:bg-yellow-700`}>
+                    update
+                  </button>
+                )}
+                <button onClick={cancel} type="button" className={`${btnClass} bg-sky-500 hover:bg-sky-700`}>
                   cancel
                 </button>
               </div>

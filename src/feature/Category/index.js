@@ -9,9 +9,9 @@ export default function Category() {
   const dispatch = useDispatch()
 
   const { category } = useParams()
-  const arCategory = [category]
 
   useEffect(() => {
+    const arCategory = [category]
     /* prettier-ignore */
     Promise.all([
       dispatch(emptyECategories()),
@@ -30,7 +30,7 @@ export default function Category() {
         dispatch(setSeeMore())
         window.scrollTo(0, 0)
       })
-  }, [dispatch])
+  }, [dispatch, category])
 
   return (
     <>

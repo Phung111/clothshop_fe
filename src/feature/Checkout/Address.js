@@ -1,11 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { setModalSelectAddress, setIsUpdateAddress } from 'slice/modalSlice'
 
 export default function Address() {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const orderSlice = useSelector((state) => state.orderSlice)
   const checkout = orderSlice.checkout

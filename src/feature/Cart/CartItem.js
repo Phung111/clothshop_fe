@@ -12,7 +12,7 @@ export default function CartItem({ item }) {
 
   const [quantity, setQuantity] = useState(item.quantity)
 
-  const [priceAfter, setPriceAfter] = useState(item.priceTotal)
+  const [priceAfter] = useState(item.priceTotal)
 
   const [total, setTotal] = useState(item.total)
 

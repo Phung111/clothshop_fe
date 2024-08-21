@@ -56,7 +56,7 @@ export default function Cart() {
             <CartItemTotal />
 
             <div className="bg-white px-4">
-              <ContentHead title={'you may also like'} href={'#'} />
+              <ContentHead title={'you may also like'} />
             </div>
           </div>
         </div>

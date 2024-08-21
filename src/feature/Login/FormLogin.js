@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { login } from 'slice/authSlice'
-import { HTTP_STATUS } from 'app/global'
 import ErrorText from 'components/ErrorText'
 import Button from 'components/Button'
 
@@ -11,7 +10,7 @@ export default function FormLogin() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const errorsBE = useSelector((state) => state.authSlice.errorsBE)
+  // const errorsBE = useSelector((state) => state.authSlice.errorsBE)
 
   const [passwordVisible, setPasswordVisible] = useState(false)
 

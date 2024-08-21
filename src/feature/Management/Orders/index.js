@@ -2,7 +2,7 @@ import Cover from 'components/Layout/LayoutManagement/Cover'
 import PaginationOrder from './PaginationOrder'
 import { getOrder } from 'slice/orderPageSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import Part from 'feature/Account/MyPurchase/Part'
 import NoData from 'components/NoData'
 export default function Orders() {
@@ -17,7 +17,7 @@ export default function Orders() {
 
   useEffect(() => {
     dispatch(getOrder())
-  }, [])
+  }, [dispatch])
 
   return (
     <>
@@ -29,7 +29,7 @@ export default function Orders() {
       <div className="relative flex grow flex-col gap-4 overflow-auto">
         {orders &&
           orders.map((item, index) => (
-            <div className={`relative rounded-lg  ${index % 2 == 0 ? 'bg-primary/20' : 'bg-white'}`} key={index}>
+            <div className={`relative rounded-lg  ${index % 2 === 0 ? 'bg-primary/20' : 'bg-white'}`} key={index}>
               <Part item={item} />
               <div className="absolute bottom-4 left-6"># {totalElements - pageNumber * size - index}</div>
             </div>

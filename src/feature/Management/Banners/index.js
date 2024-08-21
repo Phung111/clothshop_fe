@@ -1,7 +1,7 @@
 import Cover from 'components/Layout/LayoutManagement/Cover'
 import { setModalBanner } from 'slice/modalSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import NoData from 'components/NoData'
 import PaginationBanner from './PaginationBanner'
 import { getBannerPage } from 'slice/bannerPageSlice'
@@ -23,7 +23,7 @@ export default function Banners() {
 
   useEffect(() => {
     dispatch(getBannerPage())
-  }, [])
+  }, [dispatch])
 
   const btnManager = 'flex h-full items-center justify-center gap-2 rounded-xl border border-black/20 p-2 capitalize'
   let thClass = 'border border-slate-600 capitalize px-2 whitespace-nowrap py-2'
@@ -59,7 +59,7 @@ export default function Banners() {
                   <td className={`${tdClass}`}>
                     <div className="flex justify-center">
                       <div className="h-[170px] w-[560px]">
-                        <img className="h-full w-full object-cover" src={item.fileUrl} alt="image" />
+                        <img className="h-full w-full object-cover" src={item.fileUrl} alt="banner" />
                       </div>
                     </div>
                   </td>

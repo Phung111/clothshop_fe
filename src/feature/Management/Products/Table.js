@@ -2,8 +2,8 @@ import { setModalProduct, setIsUpdateProduct } from 'slice/modalSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductById } from 'slice/productSlice'
 import { CLOUDINARY } from 'app/global'
-import SweetArlet from 'components/SweetArlet/SweetArlet'
 import NoData from 'components/NoData'
+import { toast } from 'react-toastify'
 
 export default function Table() {
   let thClass = 'border border-slate-600 capitalize px-2 whitespace-nowrap py-2'
@@ -30,7 +30,7 @@ export default function Table() {
         dispatch(setIsUpdateProduct())
       })
       .catch((error) => {
-        return <SweetArlet icon="error" title={`Can't find product: ${id}`} />
+        toast.error(`Can't find product: ${id}`)
       })
       .finally(() => {})
   }
@@ -67,7 +67,7 @@ export default function Table() {
                   <td className={`${tdClass}`}>
                     <div className="flex h-full w-full items-center justify-center py-2">
                       <div className="aspect-square w-20 ">
-                        <img className="h-full w-full object-cover" src={CLOUDINARY.url + '/' + CLOUDINARY.SCALE_IMAGE_100_100 + '/' + item.images[0].fileFolder + '/' + item.images[0].fileName} />
+                        <img className="h-full w-full object-cover" src={CLOUDINARY.url + '/' + CLOUDINARY.SCALE_IMAGE_100_100 + '/' + item.images[0].fileFolder + '/' + item.images[0].fileName} alt="product" />
                       </div>
                     </div>
                   </td>

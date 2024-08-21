@@ -26,7 +26,7 @@ export default function Vouchers() {
 
   useEffect(() => {
     dispatch(getVoucherPage())
-  }, [])
+  }, [dispatch])
 
   return (
     <>

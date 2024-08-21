@@ -4,9 +4,12 @@ import Quantity from 'feature/ProductDetail/Info/Name/Quantity'
 import Button from 'components/Button'
 import { useSelector, useDispatch } from 'react-redux'
 import { addCartItem } from 'slice/orderSlice'
+import { toast } from 'react-toastify'
+import useAlert from 'utils/useAlert'
 
 export default function Name() {
   const dispatch = useDispatch()
+  const { alert403 } = useAlert()
 
   const product = useSelector((state) => state.productSlice.product)
   const baseSlice = useSelector((state) => state.baseSlice)
@@ -18,6 +21,19 @@ export default function Name() {
 
   const handleAddToCart = () => {
     dispatch(addCartItem())
+      .unwrap()
+      .then(() => {
+        toast.success('Add product to cart successfully!')
+      })
+      .catch((error) => {
+        const status = error.response.data.status
+        if (status === 403) {
+          alert403()
+        } else {
+          toast.error('Please select Size and Color')
+        }
+      })
+      .finally(() => {})
   }
 
   return (

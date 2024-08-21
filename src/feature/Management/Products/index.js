@@ -4,7 +4,7 @@ import Table from './Table'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { getProductPage, setLatest } from 'slice/productPageSlice'
-import { setLoading, getCollection } from 'slice/baseSlice'
+import { getCollection } from 'slice/baseSlice'
 import PaginationProduct from 'components/Pagination/PaginationProduct'
 import Cover from 'components/Layout/LayoutManagement/Cover'
 
@@ -14,7 +14,7 @@ export default function Products() {
     dispatch(setLatest(true))
     dispatch(getCollection())
     dispatch(getProductPage())
-  }, [])
+  }, [dispatch])
 
   return (
     <>

@@ -3,10 +3,8 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import ErrorText from 'components/ErrorText'
-import Button from 'components/Button'
 import { signup } from 'slice/authSlice'
 import { DatePicker, Select } from 'antd'
-import moment from 'moment'
 import { getPronvice, getGender } from 'slice/baseSlice'
 
 export default function FormRegister() {
@@ -23,13 +21,12 @@ export default function FormRegister() {
   useEffect(() => {
     dispatch(getPronvice())
     dispatch(getGender())
-  }, [])
+  }, [dispatch])
 
   const {
     register,
     handleSubmit,
     setValue,
-    control,
     trigger,
     formState: { errors: errorsFE },
   } = useForm()
@@ -51,15 +48,15 @@ export default function FormRegister() {
   const cnError = 'border border-red'
   const cnNormal = 'border-black/20'
 
-  const validatePastDate = (date) => {
-    if (!date) return false
-    return moment(date).isBefore(moment())
-  }
+  // const validatePastDate = (date) => {
+  //   if (!date) return false
+  //   return moment(date).isBefore(moment())
+  // }
 
-  const validateAge = (date) => {
-    if (!date) return false
-    return moment().diff(moment(date), 'years') >= 10
-  }
+  // const validateAge = (date) => {
+  //   if (!date) return false
+  //   return moment().diff(moment(date), 'years') >= 10
+  // }
 
   return (
     <>

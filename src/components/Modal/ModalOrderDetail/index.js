@@ -1,16 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { setModalOrderDetail } from 'slice/modalSlice'
 import { emptyOrder } from 'slice/orderPageSlice'
-import Item from 'feature/Account/MyPurchase/Item'
 import Part from 'feature/Checkout/Ordered/Part'
 import { CLOUDINARY } from 'app/global'
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 
 export default function ModalOrderDetail() {
   const dispatch = useDispatch()
-  // const navigate = useNavigate()
+
   const orderPageSlice = useSelector((state) => state.orderPageSlice)
   const order = orderPageSlice.order
   const orderItems = order.orderItems
@@ -41,7 +39,7 @@ export default function ModalOrderDetail() {
                     orderItems.map((item, index) => (
                       <React.Fragment key={item.id}>
                         <Part onClick={() => handleToProductDetail(item.product.id)}>
-                          <div className="flex cursor-pointer items-center gap-5">
+                          <div className="flex items-center gap-5">
                             <div className="aspect-square w-20 shrink-0">
                               <img src={`${CLOUDINARY.url}/${CLOUDINARY.SCALE_IMAGE_100_100}/${item.product.images[0].fileFolder}/${item.product.images[0].fileName}`} alt="product" className="h-full w-full object-cover" />
                             </div>

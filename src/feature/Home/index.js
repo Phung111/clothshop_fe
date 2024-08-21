@@ -10,11 +10,9 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { getHome, getCollection } from 'slice/baseSlice'
 import { getProductPage, setLatest, emptyECategories, setSize, setCurrentPage } from 'slice/productPageSlice'
-import { useLocation } from 'react-router-dom'
 
 export default function Home() {
   const dispatch = useDispatch()
-  const location = useLocation()
 
   useEffect(() => {
     dispatch(getHome())
@@ -42,7 +40,7 @@ export default function Home() {
               <div className="bg-white">
                 <div className="flex flex-col">
                   <div className="px-3">
-                    <ContentHead title={'categories'} href={'#'} />
+                    <ContentHead title={'categories'} />
                   </div>
                   <Categories />
                 </div>
@@ -50,7 +48,7 @@ export default function Home() {
               <div className="bg-white">
                 <div className="flex flex-col">
                   <div className="px-3">
-                    <ContentHead title={'onsale'} href={'#'} seeAll={true} />
+                    <ContentHead title={'onsale'} />
                   </div>
                   <div className="px-3">
                     <Discounts />
@@ -60,7 +58,7 @@ export default function Home() {
               <div className="bg-white">
                 <div className="flex flex-col">
                   <div className="px-3">
-                    <ContentHead title={'bestSale'} href={'#'} seeAll={true} top={true} />
+                    <ContentHead title={'bestSale'} top={true} />
                   </div>
                   <div className="px-3">
                     <Bestsales />

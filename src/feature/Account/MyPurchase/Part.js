@@ -1,6 +1,6 @@
 import Item from 'feature/Account/MyPurchase/Item'
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 import { setModalOrderDetail } from 'slice/modalSlice'
 import { setOrder } from 'slice/orderPageSlice'
 

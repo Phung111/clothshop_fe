@@ -4,12 +4,7 @@ import { getVoucherPage } from 'slice/voucherPageSlice'
 import { useForm, useWatch } from 'react-hook-form'
 
 export default function PaginationVoucher() {
-  const {
-    handleSubmit,
-    setValue,
-    control,
-    formState: { errors: errorsFE },
-  } = useForm({
+  const { handleSubmit, setValue, control } = useForm({
     defaultValues: {
       size: '',
       page: '',

@@ -61,11 +61,9 @@ export const addCartItem = createAsyncThunk(`${namespace}/addCartItem`, async (o
   return await clothShopService
     .addCartItem(formData)
     .then((response) => {
-      toast.success('Add product to cart successfully!')
       return response.data
     })
     .catch((error) => {
-      toast.error('Please select Size and Color')
       return rejectWithValue(error)
     })
     .finally(() => {})

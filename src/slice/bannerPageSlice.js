@@ -36,9 +36,6 @@ const bannerPageSlice = createSlice({
   },
 })
 
-const { reducer, actions } = bannerPageSlice
-
-/* prettier-ignore */
-export const { } = actions
+const { reducer } = bannerPageSlice
 
 export default reducer

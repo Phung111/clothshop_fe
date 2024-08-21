@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, HashRouter, Navigate } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { ROLES } from 'app/global'
 
@@ -8,7 +8,6 @@ import Utils from 'utils/Utils'
 
 import Modal from 'components/Modal'
 import Loading from 'components/Loading/Loading'
-import SweetArlet from 'components/SweetArlet/SweetArlet'
 import Unauthorized from 'components/Unauthorized'
 import NotFound from 'components/NotFound'
 import LayoutHeaderFooter from 'components/Layout/LayoutHeaderFooter'
@@ -39,12 +38,10 @@ import Orders from 'feature/Management/Orders'
 
 export default function App() {
   const isLoading = useSelector((state) => state.baseSlice.loading)
-  const isArlert = useSelector((state) => state.baseSlice.arlert.show)
 
   return (
     <>
       {isLoading && <Loading />}
-      {isArlert && <SweetArlet />}
       <Utils />
       <Modal />
 

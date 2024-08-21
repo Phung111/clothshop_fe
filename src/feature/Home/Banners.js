@@ -4,13 +4,10 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
-
-import { getAllBanner } from 'slice/otherSlice'
+import { useSelector } from 'react-redux'
+import { useState } from 'react'
 
 export default function Banners() {
-  const dispatch = useDispatch()
   const [isHovered, setIsHovered] = useState(false)
 
   const baseSlice = useSelector((state) => state.baseSlice)
@@ -21,7 +18,7 @@ export default function Banners() {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-1.5">
+      <div className="grid h-[250px] grid-cols-3 gap-1.5">
         <div className="col-span-2" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
           <Swiper
             style={{
@@ -48,7 +45,7 @@ export default function Banners() {
               pauseOnMouseEnter: true,
             }}
             loop={true}
-            className="h-full"
+            className="h-[250px]"
           >
             {swiperBanners.map((item, index) => (
               <SwiperSlide key={index}>
@@ -61,7 +58,7 @@ export default function Banners() {
         </div>
         <div className="flex flex-col gap-1.5">
           {fixedBanners.map((item, index) => (
-            <div key={index} className="">
+            <div key={index} className="h-full">
               <img src={item.fileUrl} alt="banner" className="h-full w-full object-cover" />
             </div>
           ))}

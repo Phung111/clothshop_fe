@@ -4,8 +4,8 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/grid'
 
-import { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 export default function Categories() {

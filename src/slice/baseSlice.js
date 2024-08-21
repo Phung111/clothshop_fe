@@ -23,11 +23,6 @@ const initialState = {
     genders: [],
   },
   loading: false,
-  arlert: {
-    show: false,
-    icon: '',
-    title: '',
-  },
 }
 
 export const getHome = createAsyncThunk(`${namespace}/getHome`, async (obj, { rejectWithValue }) => {
@@ -65,15 +60,6 @@ const baseSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload
     },
-    setArlert: (state, action) => {
-      state.arlert.show = action.payload
-    },
-    setArlertIcon: (state, action) => {
-      state.arlert.icon = action.payload
-    },
-    setArlertTitle: (state, action) => {
-      state.arlert.title = action.payload
-    },
   },
   extraReducers(builder) {
     builder
@@ -103,6 +89,6 @@ const baseSlice = createSlice({
 
 const { reducer, actions } = baseSlice
 
-export const { setLoading, setArlert, setArlertIcon, setArlertTitle } = actions
+export const { setLoading } = actions
 
 export default reducer

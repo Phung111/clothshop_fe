@@ -4,12 +4,7 @@ import { useForm, useWatch } from 'react-hook-form'
 import { getOrder } from 'slice/orderPageSlice'
 
 export default function PaginationOrder() {
-  const {
-    handleSubmit,
-    setValue,
-    control,
-    formState: { errors: errorsFE },
-  } = useForm({
+  const { handleSubmit, setValue, control } = useForm({
     defaultValues: {
       size: '',
       page: '',

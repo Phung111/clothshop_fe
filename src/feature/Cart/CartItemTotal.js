@@ -34,7 +34,7 @@ export default function CartItemTotal() {
 
   useEffect(() => {
     dispatch(calCartItemsTotal())
-  }, [selectCartItems])
+  }, [dispatch, selectCartItems])
 
   return (
     <>

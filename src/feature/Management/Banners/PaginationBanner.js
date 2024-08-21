@@ -4,12 +4,7 @@ import { getBannerPage } from 'slice/bannerPageSlice'
 import { useForm, useWatch } from 'react-hook-form'
 
 export default function PaginationBanner() {
-  const {
-    handleSubmit,
-    setValue,
-    control,
-    formState: { errors: errorsFE },
-  } = useForm({
+  const { handleSubmit, setValue, control } = useForm({
     defaultValues: {
       size: '',
       page: '',

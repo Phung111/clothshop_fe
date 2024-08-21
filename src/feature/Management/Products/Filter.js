@@ -10,7 +10,7 @@ export default function Filter() {
   const dispatch = useDispatch()
 
   const data = useSelector((state) => state.productPageSlice)
-  const respond = data.respond
+  // const respond = data.respond
   const request = data.request
 
   const latest = request.latest
