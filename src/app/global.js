@@ -1,4 +1,4 @@
-const SERVER_API = process.env.REACT_APP_API_URL
+const SERVER_API = process.env.REACT_APP_API_URL + '/api'
 export const SOCKET_SERVER = process.env.REACT_APP_SOCKET_SERVER
 const CLOUDINARY_URL = process.env.REACT_APP_CLOUDINARY_URL
 
