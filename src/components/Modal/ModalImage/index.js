@@ -77,7 +77,7 @@ export default function ModalImage() {
               <i className="fa-solid fa-chevron-right" />
             </div>
           </div>
-          <div className="flex h-[675px] w-[330px] bg-white p-5">
+          <div className="flex h-[675px] w-[340px] bg-white p-5">
             <div className="swiper-custom-pagination grid auto-rows-min grid-cols-3 gap-5 overflow-auto"></div>
           </div>
         </div>
