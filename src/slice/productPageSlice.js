@@ -226,6 +226,8 @@ const productPageSlice = createSlice({
           state.respond.empty = dataRes.empty
           state.noData = false
         } else {
+          state.respond.products = []
+          state.seemore = []
           state.noData = true
         }
       })

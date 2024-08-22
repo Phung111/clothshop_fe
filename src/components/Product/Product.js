@@ -29,7 +29,7 @@ export default function Product({ type, product }) {
               <>
                 <div className="absolute bottom-0 w-full">
                   <div className="flex w-full items-center justify-center gap-2 bg-black/20 p-0.5">
-                    <p className="text-red">{window.formatDate(product.discountResDTO.dateStart)}</p>
+                    <p className="text-white/80">{window.formatDate(product.discountResDTO.dateStart)}</p>
                     <i className="fa-solid fa-play text-[8px] text-white"></i>
                     <p className="text-white">{window.formatDate(product.discountResDTO.dateEnd)}</p>
                   </div>

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Product from 'components/Product/Product'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductPage, setSeeMore, upCount, setCurrentPage } from 'slice/productPageSlice'
+import NoData from 'components/NoData'
 
 export default function Seemore() {
   const dispatch = useDispatch()
@@ -45,16 +46,22 @@ export default function Seemore() {
     }
   }, [isLoading, last, loadingMore])
 
+  console.log('productsSM', productsSM)
+
   return (
     <>
       <section className="bg-gray">
         <div className="container">
-          {!isLoading && productsSM && (
-            <div className="flex flex-col items-center gap-10 py-5">
-              <div className="grid grid-cols-6 gap-3">{productsSM && productsSM.map((item, index) => <Product type={'product'} href={'#'} key={index} product={item} />)}</div>
-              {!last && !isLoading && <div id="seemore" />}
-            </div>
-          )}
+          <div className="flex flex-col items-center gap-10 py-5">
+            {!isLoading && productsSM.length > 0 && (
+              <div className="grid grid-cols-6 gap-3">
+                {/* prettier-ignore */}
+                {productsSM && productsSM.map((item, index) => <Product type={'product'} href={'#'} key={index} product={item} />)}
+                {!last && !isLoading && <div id="seemore" />}
+              </div>
+            )}
+            {!productsSM.length > 0 && <NoData />}
+          </div>
         </div>
       </section>
     </>
