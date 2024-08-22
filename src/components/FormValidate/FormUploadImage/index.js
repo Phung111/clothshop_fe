@@ -2,6 +2,12 @@ import PartImg from 'components/FormValidate/FormUploadImage/PartImg'
 import { useFormContext, useWatch } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 
+async function urlToFile(url, filename, mimeType) {
+  const response = await fetch(url)
+  const buffer = await response.arrayBuffer()
+  return new File([buffer], filename, { type: mimeType })
+}
+
 export default function FormUploadImage({ name }) {
   const {
     register,
@@ -14,9 +20,7 @@ export default function FormUploadImage({ name }) {
   } = useFormContext()
 
   const [isUploadImg, setUploadImg] = useState(false)
-
   const multipartFiles = watch(name, [])
-
   const images = useWatch({ name })
 
   const validateImage = (files) => {
@@ -37,7 +41,6 @@ export default function FormUploadImage({ name }) {
   }
 
   const uploadImg = (event) => {
-    // setUploadImg(true)
     const files = Array.from(event.target.files)
     const newFiles = [...multipartFiles, ...files]
     validateImage(newFiles)
@@ -46,7 +49,6 @@ export default function FormUploadImage({ name }) {
   }
 
   const cancelUploadImg = () => {
-    // setUploadImg(false)
     const fileInput = document.getElementById(name)
     if (fileInput) {
       fileInput.value = ''
@@ -65,6 +67,31 @@ export default function FormUploadImage({ name }) {
       cancelUploadImg()
     }
   }
+
+  useEffect(() => {
+    const filesArray = Array.isArray(multipartFiles) ? multipartFiles : []
+
+    const convertUrlsToFiles = async () => {
+      const updatedFiles = await Promise.all(
+        filesArray.map(async (file, index) => {
+          if (typeof file === 'string') {
+            const fileName = file.split('/').pop() || `image${index}.jpg`
+            const mimeType = 'image/jpeg'
+            return await urlToFile(file, fileName, mimeType)
+          }
+          return file
+        })
+      )
+
+      validateImage(updatedFiles)
+      setValue(name, updatedFiles)
+      trigger(name)
+    }
+
+    if (filesArray.some((file) => typeof file === 'string')) {
+      convertUrlsToFiles()
+    }
+  }, [multipartFiles])
 
   useEffect(() => {
     images && images.length > 0 ? setUploadImg(true) : setUploadImg(false)
