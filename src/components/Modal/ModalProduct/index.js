@@ -37,7 +37,7 @@ export default function ModalProduct() {
   const styles = collections.styles
   const shipfroms = collections.shipfroms
 
-  const btnClass = 'flex h-[40px] w-[80px] items-center justify-center rounded-full text-white'
+  const btnClass = 'flex h-[40px] w-[80px] items-center justify-center rounded-full text-white capitalize'
 
   const create = (data) => {
     dispatch(createProduct(data))
@@ -196,7 +196,7 @@ export default function ModalProduct() {
                     update
                   </button>
                 )}
-                <button onClick={cancel} type="button" className={`${btnClass} bg-sky-500 hover:bg-sky-700`}>
+                <button onClick={cancel} type="button" className={`${btnClass} bg-rose-500 hover:bg-rose-700`}>
                   cancel
                 </button>
               </div>
