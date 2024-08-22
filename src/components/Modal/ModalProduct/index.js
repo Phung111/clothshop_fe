@@ -133,7 +133,6 @@ export default function ModalProduct() {
     if (product && Object.keys(product).length !== 0) {
       if (product.images) {
         const fileObjects = product.images.map((image) => {
-          // Chuyển đổi URL từ HTTP sang HTTPS nếu cần
           const fileUrl = image.fileUrl.replace(/^http:\/\//i, 'https://')
 
           return fetch(fileUrl)
