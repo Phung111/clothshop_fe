@@ -131,18 +131,22 @@ export default function ModalProduct() {
 
   useEffect(() => {
     if (product && Object.keys(product).length !== 0) {
-      if (product.images) {
-        product.images.forEach((element) => {
-          const fileObjects = product.images.map((image) => {
-            return fetch(image.fileUrl)
-              .then((response) => response.blob())
-              .then((blob) => new File([blob], `${image.fileName}.${image.fileType}`))
-          })
+      if (product.images && Array.isArray(product.images)) {
+        // Chuyển đổi các image URL thành các File objects
+        const fileObjects = product.images.map((image) => {
+          return fetch(image.fileUrl)
+            .then((response) => response.blob())
+            .then((blob) => new File([blob], `${image.fileName}.${image.fileType}`))
+        })
 
-          Promise.all(fileObjects).then((files) => {
+        // Đợi tất cả các Promise hoàn thành
+        Promise.all(fileObjects)
+          .then((files) => {
             setValue('multipartFiles', files)
           })
-        })
+          .catch((error) => {
+            console.error('Error fetching images:', error)
+          })
       }
 
       setValue('name', product.name || '')
