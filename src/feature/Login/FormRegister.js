@@ -80,7 +80,7 @@ export default function FormRegister() {
                   className={`${cnInput} ${errorsFE.username || (errorsBE && errorsBE.username) ? cnError : cnNormal}`}
                   onBlur={() => trigger('username')}
                 />
-                <ErrorText>{(errorsFE.username && errorsFE.username.message) || (errorsBE && errorsBE.usename)}</ErrorText>
+                <ErrorText>{(errorsFE.username && errorsFE.username.message) || (errorsBE && errorsBE.username)}</ErrorText>
               </div>
               <div>
                 <div className="relative flex items-center">

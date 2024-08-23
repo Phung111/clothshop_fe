@@ -61,7 +61,7 @@ export default function Account() {
         <div className="group relative cursor-pointer">
           <div onClick={() => navigate('/account')} className="flex h-full items-center gap-2 text-white ">
             <i className="fa-solid fa-circle-user" />
-            <p className="hover:opacity-70">{name}</p>
+            <p className="capitalize hover:opacity-70">{name}</p>
           </div>
           <div className="absolute z-[2000] max-h-0 w-[150px] overflow-hidden rounded-sm bg-white shadow-2xl transition-all duration-500 ease-in-out group-hover:max-h-[1000px]">
             <p onClick={() => navigate('/account')} className={classP}>

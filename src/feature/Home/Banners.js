@@ -56,9 +56,9 @@ export default function Banners() {
             <div className={`swiper-button-next ${isHovered ? 'opacity-100' : 'opacity-0'}`} />
           </Swiper>
         </div>
-        <div className="flex flex-col gap-1.5">
+        <div className="flex h-[250px] flex-col gap-1.5">
           {fixedBanners.map((item, index) => (
-            <div key={index} className="h-full">
+            <div key={index} className="h-[122px]">
               <img src={item.fileUrl} alt="banner" className="h-full w-full object-cover" />
             </div>
           ))}
