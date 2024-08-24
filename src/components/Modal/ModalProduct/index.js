@@ -14,6 +14,7 @@ import FormValidatePercentBar from 'components/FormValidate/FormValidatePercentB
 import FormValidateDateRange from 'components/FormValidate/FormValidateDateRange'
 import FormUploadImage from 'components/FormValidate/FormUploadImage'
 import { toast } from 'react-toastify'
+import dayjs from 'dayjs'
 
 export default function ModalProduct() {
   const dispatch = useDispatch()
@@ -162,8 +163,8 @@ export default function ModalProduct() {
       }
 
       setValue('percent', product.discountResDTO ? product.discountResDTO.percent : '')
-      setValue('dateStart', product.discountResDTO ? product.discountResDTO.dateStart : '')
-      setValue('dateEnd', product.discountResDTO ? product.discountResDTO.dateEnd : '')
+      setValue('dateStart', product.discountResDTO ? dayjs(product.discountResDTO.dateStart) : '')
+      setValue('dateEnd', product.discountResDTO ? dayjs(product.discountResDTO.dateEnd) : '')
 
       if (product.decription) {
         setValue('description', product.decription || '')
